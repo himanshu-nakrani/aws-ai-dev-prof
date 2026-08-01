@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<title>Domain 1 — FM Integration, Data &amp; Compliance · AIP-C01 Field Manual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="A complete, beginner-friendly study guide for the AWS Certified Generative AI Developer - Professional (AIP-C01) exam: full curriculum, diagrams, labs and a question bank.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/data/questions.js" defer></script>
+<script src="assets/data/q-d0.js" defer></script>
+<script src="assets/data/q-d1.js" defer></script>
+<script src="assets/data/q-d2.js" defer></script>
+<script src="assets/data/q-d3.js" defer></script>
+<script src="assets/data/q-d4.js" defer></script>
+<script src="assets/data/q-d5.js" defer></script>
+<script src="assets/data/flashcards.js" defer></script>
+<script src="assets/data/searchindex.js" defer></script>
+<script src="assets/js/charts.js" defer></script>
+<script src="assets/js/interactive.js" defer></script>
+<script src="assets/js/quiz.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+</head>
+<body data-page="domain1">
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menuBtn" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">AIP</span>
+    <span class="brand-text"><strong>AIP-C01 Field Manual</strong><em>AWS Certified Generative AI Developer – Professional</em></span>
+  </a>
+  <div class="topbar-right">
+    <div class="search-wrap">
+      <input id="siteSearch" type="search" placeholder="Search the guide…  /" autocomplete="off" spellcheck="false">
+      <div id="searchResults" class="search-results" hidden></div>
+    </div>
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle light/dark">◐</button>
+  </div>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-card">
+      <div class="ring-wrap"><svg class="ring" viewBox="0 0 44 44"><circle class="ring-bg" cx="22" cy="22" r="19"></circle><circle class="ring-fg" id="ringFg" cx="22" cy="22" r="19"></circle></svg><span id="ringPct">0%</span></div>
+      <div class="progress-meta"><strong id="progressLabel">Your progress</strong><span id="progressSub">0 of 0 sections read</span></div>
+    </div>
+    <nav class="nav"><div class="nav-group">Orientation</div>
+<a class="nav-link" href="index.html" data-slug="index"><span class="nav-dot" data-dot="index"></span><span class="nav-label">Start here</span><span class="nav-mins">12m</span></a>
+<a class="nav-link" href="exam.html" data-slug="exam"><span class="nav-dot" data-dot="exam"></span><span class="nav-label">The exam</span><span class="nav-mins">18m</span></a>
+<a class="nav-link" href="studyplan.html" data-slug="studyplan"><span class="nav-dot" data-dot="studyplan"></span><span class="nav-label">Study plans</span><span class="nav-mins">10m</span></a>
+<div class="nav-group">Learn</div>
+<a class="nav-link" href="foundations.html" data-slug="foundations"><span class="nav-dot" data-dot="foundations"></span><span class="nav-label">Module 0</span><span class="nav-mins">95m</span></a>
+<a class="nav-link active" href="domain1.html" data-slug="domain1"><span class="nav-dot" data-dot="domain1"></span><span class="nav-label">Domain 1 · 31%</span><span class="nav-mins">120m</span></a>
+<a class="nav-link" href="domain2.html" data-slug="domain2"><span class="nav-dot" data-dot="domain2"></span><span class="nav-label">Domain 2 · 26%</span><span class="nav-mins">110m</span></a>
+<a class="nav-link" href="domain3.html" data-slug="domain3"><span class="nav-dot" data-dot="domain3"></span><span class="nav-label">Domain 3 · 20%</span><span class="nav-mins">85m</span></a>
+<a class="nav-link" href="domain4.html" data-slug="domain4"><span class="nav-dot" data-dot="domain4"></span><span class="nav-label">Domain 4 · 12%</span><span class="nav-mins">60m</span></a>
+<a class="nav-link" href="domain5.html" data-slug="domain5"><span class="nav-dot" data-dot="domain5"></span><span class="nav-label">Domain 5 · 11%</span><span class="nav-mins">55m</span></a>
+<div class="nav-group">Reference</div>
+<a class="nav-link" href="services.html" data-slug="services"><span class="nav-dot" data-dot="services"></span><span class="nav-label">Service atlas</span><span class="nav-mins">45m</span></a>
+<div class="nav-group">Practice</div>
+<a class="nav-link" href="labs.html" data-slug="labs"><span class="nav-dot" data-dot="labs"></span><span class="nav-label">Hands-on labs</span><span class="nav-mins">180m</span></a>
+<a class="nav-link" href="practice.html" data-slug="practice"><span class="nav-dot" data-dot="practice"></span><span class="nav-label">Question bank</span><span class="nav-mins">240m</span></a>
+<a class="nav-link" href="flashcards.html" data-slug="flashcards"><span class="nav-dot" data-dot="flashcards"></span><span class="nav-label">Flashcards</span><span class="nav-mins">40m</span></a>
+<a class="nav-link" href="cheatsheet.html" data-slug="cheatsheet"><span class="nav-dot" data-dot="cheatsheet"></span><span class="nav-label">Cram sheet</span><span class="nav-mins">30m</span></a>
+<a class="nav-link" href="glossary.html" data-slug="glossary"><span class="nav-dot" data-dot="glossary"></span><span class="nav-label">Glossary</span><span class="nav-mins">25m</span></a></nav>
+    <button class="reset-btn" id="resetProgress">Reset progress</button>
+  </aside>
+  <main class="content" id="content">
+    <article class="page" data-page="domain1">
+<div class="page-head"><div class="crumb">Learn</div><h1>Domain 1 — FM Integration, Data &amp; Compliance</h1><div class="page-meta"><span class="pill">≈120 min</span><span class="pill pill-ghost" id="pageReadState-domain1">not started</span></div></div><nav class="toc"><div class="toc-title">On this page</div><a href="#d1-model-selection" data-toc="d1-model-selection">Choosing a foundation model</a><a href="#d1-inference-modes" data-toc="d1-inference-modes">How to invoke: the four inference modes</a><a href="#d1-switching" data-toc="d1-switching">Dynamic model switching</a><a href="#d1-embeddings" data-toc="d1-embeddings">Embeddings in depth</a><a href="#d1-vector-stores" data-toc="d1-vector-stores">Vector stores</a><a href="#d1-chunking" data-toc="d1-chunking">Chunking — the highest-leverage decision in RAG</a><a href="#d1-rag-pipeline" data-toc="d1-rag-pipeline">The RAG pipeline end to end</a><a href="#d1-knowledge-bases" data-toc="d1-knowledge-bases">Bedrock Knowledge Bases in detail</a><a href="#d1-advanced-retrieval" data-toc="d1-advanced-retrieval">Advanced retrieval</a><a href="#d1-rag-vs-ft" data-toc="d1-rag-vs-ft">RAG versus fine-tuning, decided properly</a><a href="#d1-governance" data-toc="d1-governance">Data management, governance and compliance</a><a href="#d1-check" data-toc="d1-check">Domain 1 check</a></nav><div class="callout exam">
+  <div class="co-title">Domain 1 — 31% of scored content, roughly 20 questions</div>
+  The biggest domain and the one everything else builds on. It covers choosing a foundation model against real constraints, choosing how to invoke it, and then the whole of retrieval-augmented generation — chunking, embeddings, vector stores, knowledge bases, advanced retrieval — plus the data governance and compliance wrapper around all of it.
+</div>
+
+<section id="d1-model-selection"><button class="read-toggle" data-read="d1-model-selection" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">1</span>Choosing a foundation model</h2>
+
+<p>"Which model should we use?" is never answered by a benchmark leaderboard on this exam. It is answered by working through constraints. There are eight that matter, and a question will always pin at least one of them.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Constraint</th><th>What to check</th><th>How it shows up in a stem</th></tr></thead>
+<tbody>
+<tr><td><strong>Capability</strong></td><td>Can it do the task at the required quality? Measure on <em>your</em> data, not on public benchmarks.</td><td>"complex multi-step reasoning", "must handle legal nuance"</td></tr>
+<tr><td><strong>Modality</strong></td><td>Text only? Image input? Image or video generation? Embeddings?</td><td>"users upload a photograph of the damaged part"</td></tr>
+<tr><td><strong>Context window</strong></td><td>Does the largest realistic request fit — including retrieved context and reserved output?</td><td>"documents are 150–400 pages"</td></tr>
+<tr><td><strong>Latency</strong></td><td>Interactive (sub-second to a few seconds) or asynchronous? Smaller models are faster.</td><td>"must respond within 800 ms at p95"</td></tr>
+<tr><td><strong>Cost</strong></td><td>Input and output rates, multiplied by real volume. The catalogue spans 50–100×.</td><td>"cost is the primary constraint", "3 million requests per day"</td></tr>
+<tr><td><strong>Region availability</strong></td><td>Not every model is offered in every region. Check before designing.</td><td>"must run in eu-central-1"</td></tr>
+<tr><td><strong>Data residency</strong></td><td>Where inference physically runs. Cross-region inference profiles move it.</td><td>"no data may leave the EU"</td></tr>
+<tr><td><strong>Licensing / terms</strong></td><td>Provider acceptable-use and licence terms for your commercial application.</td><td>"redistributed as part of our product"</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The model catalogue, organised the way you need it</h3>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Family</th><th>Members</th><th>Where it fits</th></tr></thead>
+<tbody>
+<tr><td><strong>Anthropic Claude</strong></td><td>Haiku (fast) · Sonnet (balanced) · Opus (most capable)</td><td>Strong general reasoning, long context, excellent tool use. Sonnet is the common default for RAG and agents.</td></tr>
+<tr><td><strong>Amazon Nova</strong></td><td>Micro · Lite · Pro · Premier (understanding); Canvas (image); Reel (video); Sonic (speech)</td><td>Aggressive price-performance. Nova Micro and Lite are strong candidates for the high-volume "easy 80%" of traffic.</td></tr>
+<tr><td><strong>Meta Llama</strong></td><td>8B through 405B, several generations</td><td>Open weights. Attractive when licence terms and portability matter.</td></tr>
+<tr><td><strong>Mistral</strong></td><td>Small, Large, and code-specialised variants</td><td>Efficient European models; some strong code performance.</td></tr>
+<tr><td><strong>Cohere</strong></td><td>Command (generation) · Embed (embeddings) · Rerank</td><td>Cohere Embed and Rerank are the ones to remember for retrieval pipelines.</td></tr>
+<tr><td><strong>Amazon Titan</strong></td><td>Text Embeddings V2 · Multimodal Embeddings · Image Generator</td><td>Titan Text Embeddings V2 is the default embedding model for Bedrock Knowledge Bases.</td></tr>
+<tr><td><strong>AI21, Stability, others</strong></td><td>Jamba, Stable Diffusion family</td><td>Specialised. Know they exist.</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The examinable point is not the roster — it is the <strong>tiering pattern</strong>. Every major family ships a small/medium/large ladder. Recognising that is what lets you answer routing and cost questions without knowing any specific model's numbers.</p>
+
+<div class="widget" data-widget="modeltable"></div>
+
+<div class="callout tip">
+  <div class="co-title">How to actually decide, and what the exam calls the right answer</div>
+  Define the constraints → shortlist models that satisfy the hard ones (modality, region, context, licence) → build a representative evaluation dataset from your own traffic → run a <strong>Bedrock model evaluation job</strong> scoring the candidates → pick on measured quality per dollar. Any option that says "pick the top model on a public benchmark" is wrong.
+</div>
+</section>
+
+<section id="d1-inference-modes"><button class="read-toggle" data-read="d1-inference-modes" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">2</span>How to invoke: the four inference modes</h2>
+
+<p>Choosing the model is half the decision. How you call it is the other half, and it is worth more marks than most people expect.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Mode</th><th>What it is</th><th>Choose it when</th><th>Watch out for</th></tr></thead>
+<tbody>
+<tr><td><strong>On-demand</strong></td><td>Pay per token, shared capacity pool, no commitment</td><td>Default for interactive workloads and anything variable</td><td>Subject to per-model, per-region quotas — you will meet <code>ThrottlingException</code></td></tr>
+<tr><td><strong>Batch inference</strong></td><td>JSONL manifest in S3 → async processing → results to S3</td><td>No human waiting: backlogs, bulk classification, one-off corpus processing. Roughly <strong>50% of on-demand</strong> on supported models</td><td>Not interactive. Completion is measured in hours</td></tr>
+<tr><td><strong>Provisioned Throughput</strong></td><td>Dedicated capacity in <strong>model units</strong>, 1- or 6-month commitment</td><td>Sustained predictable load; guaranteed throughput; predictable latency; <strong>required to serve custom models at scale</strong></td><td>You pay for the commitment whether you use it or not</td></tr>
+<tr><td><strong>Cross-region inference profile</strong></td><td>Routes invocations across a set of regions</td><td>Bursty traffic, throttling relief, resilience to regional capacity pressure</td><td><strong>Inference runs outside your region.</strong> Check residency before enabling — this is a favourite trap</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="widget" data-widget="throughput"></div>
+
+<div class="callout warn">
+  <div class="co-title">Two profiles, easily confused</div>
+  <p><strong>Cross-region (system-defined) inference profiles</strong> spread invocations across regions for throughput and resilience.</p>
+  <p style="margin-bottom:0"><strong>Application inference profiles</strong> are a tagging construct for <em>cost and usage attribution</em> — one per team or application, so Cost Explorer and CloudWatch can tell you who spent what. Different purpose entirely, and both are examinable.</p>
+</div>
+</section>
+
+<section id="d1-switching"><button class="read-toggle" data-read="d1-switching" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">3</span>Dynamic model switching</h2>
+
+<p>Models improve, prices change, and a model you depend on may become unavailable in a region. An architecture that hard-codes a model ID into a deployment artifact is one you will regret.</p>
+
+<div class="flow">
+  <div class="flow-step"><b>Client</b><span>Request arrives at API Gateway</span></div>
+  <div class="flow-step"><b>Lambda</b><span>Reads the current model ID from configuration at invocation time</span></div>
+  <div class="flow-step"><b>AppConfig</b><span>Holds the model ID, validated, with a deployment strategy</span></div>
+  <div class="flow-step"><b>Bedrock</b><span>Invoked via Converse, so the request shape is model-agnostic</span></div>
+  <div class="flow-step"><b>CloudWatch</b><span>Alarm on error rate or latency triggers automatic rollback</span></div>
+</div>
+
+<p>Two pieces make this work, and both are examinable:</p>
+<ul>
+  <li><strong>The Converse API</strong> normalises messages, system prompts, inference parameters and tool definitions across providers. Without it, swapping Claude for Nova means rewriting your request builder. With it, it is a string change.</li>
+  <li><strong>Externalised configuration</strong> — AWS AppConfig or Parameter Store — means the change ships without a deployment. AppConfig adds validated, gradual rollout with automatic rollback on a CloudWatch alarm, which is what you want when the change being rolled out is "everyone now talks to a different model".</li>
+</ul>
+
+<div class="widget" data-widget="dtree" data-title="Which inference mode?" data-tree='{
+  "q":"Is a human waiting for this response?",
+  "opts":[
+    {"label":"Yes — it is interactive","next":{
+      "q":"Is the load sustained and predictable, or bursty?",
+      "opts":[
+        {"label":"Sustained, high, 24/7 — and we are hitting throttles","next":{
+          "q":"Is it a base model or a custom (fine-tuned / imported) model?",
+          "opts":[
+            {"label":"Base model","next":{"answer":"Provisioned Throughput — after modelling the crossover","why":"Model the crossover against on-demand first. But note that guaranteed throughput and predictable latency under load are reasons to choose it <em>regardless</em> of where the cost lines cross. Consider a cross-region inference profile first if the throttling is bursty rather than sustained."}},
+            {"label":"Custom model","next":{"answer":"Provisioned Throughput — required","why":"Custom models (fine-tuned or imported) are served through Provisioned Throughput, not the shared on-demand pool. Factor that commitment into any fine-tuning business case."}}
+          ]}},
+        {"label":"Bursty, with occasional throttling","next":{"answer":"On-demand + cross-region inference profile","why":"Backoff with jitter first, then a cross-region profile to widen the capacity pool. <strong>Confirm the profile’s regions satisfy your data residency requirements</strong> before enabling it."}},
+        {"label":"Low or moderate and variable","next":{"answer":"On-demand","why":"The default. No commitment, pay per token, scales to zero. Set an AWS Budget alarm and watch your throttle metrics."}}
+      ]}},
+    {"label":"No — it can complete later","next":{
+      "q":"Does it need to finish within seconds, or is hours acceptable?",
+      "opts":[
+        {"label":"Hours are fine — a backlog, a nightly job, a migration","next":{"answer":"Batch inference","why":"Roughly 50% of on-demand pricing on supported models. Write a JSONL manifest to S3, submit the job, collect results from S3. No throttling to manage. This is the correct answer whenever a stem says overnight, backlog, or not user-facing."}},
+        {"label":"Seconds — an async API where the client polls shortly after","next":{"answer":"On-demand behind SQS + a worker","why":"A queue absorbs bursts, provides retries and a dead-letter queue, and lets you consume at a rate that respects your quotas. Batch would be too slow for a client that polls within seconds."}}
+      ]}}
+  ]}'></div>
+</section>
+
+<section id="d1-embeddings"><button class="read-toggle" data-read="d1-embeddings" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">4</span>Embeddings in depth</h2>
+
+<p>You met embeddings in Module 0. Here is what Domain 1 expects you to know beyond the concept.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Property</th><th>Detail</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td><strong>Dimensionality</strong></td><td>Titan Text Embeddings V2 supports 256 / 512 / 1024</td><td>Fewer dimensions = less storage and faster search, at some quality cost. A real, tunable trade-off</td></tr>
+<tr><td><strong>Binary embeddings</strong></td><td>1 bit per dimension instead of a float</td><td>Dramatic storage reduction for very large corpora, where supported by both model and store</td></tr>
+<tr><td><strong>Multilingual</strong></td><td>Cohere Embed Multilingual, Titan multilingual support</td><td>Required if a query in one language must match a document in another. Otherwise cross-lingual retrieval simply fails</td></tr>
+<tr><td><strong>Multimodal</strong></td><td>Titan Multimodal Embeddings put images and text in one space</td><td>Lets you retrieve images by text description and vice versa</td></tr>
+<tr><td><strong>Max input length</strong></td><td>Each embedding model has a token limit per input</td><td>Chunks larger than the limit get truncated — silently losing the tail of your content</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="co-title">The one-way door</div>
+  Query vectors and stored vectors must come from the <strong>same embedding model at the same dimensionality</strong>. Comparing a Cohere query vector to a Titan document vector produces a number, and that number is meaningless. Changing embedding model requires re-embedding and re-indexing the entire corpus. The failure mode if you get this wrong is the worst kind: nothing errors, retrieval quality just quietly collapses.
+</div>
+
+<h3>How to compare embedding models</h3>
+<p>Not by absolute similarity scores — those are not comparable across models. What matters is <strong>separation</strong>: the margin between how a model scores relevant pairs versus irrelevant ones. A model that scores everything at 0.9 has no discriminative power. Build a labelled set of query/relevant-chunk pairs plus known-irrelevant chunks, and measure the gap.</p>
+</section>
+
+<section id="d1-vector-stores"><button class="read-toggle" data-read="d1-vector-stores" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">5</span>Vector stores</h2>
+
+<p>Bedrock Knowledge Bases supports several vector stores natively. The choice is a genuine architectural decision with cost, latency and capability consequences.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Store</th><th>Strength</th><th>Choose it when</th><th>Trade-off</th></tr></thead>
+<tbody>
+<tr><td><strong>OpenSearch Serverless</strong></td><td>The default; fast, fully managed, supports hybrid search</td><td>You want it to work with the least thought. Most scenarios.</td><td>Continuous OCU cost even when idle — expensive for cold data</td></tr>
+<tr><td><strong>Amazon S3 Vectors</strong></td><td>By far the cheapest storage at scale</td><td>Very large corpora, infrequently queried, cost-sensitive</td><td>Higher query latency; metadata size limits can bite with large hierarchical parent chunks</td></tr>
+<tr><td><strong>Aurora PostgreSQL (pgvector)</strong></td><td>Vectors alongside relational data, with SQL and transactions</td><td>You already run Aurora and want joins between vectors and business data</td><td>You manage index tuning; distance metric and index parameters matter</td></tr>
+<tr><td><strong>Neptune Analytics</strong></td><td>Graph plus vectors — GraphRAG</td><td>Multi-hop questions about relationships between entities</td><td>More modelling work; you must build the graph</td></tr>
+<tr><td><strong>OpenSearch Managed Cluster</strong></td><td>Full control over cluster sizing and configuration</td><td>Existing OpenSearch estate, or capacity needs the serverless model does not fit</td><td>You operate the cluster</td></tr>
+<tr><td><strong>Pinecone · MongoDB Atlas · Redis Enterprise</strong></td><td>Third-party managed options</td><td>Existing investment or a specific capability you need</td><td>Another vendor relationship and another bill</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="widget" data-widget="dtree" data-title="Which vector store?" data-tree='{
+  "q":"What is the dominant characteristic of your corpus and access pattern?",
+  "opts":[
+    {"label":"Millions of vectors, queried rarely, cost is the driver","next":{"answer":"Amazon S3 Vectors","why":"Purpose-built for large, cold, cost-sensitive vector corpora. Accept higher query latency. Watch the metadata size limit if you use hierarchical chunking with very large parent chunks — that combination is a known failure."}},
+    {"label":"Questions are about relationships between entities across documents","next":{"answer":"Neptune Analytics (GraphRAG)","why":"“Which suppliers appear in both the audit findings and the restricted list” cannot be answered by similarity search, because no single chunk contains the answer. A graph lets traversal connect facts across documents."}},
+    {"label":"We already run Aurora and want vectors beside relational data","next":{"answer":"Aurora PostgreSQL with pgvector","why":"Joins between vectors and business tables, one database to operate, transactional consistency. You own index tuning — check the distance metric matches how the embeddings were trained, and size HNSW parameters deliberately."}},
+    {"label":"Standard RAG, want it managed, hybrid search matters","next":{"answer":"OpenSearch Serverless","why":"The default for good reasons: managed, fast, supports dense plus BM25 hybrid search, integrates cleanly with Knowledge Bases. The cost is continuous OCU spend, so revisit it if the corpus is genuinely cold."}}
+  ]}'></div>
+</section>
+
+<section id="d1-chunking"><button class="read-toggle" data-read="d1-chunking" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">6</span>Chunking — the highest-leverage decision in RAG</h2>
+
+<p>Chunking decides what a "unit of retrievable knowledge" is. Get it wrong and no amount of prompt engineering, reranking or model upgrading will rescue the answers. Get it right and mediocre everything else still works.</p>
+
+<div class="widget" data-widget="chunker"></div>
+
+<h3>The decision table you should be able to reproduce from memory</h3>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Strategy</th><th>How it works</th><th>Best for</th><th>The symptom it fixes</th></tr></thead>
+<tbody>
+<tr><td><strong>Fixed-size</strong><br><span style="font-size:12px;color:var(--text-3)">KB default: 300 tokens, 20% overlap</span></td><td>Cut every N tokens, repeat the tail of each chunk at the head of the next</td><td>Homogeneous prose where structure is weak; a sane starting point</td><td>Nothing specific — it is the baseline you tune away from</td></tr>
+<tr><td><strong>Semantic</strong></td><td>Embed sentences, cut where topic similarity drops below a breakpoint percentile</td><td>Policies, contracts, documentation — prose with clear topic shifts</td><td>"Chunks contain two unrelated topics, so retrieval matches on the wrong half"</td></tr>
+<tr><td><strong>Hierarchical</strong></td><td><strong>Search small children, return large parents</strong></td><td>Long structured documents; anywhere precision and context are both needed</td><td><strong>"The right passage is retrieved but the answer lacks surrounding context"</strong> — memorise this pairing</td></tr>
+<tr><td><strong>None</strong></td><td>One file, one chunk, one vector</td><td>FAQ entries, product records, per-ticket exports — files already chunk-sized</td><td>"Short self-contained records are being fragmented"</td></tr>
+<tr><td><strong>Custom (Lambda)</strong></td><td>Your own logic in an ingestion transformation function</td><td>Structured formats, boilerplate stripping, computed metadata</td><td>Anything the four built-ins cannot express</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Overlap: what it buys and what it costs</h3>
+<p>Overlap repeats the tail of chunk <em>n</em> at the head of chunk <em>n+1</em>, so a fact straddling a boundary still appears intact somewhere. It costs you more vectors to store and embed, and it fills your top-k with near-duplicates instead of distinct evidence. Twenty percent is a reasonable default. Forty percent is usually a sign that something else — probably semantic or hierarchical chunking — is the real fix.</p>
+
+<div class="callout exam">
+  <div class="co-title">Settle it with measurement, not opinion</div>
+  When two engineers disagree about chunk size, the professional answer is always: build a labelled evaluation set of representative questions, run a Bedrock RAG evaluation job at several chunk sizes, and compare retrieval and generation scores separately. "Follow the default" is a starting point, not a decision.
+</div>
+</section>
+
+<section id="d1-rag-pipeline"><button class="read-toggle" data-read="d1-rag-pipeline" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">7</span>The RAG pipeline end to end</h2>
+
+<p>Nine stages. Learn them as a sequence, because <strong>diagnosis in Domain 5 is entirely about locating which stage failed.</strong></p>
+
+<div class="widget" data-widget="ragflow"></div>
+
+<div class="diagram">
+<svg viewBox="0 0 640 320" aria-label="RAG architecture diagram">
+  <rect x="16" y="18" width="126" height="52" rx="9" fill="rgba(53,208,214,.14)" stroke="#35d0d6"/>
+  <text x="79" y="40" text-anchor="middle" fill="#35d0d6" font-size="12" font-weight="700">S3 documents</text>
+  <text x="79" y="57" text-anchor="middle" fill="#a7b4c9" font-size="10">+ .metadata.json</text>
+
+  <rect x="176" y="18" width="126" height="52" rx="9" fill="rgba(53,208,214,.14)" stroke="#35d0d6"/>
+  <text x="239" y="40" text-anchor="middle" fill="#35d0d6" font-size="12" font-weight="700">Parse + chunk</text>
+  <text x="239" y="57" text-anchor="middle" fill="#a7b4c9" font-size="10">BDA / FM parsing, Lambda</text>
+
+  <rect x="336" y="18" width="126" height="52" rx="9" fill="rgba(53,208,214,.14)" stroke="#35d0d6"/>
+  <text x="399" y="40" text-anchor="middle" fill="#35d0d6" font-size="12" font-weight="700">Embed</text>
+  <text x="399" y="57" text-anchor="middle" fill="#a7b4c9" font-size="10">Titan V2 / Cohere</text>
+
+  <rect x="496" y="18" width="128" height="52" rx="9" fill="rgba(53,208,214,.14)" stroke="#35d0d6"/>
+  <text x="560" y="40" text-anchor="middle" fill="#35d0d6" font-size="12" font-weight="700">Vector store</text>
+  <text x="560" y="57" text-anchor="middle" fill="#a7b4c9" font-size="10">HNSW index</text>
+
+  <path d="M142 44 H176" stroke="#35d0d6" stroke-width="1.5" marker-end="url(#ar)"/>
+  <path d="M302 44 H336" stroke="#35d0d6" stroke-width="1.5" marker-end="url(#ar)"/>
+  <path d="M462 44 H496" stroke="#35d0d6" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="320" y="88" text-anchor="middle" fill="#75839b" font-size="10.5">INGESTION — runs on sync, incremental</text>
+
+  <line x1="16" y1="106" x2="624" y2="106" stroke="#242e42" stroke-dasharray="4 4"/>
+
+  <rect x="16" y="126" width="126" height="52" rx="9" fill="rgba(255,153,0,.14)" stroke="#ff9900"/>
+  <text x="79" y="148" text-anchor="middle" fill="#ff9900" font-size="12" font-weight="700">User question</text>
+  <text x="79" y="165" text-anchor="middle" fill="#a7b4c9" font-size="10">embedded, same model</text>
+
+  <rect x="176" y="126" width="126" height="52" rx="9" fill="rgba(255,153,0,.14)" stroke="#ff9900"/>
+  <text x="239" y="148" text-anchor="middle" fill="#ff9900" font-size="12" font-weight="700">Retrieve top-k</text>
+  <text x="239" y="165" text-anchor="middle" fill="#a7b4c9" font-size="10">+ filters, hybrid, rerank</text>
+
+  <rect x="336" y="126" width="126" height="52" rx="9" fill="rgba(255,153,0,.14)" stroke="#ff9900"/>
+  <text x="399" y="148" text-anchor="middle" fill="#ff9900" font-size="12" font-weight="700">Augment prompt</text>
+  <text x="399" y="165" text-anchor="middle" fill="#a7b4c9" font-size="10">template + passages</text>
+
+  <rect x="496" y="126" width="128" height="52" rx="9" fill="rgba(255,153,0,.14)" stroke="#ff9900"/>
+  <text x="560" y="148" text-anchor="middle" fill="#ff9900" font-size="12" font-weight="700">Generate</text>
+  <text x="560" y="165" text-anchor="middle" fill="#a7b4c9" font-size="10">+ citations</text>
+
+  <path d="M142 152 H176" stroke="#ff9900" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <path d="M302 152 H336" stroke="#ff9900" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <path d="M462 152 H496" stroke="#ff9900" stroke-width="1.5" marker-end="url(#ar2)"/>
+  <path d="M560 70 V126" stroke="#75839b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M239 178 V206 H560 V178" stroke="#75839b" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+  <text x="399" y="202" text-anchor="middle" fill="#75839b" font-size="10">store lookup</text>
+
+  <rect x="176" y="228" width="286" height="46" rx="9" fill="rgba(155,123,255,.14)" stroke="#9b7bff"/>
+  <text x="319" y="248" text-anchor="middle" fill="#9b7bff" font-size="12" font-weight="700">Guardrail — contextual grounding, PII, topics</text>
+  <text x="319" y="265" text-anchor="middle" fill="#a7b4c9" font-size="10">blocks unsupported answers before the user sees them</text>
+  <path d="M560 178 V251 H462" stroke="#9b7bff" stroke-width="1.5" fill="none" marker-end="url(#ar3)"/>
+
+  <rect x="16" y="228" width="126" height="46" rx="9" fill="rgba(70,209,139,.14)" stroke="#46d18b"/>
+  <text x="79" y="256" text-anchor="middle" fill="#46d18b" font-size="12" font-weight="700">Answer to user</text>
+  <path d="M176 251 H142" stroke="#46d18b" stroke-width="1.5" marker-end="url(#ar4)"/>
+
+  <text x="320" y="300" text-anchor="middle" fill="#75839b" font-size="10.5">QUERY TIME — every request</text>
+  <defs>
+    <marker id="ar" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#35d0d6"/></marker>
+    <marker id="ar2" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#ff9900"/></marker>
+    <marker id="ar3" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#9b7bff"/></marker>
+    <marker id="ar4" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#46d18b"/></marker>
+  </defs>
+</svg>
+<div class="cap">Ingestion runs on sync. Everything below the dashed line runs on every single request — which is where your cost and latency live.</div>
+</div>
+</section>
+
+<section id="d1-knowledge-bases"><button class="read-toggle" data-read="d1-knowledge-bases" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">8</span>Bedrock Knowledge Bases in detail</h2>
+
+<p>Knowledge Bases is the managed implementation of everything above. Know its configuration surface, because questions are frequently "which knob".</p>
+
+<h3>Data sources</h3>
+<p>Native connectors: <strong>Amazon S3</strong>, <strong>SharePoint</strong>, <strong>Confluence</strong>, <strong>Salesforce</strong>, <strong>Web Crawler</strong>, and structured retrieval over data lakes. Anything else — a Kafka stream, an on-premises Oracle database — must be landed into a supported source first, usually S3 via Glue or DMS.</p>
+
+<h3>Parsing</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Option</th><th>What it handles</th><th>When you need it</th></tr></thead>
+<tbody>
+<tr><td>Default parser</td><td>Plain text extraction</td><td>Text files, simple PDFs, markdown</td></tr>
+<tr><td>Foundation model parsing</td><td>Uses a multimodal FM to read layout, describe images, preserve tables</td><td>Complex PDFs, slide decks, documents where tables carry the meaning</td></tr>
+<tr><td>Amazon Bedrock Data Automation</td><td>Managed multimodal extraction across documents, images, audio and video</td><td>Mixed-media corpora, scanned documents, structured extraction at scale</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+  <div class="co-title">"Scanned PDFs with tables give garbled answers"</div>
+  This is a <strong>parse-time</strong> problem, not a retrieval problem. If ingestion turned a table into scrambled text, every downstream stage is working on garbage and no amount of top-k tuning will help. The fix is advanced parsing or BDA. This exact scenario appears in the exam.
+</div>
+
+<h3>Metadata and filtering</h3>
+<p>Place a <code>&lt;filename&gt;.metadata.json</code> file next to each document in S3. Its attributes become filterable at query time — the mechanism behind tenant isolation, date-scoped retrieval, department scoping and classification-aware search. It is the cheapest precision improvement available, because filtering removes candidates <em>before</em> similarity is even computed.</p>
+
+<div class="code-head">documents/policy-2024.pdf.metadata.json<button class="cp-btn">copy</button></div>
+<pre><code>{
+  "metadataAttributes": {
+    "tenantId":       "acme-corp",
+    "department":     "finance",
+    "classification": "internal",
+    "effectiveDate":  "2024-01-01",
+    "documentType":   "policy"
+  }
+}</code></pre>
+
+<h3>Custom transformation</h3>
+<p>Register a Lambda in the ingestion configuration and it receives chunks mid-pipeline, <em>before</em> embedding. Use it to strip legal boilerplate, normalise formatting, redact PII, or attach computed metadata such as a risk tier. This is the supported extension point — a Glue job after ingestion is too late, because embedding has already happened.</p>
+
+<h3>Sync</h3>
+<p>Ingestion is explicit: <code>StartIngestionJob</code>, run on a schedule or triggered by an event. It is <strong>incremental</strong> — new, changed and deleted files only — and it does handle deletions. Two practical consequences:</p>
+<ul>
+  <li>A stale answer quoting a withdrawn policy is very often just a knowledge base nobody re-synced.</li>
+  <li>A pipeline that recreates the data source instead of syncing it re-embeds the entire corpus every run. On a corpus with a 2% daily delta that is a 50× waste of embedding spend, and it is a real Domain 4 scenario.</li>
+</ul>
+
+<h3>Retrieve versus RetrieveAndGenerate</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th><code>Retrieve</code></th><th><code>RetrieveAndGenerate</code></th></tr></thead>
+<tbody>
+<tr><td>Returns</td><td>Chunks and scores only</td><td>A generated answer plus citations</td></tr>
+<tr><td>You control</td><td>Everything after retrieval — prompt, model, chaining</td><td>The prompt template, the model, and guardrail attachment</td></tr>
+<tr><td>Choose when</td><td>Custom orchestration, non-generative use of the passages, feeding another system</td><td>Standard Q&A with the least code</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="d1-advanced-retrieval"><button class="read-toggle" data-read="d1-advanced-retrieval" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">9</span>Advanced retrieval</h2>
+
+<p>Baseline dense retrieval fails in specific, recognisable ways. Each failure has a specific fix, and the exam tests the pairing.</p>
+
+<div class="widget" data-widget="retrievaltuner"></div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Technique</th><th>What it does</th><th>The symptom it fixes</th></tr></thead>
+<tbody>
+<tr><td><strong>Hybrid search</strong></td><td>Combines dense vector similarity with keyword BM25 and fuses the rankings</td><td><strong>Exact rare tokens are never found</strong> — part numbers, error codes, SKUs, person names. Dense embeddings have almost no meaning to encode for these</td></tr>
+<tr><td><strong>Reranking</strong></td><td>Over-fetch (say 25), re-score with a cross-encoder that reads query and passage together, keep the best 5</td><td>"Relevant chunks are in the result set but ranked below noise". Improves precision <em>and</em> reduces tokens sent</td></tr>
+<tr><td><strong>Metadata filtering</strong></td><td>Pre-filters candidates by attribute before similarity search</td><td>Cross-tenant leakage; stale documents surfacing; wrong-department results</td></tr>
+<tr><td><strong>Query decomposition</strong></td><td>Splits a compound question into sub-queries, retrieves for each, synthesises</td><td>"Compare X and Y" questions where evidence for only one half is retrieved</td></tr>
+<tr><td><strong>GraphRAG</strong></td><td>Knowledge graph of entities and relationships alongside vectors</td><td>Multi-hop questions where <em>no single chunk</em> contains the answer</td></tr>
+<tr><td><strong>Score threshold</strong></td><td>Drops results below a similarity floor</td><td>Weak matches poisoning the context. But note thresholds are not calibrated across corpora — measure before setting one</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="co-title">The instinct to unlearn</div>
+  When answers are poor, the reflex is to retrieve <em>more</em>. It is almost always wrong. More chunks means more cost, more latency, and — because of the lost-in-the-middle effect — often a worse answer. The professional move is to retrieve <strong>fewer, better</strong> chunks: filter, rerank, and cut top-k.
+</div>
+</section>
+
+<section id="d1-rag-vs-ft"><button class="read-toggle" data-read="d1-rag-vs-ft" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">10</span>RAG versus fine-tuning, decided properly</h2>
+
+<div class="two-col">
+  <div class="card">
+    <div class="card-title">Choose RAG when…</div>
+    <ul class="checklist" style="font-size:13.5px;margin-bottom:0">
+      <li>The knowledge changes — daily, weekly, ever</li>
+      <li>You need citations and an audit trail</li>
+      <li>You must be able to delete a fact and have it disappear from answers</li>
+      <li>The corpus is large and mostly not needed on any given request</li>
+      <li>Different users must see different subsets of the data</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-title">Choose fine-tuning when…</div>
+    <ul class="checklist" style="font-size:13.5px;margin-bottom:0">
+      <li>You need consistent tone, format or task behaviour that prompting cannot reliably produce</li>
+      <li>You have hundreds to thousands of high-quality labelled examples</li>
+      <li>The behaviour is stable — it will not change next quarter</li>
+      <li>You have accepted the Provisioned Throughput cost of serving a custom model</li>
+      <li>You genuinely tried prompt engineering and few-shot first</li>
+    </ul>
+  </div>
+</div>
+
+<p>They are not exclusive. A mature system often fine-tunes for format and behaviour, then retrieves for facts. But on the exam, a scenario emphasising <em>changing knowledge</em> or <em>citations</em> is RAG, full stop.</p>
+</section>
+
+<section id="d1-governance"><button class="read-toggle" data-read="d1-governance" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">11</span>Data management, governance and compliance</h2>
+
+<h3>Where data lives, and who governs it</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Layer</th><th>Service</th><th>Governance control</th></tr></thead>
+<tbody>
+<tr><td>Raw source documents</td><td>Amazon S3</td><td>Bucket policies, KMS, Object Lock, versioning, Macie for sensitive-data discovery</td></tr>
+<tr><td>Governed data lake</td><td>S3 + Glue Data Catalog + Lake Formation</td><td>Fine-grained table, column and row permissions; centralised grants; audit</td></tr>
+<tr><td>Data preparation</td><td>AWS Glue, Glue Data Quality</td><td>Transformation, normalisation, quality rules enforced before ingestion</td></tr>
+<tr><td>Chunks and vectors</td><td>Vector store</td><td>Metadata filtering, per-classification indexes, encryption with a CMK</td></tr>
+<tr><td>Prompts and completions</td><td>Model invocation logging → CloudWatch or S3</td><td>Data protection policies, retention, Object Lock, KMS</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>PII: discovery versus in-line handling</h3>
+<p>Two services, frequently confused on the exam:</p>
+<ul>
+  <li><strong>Amazon Macie</strong> — scans S3 <em>at rest</em> and reports where sensitive data lives. Discovery across a bucket.</li>
+  <li><strong>Amazon Comprehend</strong> — detects and redacts PII in a text payload you send it. Per-document processing inside a pipeline.</li>
+</ul>
+<p>And a third layer at the model boundary: the <strong>Bedrock Guardrails sensitive information policy</strong>, which can BLOCK or ANONYMIZE. Defence in depth means using more than one of these, and that is usually the "best" answer when a question offers a single control versus a layered one.</p>
+
+<h3>Data residency — the trap</h3>
+<p>Residency is determined by <strong>where inference physically runs</strong>. Three things follow:</p>
+<ol>
+  <li>Choose a region where the model you need is actually available. Availability is genuinely uneven.</li>
+  <li><strong>Do not enable a cross-region inference profile that includes regions outside your permitted boundary.</strong> The convenience of extra throughput is exactly what breaches the requirement, and this is a deliberately attractive distractor.</li>
+  <li>The knowledge base, vector store and logs are all regional resources too. All of them must sit inside the boundary.</li>
+</ol>
+
+<h3>Privacy facts worth memorising</h3>
+<div class="callout info">
+  <div class="co-title">Amazon Bedrock and your data</div>
+  <ul style="margin-bottom:0">
+    <li>Your prompts and completions are <strong>not used to train the base foundation models</strong>.</li>
+    <li>They are <strong>not shared with the third-party model providers</strong>. Third-party models run inside AWS-operated infrastructure.</li>
+    <li>Nothing is retained for logging unless <strong>you</strong> enable model invocation logging, into <strong>your own</strong> CloudWatch log group or S3 bucket.</li>
+    <li>AWS performs automated abuse detection against the Acceptable Use Policy. That is a platform control and is not a substitute for your own guardrails.</li>
+  </ul>
+</div>
+
+<h3>Encryption and keys</h3>
+<p>TLS in transit throughout. At rest, use a <strong>customer managed KMS key</strong> when the customer needs control they can exercise — including revocation. Denying the key makes the data unreadable, and every key use lands in CloudTrail, which is usually the second half of the requirement. Note that you cannot encrypt vectors client-side and still search them: similarity over ciphertext is meaningless.</p>
+
+<h3>Auditability</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Question an auditor asks</th><th>What answers it</th></tr></thead>
+<tbody>
+<tr><td>"Which source did this specific sentence come from?"</td><td><strong>Citations</strong> from <code>RetrieveAndGenerate</code></td></tr>
+<tr><td>"What exactly was sent to the model, and what came back?"</td><td><strong>Model invocation logging</strong></td></tr>
+<tr><td>"Who called the model, when, from where?"</td><td><strong>CloudTrail</strong></td></tr>
+<tr><td>"Can you prove the answer does not contradict our written policy?"</td><td><strong>Automated Reasoning checks</strong> (Domain 3)</td></tr>
+<tr><td>"Where is sensitive data in the source corpus?"</td><td><strong>Amazon Macie</strong></td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="d1-check"><button class="read-toggle" data-read="d1-check" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">12</span>Domain 1 check</h2>
+<p>Six questions across the domain. Aim for five.</p>
+<div data-checkq="d1-002,d1-003,d1-005,d1-009,d1-020,d1-033"></div>
+<div class="btn-row" style="margin-top:20px">
+  <a class="btn btn-ghost" href="practice.html">Drill all 62 Domain 1 questions →</a>
+</div>
+</section>
+
+<nav class="prevnext">
+<a class="pn pn-prev" href="foundations.html"><span>← Previous</span><strong>Module 0</strong></a>
+<a class="pn pn-next" href="domain2.html"><span>Next →</span><strong>Domain 2 · 26%</strong></a>
+</nav>
+    </article>
+<footer class="site-footer">
+  <div>
+    <strong>Built as a study aid, not as exam content.</strong>
+    Every practice question here is original, written against the published AIP-C01 exam guide.
+    Nothing on this site is recalled, leaked or reproduced real exam material — using such material
+    violates the AWS Certification agreement and gets certifications revoked.
+  </div>
+  <div class="footer-links">
+    <a href="https://aws.amazon.com/certification/certified-generative-ai-developer-professional/" target="_blank" rel="noopener">Official cert page</a>
+    <a href="https://docs.aws.amazon.com/pdfs/aws-certification/latest/ai-professional-01/ai-professional-01.pdf" target="_blank" rel="noopener">Official exam guide (PDF)</a>
+    <a href="https://skillbuilder.aws/category/exam-prep/generative-ai-developer-professional-AIP-C01" target="_blank" rel="noopener">AWS Skill Builder</a>
+  </div>
+  <div class="footer-meta">Service behaviour and pricing change fast — always confirm against current AWS docs before an exam booking.</div>
+</footer>
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+</body>
+</html>

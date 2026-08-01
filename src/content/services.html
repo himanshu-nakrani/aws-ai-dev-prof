@@ -1,0 +1,159 @@
+<div class="callout info">
+  <div class="co-title">How to use this page</div>
+  Reference, not reading. Every service that plausibly appears in an AIP-C01 scenario, what it does, and — the part that actually earns marks — <strong>what it is confused with</strong>. Come back here when a practice question uses a service name you cannot place.
+</div>
+
+<section id="svc-bedrock">
+<h2><span class="num">1</span>Amazon Bedrock and its capabilities</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Capability</th><th>What it does</th><th>Signals in a question</th></tr></thead>
+<tbody>
+<tr><td><strong>Foundation model APIs</strong></td><td>Serverless access to Anthropic, Amazon, Meta, Mistral, Cohere, AI21, Stability models through one interface</td><td>"multiple model providers", "managed", "no infrastructure"</td></tr>
+<tr><td><strong>Converse API</strong></td><td>Unified messages, system prompt, inference config and tool use across providers</td><td>"swap models without rewriting", "portability"</td></tr>
+<tr><td><strong>Knowledge Bases</strong></td><td>Managed RAG: ingest, parse, chunk, embed, store, retrieve, generate with citations</td><td>"RAG with least operational overhead", "citations"</td></tr>
+<tr><td><strong>Agents</strong></td><td>Managed agent loop with action groups, Return of Control, memory, code interpreter, multi-agent collaboration</td><td>"the model decides which tools to call"</td></tr>
+<tr><td><strong>AgentCore</strong></td><td>Production primitives for agents you build: Runtime, Memory, Gateway, Identity, Code Interpreter, Browser, Observability (plus Policy, Evaluations, Registry, Payments)</td><td>"our own framework", "long-running", "memory across sessions", "non-human identity"</td></tr>
+<tr><td><strong>Guardrails</strong></td><td>Content filters, denied topics, word filters, PII, contextual grounding, Automated Reasoning checks, image filters. Plus <code>ApplyGuardrail</code> for non-Bedrock text</td><td>"safety", "block", "redact", "prevent hallucination", "provable"</td></tr>
+<tr><td><strong>Flows</strong></td><td>Low-code visual workflow: prompts, KBs, agents, Lambda, conditions, iterators. Versioned</td><td>"visual", "low-code", "non-engineers iterate"</td></tr>
+<tr><td><strong>Prompt Management</strong></td><td>Versioned prompts decoupled from deployments</td><td>"change the prompt without a deploy"</td></tr>
+<tr><td><strong>Evaluations</strong></td><td>Automatic metrics, LLM-as-a-judge, human workflows, and RAG evaluation scoring retrieval and generation separately</td><td>"compare models on our own data", "measure RAG quality"</td></tr>
+<tr><td><strong>Data Automation (BDA)</strong></td><td>Multimodal extraction from documents, images, audio, video</td><td>"scanned PDFs", "tables and figures", "mixed media"</td></tr>
+<tr><td><strong>Batch inference</strong></td><td>Async bulk processing via S3 JSONL, ~50% of on-demand</td><td>"overnight", "backlog", "no human waiting"</td></tr>
+<tr><td><strong>Provisioned Throughput</strong></td><td>Dedicated capacity in model units, 1- or 6-month commitment; required for custom models</td><td>"guaranteed throughput", "predictable latency", "custom model"</td></tr>
+<tr><td><strong>Cross-region inference profiles</strong></td><td>Route invocations across regions for throughput and resilience</td><td>"throttling", "burst" — and the residency trap</td></tr>
+<tr><td><strong>Application inference profiles</strong></td><td>Tagged profiles for cost and usage attribution</td><td>"which team is spending what"</td></tr>
+<tr><td><strong>Intelligent Prompt Routing</strong></td><td>Managed routing between smaller and larger models by predicted complexity</td><td>"cut cost while keeping quality"</td></tr>
+<tr><td><strong>Prompt caching</strong></td><td>Discounted, faster reuse of a stable prompt prefix</td><td>"the same large system prompt on every call"</td></tr>
+<tr><td><strong>Model customisation</strong></td><td>Fine-tuning, continued pre-training, distillation, Custom Model Import</td><td>"specific tone / behaviour", "our own weights"</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="svc-confusions">
+<h2><span class="num">2</span>The pairs the exam deliberately confuses</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>This</th><th>Not this</th><th>The distinction</th></tr></thead>
+<tbody>
+<tr><td><strong>Amazon Bedrock</strong></td><td>Amazon SageMaker AI</td><td>Bedrock = managed FM API and building blocks. SageMaker = full ML platform where you run the infrastructure. Choose SageMaker only when Bedrock genuinely cannot do it.</td></tr>
+<tr><td><strong>Amazon Q Business</strong></td><td>Amazon Q Developer</td><td>Q Business = enterprise knowledge assistant for end users. Q Developer = coding assistant in the IDE and CLI.</td></tr>
+<tr><td><strong>Amazon Q Business</strong></td><td>Bedrock Knowledge Bases</td><td>Q Business is a finished product you configure. Knowledge Bases is a component you build with. "Minimal development effort, give staff a chat assistant" → Q Business.</td></tr>
+<tr><td><strong>Amazon Macie</strong></td><td>Amazon Comprehend</td><td>Macie discovers sensitive data at rest in S3. Comprehend detects and redacts PII in text you send it.</td></tr>
+<tr><td><strong>CloudTrail</strong></td><td>Model invocation logging</td><td>CloudTrail = who called what, when. Invocation logging = the actual prompt and completion content.</td></tr>
+<tr><td><strong>Cross-region inference profile</strong></td><td>Application inference profile</td><td>Throughput and resilience across regions, versus cost attribution per application.</td></tr>
+<tr><td><strong>Prompt caching</strong></td><td>Semantic caching</td><td>Prompt caching discounts a repeated input prefix (Bedrock feature). Semantic caching returns a stored <em>answer</em> for a similar question (you build it).</td></tr>
+<tr><td><strong>Contextual grounding check</strong></td><td>Automated Reasoning checks</td><td>Learned probabilistic support score, versus formal logical verification against a policy.</td></tr>
+<tr><td><strong>Bedrock Agents</strong></td><td>AgentCore</td><td>A managed agent, versus production infrastructure for agents you build yourself.</td></tr>
+<tr><td><strong>Knowledge base web crawler</strong></td><td>AgentCore Browser</td><td>Bulk ingestion of page content, versus interactive navigation and form filling.</td></tr>
+<tr><td><strong>Denied topics</strong></td><td>Word filters</td><td>Semantic subject matching from a definition, versus exact literal strings.</td></tr>
+<tr><td><strong>Bedrock Flows</strong></td><td>AWS Step Functions</td><td>Low-code Bedrock-native chaining, versus a general-purpose state machine with rich retries and long-running execution.</td></tr>
+<tr><td><strong>Titan Text Embeddings</strong></td><td>Titan Text</td><td>Embeddings produce vectors. Text models generate text. Different jobs entirely.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="svc-supporting">
+<h2><span class="num">3</span>Supporting services and their role here</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Service</th><th>Role in a generative AI workload</th><th>Limit or detail worth knowing</th></tr></thead>
+<tbody>
+<tr><td><strong>Amazon S3</strong></td><td>Source documents, batch input/output, long-term log retention</td><td>Object Lock for immutable retention; lifecycle tiering for cheap multi-year storage</td></tr>
+<tr><td><strong>Amazon S3 Vectors</strong></td><td>Low-cost vector storage for large, cold corpora</td><td>Metadata size limits can bite with large hierarchical parent chunks</td></tr>
+<tr><td><strong>Amazon OpenSearch Serverless</strong></td><td>Default vector store; supports hybrid dense + BM25 search</td><td>Continuous OCU cost even when idle</td></tr>
+<tr><td><strong>Amazon OpenSearch Managed Cluster</strong></td><td>Vector store with full control over sizing</td><td>You operate the cluster</td></tr>
+<tr><td><strong>Aurora PostgreSQL (pgvector)</strong></td><td>Vectors beside relational data</td><td>You own the distance metric and index parameters — a common cause of silent quality loss after migration</td></tr>
+<tr><td><strong>Amazon Neptune Analytics</strong></td><td>GraphRAG — entities and relationships plus vectors</td><td>For multi-hop questions no single chunk can answer</td></tr>
+<tr><td><strong>AWS Lambda</strong></td><td>API backends, action group implementations, custom chunking transformations</td><td><strong>15-minute maximum.</strong> Supports response streaming via function URLs</td></tr>
+<tr><td><strong>Amazon API Gateway</strong></td><td>Auth, throttling, usage plans; WebSocket for streaming</td><td>~29-second REST integration timeout — the reason long generations need streaming or async</td></tr>
+<tr><td><strong>AWS Step Functions</strong></td><td>Deterministic orchestration, per-step retries, human approval via task tokens</td><td>Standard workflows run up to a year</td></tr>
+<tr><td><strong>Amazon SQS</strong></td><td>Decouple spiky traffic from Bedrock; retries and DLQ</td><td>The answer to "must not drop requests"</td></tr>
+<tr><td><strong>Amazon EventBridge</strong></td><td>Event routing; notifying clients when async work finishes</td><td></td></tr>
+<tr><td><strong>AWS AppConfig</strong></td><td>Externalised model IDs and feature flags with validated gradual rollout</td><td>Automatic rollback on a CloudWatch alarm — the safe model-swap pattern</td></tr>
+<tr><td><strong>Amazon CloudWatch</strong></td><td>Metrics, logs, alarms, dashboards</td><td>Log group <strong>data protection policies</strong> mask sensitive patterns</td></tr>
+<tr><td><strong>AWS X-Ray</strong></td><td>Distributed tracing across the request path</td><td>Pairs with agent traces and AgentCore Observability</td></tr>
+<tr><td><strong>AWS CloudTrail</strong></td><td>API audit; anomaly detection on model usage</td><td>Records the call, not the prompt</td></tr>
+<tr><td><strong>AWS IAM</strong></td><td>Who may invoke which models, where; condition keys for mandatory guardrails</td><td>The actual enforcement layer for Domain 3</td></tr>
+<tr><td><strong>AWS KMS</strong></td><td>Customer managed keys for KBs, custom models, vectors, logs</td><td>Revocable control plus CloudTrail on every key use</td></tr>
+<tr><td><strong>AWS Secrets Manager</strong></td><td>Credentials for tools and external APIs</td><td>Never put secrets in a prompt or a tool description</td></tr>
+<tr><td><strong>VPC / PrivateLink</strong></td><td>Private path to Bedrock plus an endpoint policy</td><td>Preferred over NAT when "no internet path" is the requirement</td></tr>
+<tr><td><strong>AWS WAF</strong></td><td>Rate-based rules against denial-of-wallet attacks</td><td></td></tr>
+<tr><td><strong>AWS Glue / Glue Data Quality</strong></td><td>ETL and quality rules upstream of ingestion</td><td>Not an embedding or retrieval service</td></tr>
+<tr><td><strong>AWS Lake Formation</strong></td><td>Fine-grained governance over the data lake</td><td>Column and row level permissions</td></tr>
+<tr><td><strong>Amazon Macie</strong></td><td>Sensitive data discovery in S3</td><td>Discovery, not in-line redaction</td></tr>
+<tr><td><strong>Amazon Comprehend</strong></td><td>PII detection and redaction in text</td><td>In-line, per document</td></tr>
+<tr><td><strong>Amazon SageMaker Clarify</strong></td><td>Bias metrics and explainability; FM evaluations</td><td>The "prove fairness" answer</td></tr>
+<tr><td><strong>Amazon SageMaker AI</strong></td><td>Host models Bedrock does not offer; full training control</td><td>JumpStart for open models</td></tr>
+<tr><td><strong>AWS Budgets</strong></td><td>Spend alerts and actions</td><td>Set one before your first Bedrock call</td></tr>
+<tr><td><strong>AWS Organizations / SCPs</strong></td><td>Preventive guardrails: region restrictions, protecting guardrail resources</td><td>Preventive, unlike CloudWatch alarms</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="svc-limits">
+<h2><span class="num">4</span>Limits and defaults that decide architectures</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Limit</th><th>Value</th><th>Consequence</th></tr></thead>
+<tbody>
+<tr><td>Lambda maximum execution</td><td>15 minutes</td><td>Long agent runs go to AgentCore Runtime, Fargate or Step Functions</td></tr>
+<tr><td>API Gateway REST integration timeout</td><td>~29 seconds</td><td>Long generations need streaming or an async pattern</td></tr>
+<tr><td>Bedrock quotas</td><td>Per model, per region (RPM and TPM)</td><td>Cross-region profiles, quota increases, Provisioned Throughput</td></tr>
+<tr><td>KB fixed chunking default</td><td>300 tokens, 20% overlap</td><td>A starting point, not a decision</td></tr>
+<tr><td>Embedding model input limit</td><td>Per model token cap</td><td>Chunks over the limit are truncated — silently</td></tr>
+<tr><td>Batch inference completion</td><td>Asynchronous, typically within hours</td><td>Never for interactive workloads</td></tr>
+<tr><td>Provisioned Throughput commitment</td><td>1 month or 6 months</td><td>Longer term, lower effective rate; a real financial commitment</td></tr>
+<tr><td>Model access</td><td>Enabled per model, per region</td><td>Region-specific AccessDenied is often just this, not IAM</td></tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:12.5px;color:var(--text-3)">Quotas and defaults change. Confirm against current AWS documentation before relying on any of these in production.</p>
+</section>
+
+<section id="svc-picker">
+<h2><span class="num">5</span>Two more decision helpers</h2>
+
+<div class="widget" data-widget="dtree" data-title="Which AWS service for this AI requirement?" data-tree='{
+  "q":"What is the team actually trying to produce?",
+  "opts":[
+    {"label":"A finished assistant for employees over internal content","next":{
+      "q":"Do they want to build it, or buy and configure it?",
+      "opts":[
+        {"label":"Buy and configure — minimal development","next":{"answer":"Amazon Q Business","why":"Connectors to SharePoint, Confluence, S3 and more; an assistant UI; admin controls. When a stem says minimal development effort for an internal knowledge assistant, this is the answer and Bedrock is the over-engineered distractor."}},
+        {"label":"Build it — we need it embedded in our own product","next":{"answer":"Bedrock Knowledge Bases + Converse","why":"Managed RAG as a component, with your own UI, your own auth and your own prompt. Add a guardrail with a contextual grounding check."}}
+      ]}},
+    {"label":"A coding assistant for our engineers","next":{"answer":"Amazon Q Developer","why":"IDE and CLI coding assistance. Do not confuse it with Q Business — the exam tests this distinction directly."}},
+    {"label":"A generative feature inside our own application","next":{
+      "q":"Does the model need to take actions, or just answer?",
+      "opts":[
+        {"label":"Just answer, grounded in our documents","next":{"answer":"Bedrock Knowledge Bases + RetrieveAndGenerate + Guardrails","why":"Managed RAG with citations, plus a guardrail with a contextual grounding check to catch unsupported answers before users see them."}},
+        {"label":"Take actions — call APIs, look things up, make changes","next":{"answer":"Bedrock Agents, or AgentCore if you need your own framework","why":"Action groups backed by least-privilege Lambdas, or Return of Control when execution must stay in your environment. Bound every tool, and gate consequential actions behind human approval."}}
+      ]}},
+    {"label":"Run a model Bedrock does not offer","next":{
+      "q":"Is it a supported open architecture whose weights you hold?",
+      "opts":[
+        {"label":"Yes","next":{"answer":"Bedrock Custom Model Import","why":"Brings your weights into the Bedrock API so you keep one API surface, one IAM model and one set of guardrails. Served via Provisioned Throughput."}},
+        {"label":"No — custom architecture or full training control needed","next":{"answer":"Amazon SageMaker AI","why":"Full control over training and hosting. More operational work, which is the trade you are consciously making."}}
+      ]}}
+  ]}'></div>
+
+<div class="widget" data-widget="dtree" data-title="Retrieval is not working — what do I change?" data-tree='{
+  "q":"What exactly is going wrong?",
+  "opts":[
+    {"label":"Exact codes, IDs or part numbers are never found","next":{"answer":"Enable hybrid search","why":"Dense embeddings encode meaning, and a rare alphanumeric token has almost none to encode. BM25 keyword matching handles it. This is the textbook hybrid-search scenario and it appears verbatim in exam stems."}},
+    {"label":"The right passage comes back but the answer misses nearby context","next":{"answer":"Hierarchical chunking","why":"Search small children for precision, return large parents for context. Alternatively increase chunk size or overlap, but hierarchical is the purpose-built answer."}},
+    {"label":"Relevant chunks are in the results but ranked below noise","next":{"answer":"Add reranking","why":"Over-fetch 25, re-score with a cross-encoder that reads query and passage together, keep the best 5. Improves precision AND reduces tokens sent — rare to get both."}},
+    {"label":"Answers cite documents from the wrong tenant, date or department","next":{"answer":"Metadata filtering, derived from the authenticated principal","why":"Attach attributes via .metadata.json sidecars and filter at query time. Derive the filter value from the authenticated caller inside one shared retrieval wrapper — never from client input."}},
+    {"label":"Scanned PDFs and tables produce garbled results","next":{"answer":"Advanced parsing: FM parsing or Bedrock Data Automation","why":"This is a parse-time failure. If ingestion scrambled the table, every downstream stage works on garbage. No amount of retrieval tuning helps."}},
+    {"label":"Questions spanning several documents about relationships fail","next":{"answer":"GraphRAG with Neptune Analytics","why":"No single chunk contains the answer, so similarity search cannot find it. A graph lets traversal connect entities across documents."}},
+    {"label":"A query in one language cannot find documents in another","next":{"answer":"Multilingual embedding model (and re-index), or translate the query first","why":"Cross-lingual retrieval needs a shared embedding space. Re-indexing is the thorough fix; translating the query before embedding is the cheap one."}}
+  ]}'></div>
+</section>

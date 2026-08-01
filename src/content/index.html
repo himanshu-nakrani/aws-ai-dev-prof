@@ -1,0 +1,129 @@
+<div class="hero">
+  <h2 style="margin-bottom:10px">You can pass this exam knowing nothing about AI or AWS today.</h2>
+  <p>Not because it is easy — it is a professional-level exam and it is genuinely hard — but because everything it tests is learnable in a specific order, and almost nobody teaches it in that order. This guide does.</p>
+  <p style="margin-bottom:0">Start at Module 0, which assumes you have never opened the AWS console and have never heard the word “token”. By the end of Domain 5 you will be reasoning about chunking strategies, guardrail policies and cost-per-token the way the exam expects you to. Then drill the question bank until the patterns are boring.</p>
+  <div class="btn-row" style="margin-bottom:0;margin-top:20px">
+    <a class="btn" href="foundations.html">Start Module 0 →</a>
+    <a class="btn btn-ghost" href="exam.html">What the exam actually is</a>
+    <a class="btn btn-ghost" href="practice.html">Jump to the question bank</a>
+  </div>
+</div>
+
+<section id="what-you-get">
+<h2><span class="num">1</span>What is in here</h2>
+
+<div class="grid grid-2">
+  <div class="card">
+    <div class="card-title">📚 A full curriculum, in order</div>
+    <p style="font-size:13.5px;margin-bottom:0">Module 0 takes you from zero — what a token is, what S3 is, why a model makes things up. Then one deep module per exam domain, weighted the way the exam is weighted, each with worked scenarios and the reasoning behind the right answer rather than a list of facts to memorise.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">🎛️ Things you can actually play with</div>
+    <p style="font-size:13.5px;margin-bottom:0">A tokenizer, a temperature sampler, a chunking playground, a cosine-similarity lab, a cost calculator, a guardrail simulator, a retrieval tuner, a context-budget planner. Concepts stick when you can break them.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">📝 A large original question bank</div>
+    <p style="font-size:13.5px;margin-bottom:0">Scenario questions written against the published blueprint, with an explanation for <em>every</em> option — including why each wrong one is wrong. Plus a timed 75-question mock exam weighted exactly like the real thing, and per-domain drills.</p>
+  </div>
+  <div class="card">
+    <div class="card-title">🔧 Hands-on labs</div>
+    <p style="font-size:13.5px;margin-bottom:0">Real boto3 and CDK you can run: a RAG pipeline, a tool-using agent, a guardrail, an evaluation harness. The exam is written for people who have built this stuff. Two weekends of building is worth a month of reading.</p>
+  </div>
+</div>
+
+<div class="callout warn">
+  <div class="co-title">About “exam dumps”</div>
+  <p>You will find sites selling recalled real exam questions. Three reasons not to touch them, in ascending order of importance.</p>
+  <p>They are <strong>often wrong</strong> — transcribed from memory, with answers voted on by people who failed. They are <strong>ineffective</strong> — item pools rotate, and memorising 60 stems teaches you none of the reasoning the scenarios test. And they <strong>violate the AWS Certification Agreement</strong>: AWS detects this and the penalty is revocation of every certification you hold, plus a ban.</p>
+  <p style="margin-bottom:0">Every question in this guide is original, written against the published exam guide. That is a feature, not a limitation.</p>
+</div>
+</section>
+
+<section id="the-shape">
+<h2><span class="num">2</span>The shape of the thing you are studying for</h2>
+
+<p>Five domains, weighted unevenly. If you only have limited time, this chart tells you where to spend it: <strong>Domains 1 and 2 are 57% of the exam between them.</strong></p>
+
+<div class="diagram">
+  <div class="chart" data-chart="donut" data-series='[
+    {"label":"D1 · FM integration, data, compliance","value":31,"color":"--accent"},
+    {"label":"D2 · Implementation & integration","value":26,"color":"--cyan"},
+    {"label":"D3 · Safety, security, governance","value":20,"color":"--violet"},
+    {"label":"D4 · Operational efficiency","value":12,"color":"--green"},
+    {"label":"D5 · Testing & troubleshooting","value":11,"color":"--amber"}
+  ]' data-opts='{"unit":"%","centerTop":"100%","centerSub":"scored content"}'></div>
+  <div class="cap">AIP-C01 domain weightings. Roughly 65 scored questions, so 1% ≈ 0.65 questions.</div>
+</div>
+
+<div class="grid grid-4">
+  <div class="stat"><div class="stat-val">75</div><div class="stat-lbl">questions</div><div class="stat-sub">65 scored + 10 unscored</div></div>
+  <div class="stat"><div class="stat-val">180</div><div class="stat-lbl">minutes</div><div class="stat-sub">2.4 min per question</div></div>
+  <div class="stat"><div class="stat-val">750</div><div class="stat-lbl">to pass</div><div class="stat-sub">scaled 100–1000</div></div>
+  <div class="stat"><div class="stat-val">$300</div><div class="stat-lbl">exam fee</div><div class="stat-sub">valid 3 years</div></div>
+</div>
+
+<p>What makes it a <em>professional</em> exam is not obscurity — it is that the questions rarely have one obviously correct option. Usually two or three options would work, and you are picking the one that best satisfies a stated constraint: lowest operational overhead, strictest data residency, least cost, fastest to implement. <strong>Read the constraint before you read the options.</strong></p>
+</section>
+
+<section id="how-to-use">
+<h2><span class="num">3</span>How to use this guide</h2>
+
+<div class="timeline">
+  <div class="tl-item">
+    <h4>1. Read Module 0 even if you think you know it</h4>
+    <p>It is written for a complete beginner, so it is fast to skim if you are not one. But the mental models in it — statelessness, the customisation ladder, what a token actually costs you — are the foundation for the reasoning the exam rewards. People who skip it end up memorising facts instead of understanding trade-offs.</p>
+  </div>
+  <div class="tl-item">
+    <h4>2. Work the domain modules in order, marking sections read</h4>
+    <p>Each section has a <strong>Mark read</strong> control in its top-right corner. Progress is stored in your browser, shows in the sidebar ring, and is how you find your way back after a break. Domain 1 first — it is the biggest and everything else builds on it.</p>
+  </div>
+  <div class="tl-item">
+    <h4>3. Do the labs after Domain 2</h4>
+    <p>By then you know enough to build a RAG pipeline and an agent. Do it. The scenario questions are written by people who have debugged these systems, and it shows.</p>
+  </div>
+  <div class="tl-item">
+    <h4>4. Drill by domain, then take mocks</h4>
+    <p>Per-domain drills while you are learning; full weighted mocks once you have covered everything. Anything under 72% in a domain worth 20%+ is what stands between you and a pass — go back to that module rather than doing more questions.</p>
+  </div>
+  <div class="tl-item">
+    <h4>5. Use the cram sheet and flashcards in the last week</h4>
+    <p>Not for learning — for keeping the distinctions sharp. Hierarchical vs semantic chunking. Denied topics vs word filters. Context relevance vs faithfulness. The exam lives in those distinctions.</p>
+  </div>
+</div>
+
+<div class="callout tip">
+  <div class="co-title">Keyboard</div>
+  Press <span class="kbd">/</span> to search the whole guide from anywhere. On the flashcards page, <span class="kbd">space</span> flips, <span class="kbd">←</span> and <span class="kbd">→</span> grade.
+</div>
+</section>
+
+<section id="honest-timeline">
+<h2><span class="num">4</span>An honest estimate of how long this takes</h2>
+
+<p>Everyone wants a number. Here are three, based on where you are starting from. These assume study that is actually study — not re-reading a page while a meeting happens in another window.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Starting point</th><th class="num">Total hours</th><th>Realistic calendar time</th><th>What to skip</th></tr></thead>
+<tbody>
+<tr><td><strong>Complete beginner</strong> — no AWS, no AI</td><td class="num">120–160</td><td>10–14 weeks at 12 h/week</td><td>Nothing. You also need an AWS account and a credit card with a $50 budget for hands-on.</td></tr>
+<tr><td><strong>AWS developer</strong>, new to GenAI</td><td class="num">60–80</td><td>6–8 weeks at 10 h/week</td><td>The AWS half of Module 0. Read the AI half properly — most AWS engineers have gaps here they do not know about.</td></tr>
+<tr><td><strong>Built GenAI apps</strong>, maybe on another cloud</td><td class="num">35–50</td><td>4 weeks at 10 h/week</td><td>Module 0 entirely. Focus on the AWS-specific service behaviour, quotas, guardrail policy types, and Domains 3 and 4, which are where non-AWS experience transfers worst.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout info">
+  <div class="co-title">The single best predictor of passing</div>
+  Not hours studied — whether you have <strong>built and debugged</strong> a RAG application and an agent. The exam is stuffed with "this symptom, what is the cause" questions. If you have watched retrieval quietly return the wrong chunks at 1am, you will recognise them instantly. If you have not, they read as four plausible options.
+</div>
+</section>
+
+<section id="start">
+<h2><span class="num">5</span>Start</h2>
+<p>Module 0 is next. It assumes nothing.</p>
+<div class="btn-row">
+  <a class="btn" href="foundations.html">Module 0 — From zero: AI and AWS →</a>
+  <a class="btn btn-ghost" href="studyplan.html">Pick a study plan first</a>
+</div>
+</section>

@@ -1,0 +1,235 @@
+<section id="facts">
+<h2><span class="num">1</span>The facts, in one table</h2>
+
+<div class="table-wrap">
+<table>
+<tbody>
+<tr><td style="width:200px"><strong>Full name</strong></td><td>AWS Certified Generative AI Developer – Professional</td></tr>
+<tr><td><strong>Exam code</strong></td><td><code>AIP-C01</code></td></tr>
+<tr><td><strong>Level</strong></td><td>Professional (the tier above Associate; there is no prerequisite certification)</td></tr>
+<tr><td><strong>Questions</strong></td><td>75 total — <strong>65 scored, 10 unscored</strong>. The unscored ones are not marked and are being trialled for future exams. You cannot tell which is which, so answer everything as if it counts.</td></tr>
+<tr><td><strong>Question types</strong></td><td>Multiple choice (one correct) and multiple response (choose 2 or 3). AWS has been introducing additional formats such as ordering and matching across its exams — read each instruction line.</td></tr>
+<tr><td><strong>Duration</strong></td><td>180 minutes — 2.4 minutes per question</td></tr>
+<tr><td><strong>Cost</strong></td><td>$300 USD</td></tr>
+<tr><td><strong>Scoring</strong></td><td>Scaled 100–1000. <strong>750 to pass.</strong> Compensatory: you do not need to pass each domain individually, only the total.</td></tr>
+<tr><td><strong>Delivery</strong></td><td>Pearson VUE test centre, or online proctored from home</td></tr>
+<tr><td><strong>Validity</strong></td><td>3 years</td></tr>
+<tr><td><strong>History</strong></td><td>Announced late 2025; beta ran to 31 March 2026 (85 questions / 205 minutes); standard registration opened March 2026. It is one of the newest AWS certifications.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout info">
+  <div class="co-title">Compensatory scoring, and what it means for strategy</div>
+  You do not have to clear a bar in every domain. A weak Domain 5 can be carried by a strong Domain 1. That said — Domain 5 is only 11%, so <em>strategically</em> ignoring it costs you at most about 7 questions, while ignoring Domain 1 costs you about 20. Spend your revision time proportionally to the weights, not to how interesting you find the topic.
+</div>
+</section>
+
+<section id="domains">
+<h2><span class="num">2</span>The five domains and what each really covers</h2>
+
+<div class="diagram">
+  <div class="chart" data-chart="hbar" data-series='[
+    {"label":"D1 · FM integration, data, compliance","value":31,"color":"--accent"},
+    {"label":"D2 · Implementation & integration","value":26,"color":"--cyan"},
+    {"label":"D3 · Safety, security, governance","value":20,"color":"--violet"},
+    {"label":"D4 · Operational efficiency","value":12,"color":"--green"},
+    {"label":"D5 · Testing & troubleshooting","value":11,"color":"--amber"}
+  ]' data-opts='{"unit":"%","max":35,"labelWidth":230}'></div>
+  <div class="cap">Approximate scored questions: D1 ≈ 20, D2 ≈ 17, D3 ≈ 13, D4 ≈ 8, D5 ≈ 7</div>
+</div>
+
+<details class="acc" open>
+  <summary>Domain 1 — Foundation Model Integration, Data Management and Compliance <span class="pill" style="margin-left:auto">31%</span></summary>
+  <div class="acc-body">
+    <p>The biggest domain, and the one that carries the most RAG content. Expect questions on:</p>
+    <ul>
+      <li>Choosing a foundation model against real constraints — capability, context window, latency, cost, modality, region availability, licensing</li>
+      <li>Dynamic model switching and inference-mode selection (on-demand, batch, provisioned, cross-region profiles)</li>
+      <li>Retrieval design end to end: chunking strategies, embedding models, vector store selection, hybrid search, reranking, metadata filtering, GraphRAG</li>
+      <li>Bedrock Knowledge Bases: data sources, sync, parsing, custom transformation</li>
+      <li>Data management, governance and compliance — residency, PII, encryption, auditability, licensing</li>
+    </ul>
+    <p style="margin-bottom:0"><strong>Where people lose marks:</strong> treating chunking as a detail. It is not. Several questions turn on knowing exactly which chunking strategy addresses which symptom.</p>
+  </div>
+</details>
+
+<details class="acc">
+  <summary>Domain 2 — Implementation and Integration <span class="pill pill-cyan" style="margin-left:auto">26%</span></summary>
+  <div class="acc-body">
+    <p>The build domain. Expect:</p>
+    <ul>
+      <li>Bedrock APIs — <code>InvokeModel</code> vs <code>Converse</code> vs the streaming variants, and why Converse is the portability answer</li>
+      <li>Tool use / function calling, and the fact that the model never executes anything itself</li>
+      <li>Bedrock Agents: action groups, Return of Control, session state, memory, multi-agent collaboration</li>
+      <li>AgentCore: Runtime, Memory, Gateway, Identity, Code Interpreter, Browser, Observability</li>
+      <li>When to use an agent vs Bedrock Flows vs Step Functions vs plain Lambda</li>
+      <li>Prompt engineering at depth, prompt management and versioning</li>
+      <li>Customisation: fine-tuning, custom model import, distillation — and when <em>not</em> to</li>
+      <li>Streaming architectures and integration patterns</li>
+    </ul>
+    <p style="margin-bottom:0"><strong>Where people lose marks:</strong> the agent-vs-Step-Functions judgement call, and Return of Control, which is easy to read past and is the correct answer more often than you would expect.</p>
+  </div>
+</details>
+
+<details class="acc">
+  <summary>Domain 3 — AI Safety, Security and Governance <span class="pill pill-violet" style="margin-left:auto">20%</span></summary>
+  <div class="acc-body">
+    <p>Bigger than most candidates expect, and the domain where instinct from other clouds transfers worst. Expect:</p>
+    <ul>
+      <li>Every Bedrock Guardrails policy type and exactly what each one catches</li>
+      <li>Contextual grounding checks and Automated Reasoning checks — probabilistic vs formal verification</li>
+      <li>Prompt injection, direct and indirect, and defences that actually work</li>
+      <li>IAM for Bedrock, condition keys, SCPs, PrivateLink, KMS</li>
+      <li>Logging, auditability, data residency, responsible AI, fairness, transparency</li>
+    </ul>
+    <p style="margin-bottom:0"><strong>Where people lose marks:</strong> picking the option that solves a security problem with a prompt instruction. It is never the answer.</p>
+  </div>
+</details>
+
+<details class="acc">
+  <summary>Domain 4 — Operational Efficiency and Optimization <span class="pill pill-green" style="margin-left:auto">12%</span></summary>
+  <div class="acc-body">
+    <p>Small but very learnable — the highest marks-per-hour of any domain. Expect token economics, prompt caching, batch, provisioned throughput, distillation, routing, caching layers, quotas and throttling, latency optimisation and cost attribution.</p>
+    <p style="margin-bottom:0"><strong>Where people lose marks:</strong> reaching for a micro-optimisation when the question is really about model right-sizing.</p>
+  </div>
+</details>
+
+<details class="acc">
+  <summary>Domain 5 — Testing, Validation and Troubleshooting <span class="pill pill-amber" style="margin-left:auto">11%</span></summary>
+  <div class="acc-body">
+    <p>The smallest domain and the one that most rewards real experience. Expect Bedrock evaluations, RAG metrics, LLM-as-a-judge, A/B and shadow testing, observability, and a lot of symptom-to-cause reasoning.</p>
+    <p style="margin-bottom:0"><strong>Where people lose marks:</strong> failing to separate retrieval failures from generation failures. Learn that distinction cold and this domain becomes easy.</p>
+  </div>
+</details>
+</section>
+
+<section id="question-style">
+<h2><span class="num">3</span>What the questions actually look like</h2>
+
+<p>Professional-level AWS questions share a structure. Once you can see it, they become much less intimidating.</p>
+
+<div class="card">
+  <div class="card-title">Anatomy of a scenario question</div>
+  <p style="font-size:14px"><span class="pill pill-cyan">Context</span> A financial services company is building a document summarisation feature. Documents are 150–400 pages.</p>
+  <p style="font-size:14px"><span class="pill pill-violet">Constraint</span> Summaries must be produced within 5 minutes of upload, are <strong>not user-facing in real time</strong>, and <strong>cost is the primary constraint</strong>.</p>
+  <p style="font-size:14px;margin-bottom:0"><span class="pill">Question</span> Which approach best fits?</p>
+</div>
+
+<p>Three of the four options will <em>work</em>. Only one satisfies the constraint. Here, "not user-facing in real time" plus "cost is the primary constraint" is the batch-inference signal, and everything else in the stem is scenery.</p>
+
+<h3>The constraint keywords that decide answers</h3>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>If the stem says…</th><th>It is steering you toward…</th></tr></thead>
+<tbody>
+<tr><td>"with the least operational overhead"</td><td>The managed service. Knowledge Bases over a custom pipeline. Bedrock Agents over hand-rolled orchestration. Q Business over building a UI.</td></tr>
+<tr><td>"must not leave the EU / must remain in region X"</td><td>Regional endpoints, model availability check, and <strong>no</strong> cross-region inference profile spanning other regions.</td></tr>
+<tr><td>"no human is waiting" / "overnight" / "backlog"</td><td>Batch inference.</td></tr>
+<tr><td>"must be auditable" / "prove to a regulator"</td><td>Citations, model invocation logging, CloudTrail. For policy consistency: Automated Reasoning checks.</td></tr>
+<tr><td>"exact part numbers / error codes are not found"</td><td>Hybrid search.</td></tr>
+<tr><td>"answer lacks surrounding context"</td><td>Hierarchical chunking.</td></tr>
+<tr><td>"knowledge changes daily / weekly"</td><td>RAG. Never fine-tuning.</td></tr>
+<tr><td>"specific tone, format or task behaviour"</td><td>Fine-tuning — but only after prompting and few-shot have genuinely been tried.</td></tr>
+<tr><td>"execution must stay in our environment"</td><td>Return of Control.</td></tr>
+<tr><td>"guaranteed throughput" / "predictable latency under load"</td><td>Provisioned Throughput.</td></tr>
+<tr><td>"the process is fixed and each step must be retryable and auditable"</td><td>Step Functions, not an agent.</td></tr>
+<tr><td>"prevent the developer from disabling it"</td><td>IAM condition keys and SCPs — preventive, not detective.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+  <div class="co-title">The single most useful habit</div>
+  Read the <strong>last sentence of the stem first</strong>, then the constraint sentence, then the options, then the rest of the scenario only if you still need it. Most of a professional-exam stem is context that does not change the answer. You have 2.4 minutes per question; do not spend 90 seconds absorbing a company backstory.
+</div>
+</section>
+
+<section id="wrong-answers">
+<h2><span class="num">4</span>How the wrong answers are built</h2>
+
+<p>Distractors on AWS professional exams are not random. They come in recognisable flavours, and spotting the flavour eliminates them fast.</p>
+
+<div class="grid grid-2">
+  <div class="card"><div class="card-title">🎣 The plausible-but-heavier option</div><p style="font-size:13.5px;margin-bottom:0">Technically works, but involves building something AWS already manages. If a stem mentions operational overhead at all, this is a trap.</p></div>
+  <div class="card"><div class="card-title">🎣 The right idea, wrong layer</div><p style="font-size:13.5px;margin-bottom:0">"Instruct the model in the system prompt not to…" as an answer to a security question. Or "increase top-k" as an answer to a generation problem. Correct-sounding, aimed at the wrong stage.</p></div>
+  <div class="card"><div class="card-title">🎣 The over-engineered option</div><p style="font-size:13.5px;margin-bottom:0">Multi-agent collaboration for a single lookup. Fine-tuning for a facts problem. Impressive, disproportionate, wrong.</p></div>
+  <div class="card"><div class="card-title">🎣 The absolute</div><p style="font-size:13.5px;margin-bottom:0">"Always", "never", "guarantees", "eliminates all". Real engineering answers have trade-offs; distractors often do not.</p></div>
+  <div class="card"><div class="card-title">🎣 The stale fact</div><p style="font-size:13.5px;margin-bottom:0">Something that was true two years ago — "custom models cannot be served on Bedrock", "guardrails only apply to output". Feature coverage has moved.</p></div>
+  <div class="card"><div class="card-title">🎣 The adjacent service</div><p style="font-size:13.5px;margin-bottom:0">Macie where you need Comprehend. Q Business where you need Bedrock. Real services doing a genuinely different job.</p></div>
+</div>
+</section>
+
+<section id="timing">
+<h2><span class="num">5</span>Timing and exam-day mechanics</h2>
+
+<div class="two-col">
+  <div class="card">
+    <div class="card-title">⏱️ Pacing</div>
+    <ul style="font-size:13.5px;margin-bottom:0">
+      <li>2.4 minutes per question average</li>
+      <li>Target <strong>25 questions per hour</strong> — that leaves ~15 minutes at the end</li>
+      <li>If a question is still unclear after 90 seconds: pick your best guess, flag it, move on</li>
+      <li>There is no penalty for a wrong answer. <strong>Never leave a question blank.</strong></li>
+      <li>Multi-response questions take longer. Budget for it rather than panicking at question 60</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-title">🧠 Reviewing flagged questions</div>
+    <ul style="font-size:13.5px;margin-bottom:0">
+      <li>Change an answer only if you find a concrete reason — a constraint you misread, a keyword you missed</li>
+      <li>Do not change on a vague feeling. First instinct is right more often than second-guessing</li>
+      <li>Re-read the constraint sentence, not the whole scenario</li>
+      <li>If two options still look identical, one of them almost always violates a stated constraint. Find it.</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Online proctored versus test centre</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th>Test centre</th><th>Online proctored</th></tr></thead>
+<tbody>
+<tr><td><strong>Environment</strong></td><td>Controlled, quiet, someone else's problem</td><td>Your room must be empty, clear desk, no interruptions for 3 hours</td></tr>
+<tr><td><strong>Setup risk</strong></td><td>Low</td><td>Webcam, microphone, bandwidth and a room scan; allow 30 minutes before start</td></tr>
+<tr><td><strong>Interruptions</strong></td><td>Rare</td><td>A person entering the room can void your exam</td></tr>
+<tr><td><strong>Best for</strong></td><td>Most people, especially a 3-hour professional exam</td><td>Those with no centre nearby and a genuinely controllable space</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout tip">
+  <div class="co-title">Three hours is long</div>
+  This is a real endurance factor and candidates routinely underestimate it. Take at least one full 180-minute mock in one sitting before exam day so the fatigue at question 55 is not a surprise. Eat first. If you are at a test centre you can usually take an unscheduled break, but the clock keeps running.
+</div>
+</section>
+
+<section id="prereqs">
+<h2><span class="num">6</span>Do you need other certifications first?</h2>
+
+<p><strong>No.</strong> There is no prerequisite. But be honest about the gap:</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Your background</th><th>Recommendation</th></tr></thead>
+<tbody>
+<tr><td>Never used AWS</td><td>Do <strong>Cloud Practitioner</strong> or at least its content first — not for the badge, but because AIP-C01 assumes IAM, S3, Lambda, VPC and CloudWatch as background knowledge it will not explain.</td></tr>
+<tr><td>AWS developer, no AI</td><td>Go straight for AIP-C01. Consider <strong>AI Practitioner (AIF-C01)</strong> as a cheap two-week confidence check on the AI vocabulary; it is foundational and much easier.</td></tr>
+<tr><td>Data scientist / ML engineer, light on AWS</td><td>Straight for AIP-C01, but do the labs. Your ML instincts are useful; your knowledge of which AWS service does what is the gap.</td></tr>
+<tr><td>Already hold AI Practitioner or ML Engineer – Associate</td><td>Straight for AIP-C01. Note that ML Engineer – Associate is mostly classical ML pipelines and transfers less than you would hope.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout info">
+  <div class="co-title">Where it sits in the portfolio</div>
+  AWS retired <strong>Machine Learning – Specialty</strong> (last exam date 31 March 2026). The current AI/ML track is: AI Practitioner (foundational) → Machine Learning Engineer – Associate and Data Engineer – Associate (associate) → <strong>Generative AI Developer – Professional</strong> (professional). This one is the top of the generative AI line.
+</div>
+</section>
+
+<section id="quickcheck">
+<h2><span class="num">7</span>A first taste</h2>
+<p>Two questions in the exam's actual style. Do not worry about getting them right yet — you have not read anything. Notice the <em>shape</em>: how much of the stem is scenery, and where the constraint hides.</p>
+<div data-checkq="d1-001,d2-001"></div>
+</section>
