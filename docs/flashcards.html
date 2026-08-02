@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<title>Flashcards (spaced repetition) · AIP-C01 Field Manual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="A complete, beginner-friendly study guide for the AWS Certified Generative AI Developer - Professional (AIP-C01) exam: full curriculum, diagrams, labs and a question bank.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/data/questions.js" defer></script>
+<script src="assets/data/q-d0.js" defer></script>
+<script src="assets/data/q-d1.js" defer></script>
+<script src="assets/data/q-d2.js" defer></script>
+<script src="assets/data/q-d3.js" defer></script>
+<script src="assets/data/q-d4.js" defer></script>
+<script src="assets/data/q-d5.js" defer></script>
+<script src="assets/data/flashcards.js" defer></script>
+<script src="assets/data/searchindex.js" defer></script>
+<script src="assets/js/charts.js" defer></script>
+<script src="assets/js/interactive.js" defer></script>
+<script src="assets/js/quiz.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+</head>
+<body data-page="flashcards">
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menuBtn" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">AIP</span>
+    <span class="brand-text"><strong>AIP-C01 Field Manual</strong><em>AWS Certified Generative AI Developer – Professional</em></span>
+  </a>
+  <div class="topbar-right">
+    <div class="search-wrap">
+      <input id="siteSearch" type="search" placeholder="Search the guide…  /" autocomplete="off" spellcheck="false">
+      <div id="searchResults" class="search-results" hidden></div>
+    </div>
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle light/dark">◐</button>
+  </div>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-card">
+      <div class="ring-wrap"><svg class="ring" viewBox="0 0 44 44"><circle class="ring-bg" cx="22" cy="22" r="19"></circle><circle class="ring-fg" id="ringFg" cx="22" cy="22" r="19"></circle></svg><span id="ringPct">0%</span></div>
+      <div class="progress-meta"><strong id="progressLabel">Your progress</strong><span id="progressSub">0 of 0 sections read</span></div>
+    </div>
+    <nav class="nav"><div class="nav-group">Orientation</div>
+<a class="nav-link" href="index.html" data-slug="index"><span class="nav-dot" data-dot="index"></span><span class="nav-label">Start here</span><span class="nav-mins">12m</span></a>
+<a class="nav-link" href="exam.html" data-slug="exam"><span class="nav-dot" data-dot="exam"></span><span class="nav-label">The exam</span><span class="nav-mins">18m</span></a>
+<a class="nav-link" href="studyplan.html" data-slug="studyplan"><span class="nav-dot" data-dot="studyplan"></span><span class="nav-label">Study plans</span><span class="nav-mins">10m</span></a>
+<div class="nav-group">Learn</div>
+<a class="nav-link" href="foundations.html" data-slug="foundations"><span class="nav-dot" data-dot="foundations"></span><span class="nav-label">Module 0</span><span class="nav-mins">95m</span></a>
+<a class="nav-link" href="domain1.html" data-slug="domain1"><span class="nav-dot" data-dot="domain1"></span><span class="nav-label">Domain 1 · 31%</span><span class="nav-mins">120m</span></a>
+<a class="nav-link" href="domain2.html" data-slug="domain2"><span class="nav-dot" data-dot="domain2"></span><span class="nav-label">Domain 2 · 26%</span><span class="nav-mins">110m</span></a>
+<a class="nav-link" href="domain3.html" data-slug="domain3"><span class="nav-dot" data-dot="domain3"></span><span class="nav-label">Domain 3 · 20%</span><span class="nav-mins">85m</span></a>
+<a class="nav-link" href="domain4.html" data-slug="domain4"><span class="nav-dot" data-dot="domain4"></span><span class="nav-label">Domain 4 · 12%</span><span class="nav-mins">60m</span></a>
+<a class="nav-link" href="domain5.html" data-slug="domain5"><span class="nav-dot" data-dot="domain5"></span><span class="nav-label">Domain 5 · 11%</span><span class="nav-mins">55m</span></a>
+<div class="nav-group">Reference</div>
+<a class="nav-link" href="services.html" data-slug="services"><span class="nav-dot" data-dot="services"></span><span class="nav-label">Service atlas</span><span class="nav-mins">45m</span></a>
+<div class="nav-group">Practice</div>
+<a class="nav-link" href="labs.html" data-slug="labs"><span class="nav-dot" data-dot="labs"></span><span class="nav-label">Hands-on labs</span><span class="nav-mins">180m</span></a>
+<a class="nav-link" href="practice.html" data-slug="practice"><span class="nav-dot" data-dot="practice"></span><span class="nav-label">Question bank</span><span class="nav-mins">240m</span></a>
+<a class="nav-link active" href="flashcards.html" data-slug="flashcards"><span class="nav-dot" data-dot="flashcards"></span><span class="nav-label">Flashcards</span><span class="nav-mins">40m</span></a>
+<a class="nav-link" href="cheatsheet.html" data-slug="cheatsheet"><span class="nav-dot" data-dot="cheatsheet"></span><span class="nav-label">Cram sheet</span><span class="nav-mins">30m</span></a>
+<a class="nav-link" href="glossary.html" data-slug="glossary"><span class="nav-dot" data-dot="glossary"></span><span class="nav-label">Glossary</span><span class="nav-mins">25m</span></a></nav>
+    <button class="reset-btn" id="resetProgress">Reset progress</button>
+  </aside>
+  <main class="content" id="content">
+    <article class="page" data-page="flashcards">
+<div class="page-head"><div class="crumb">Practice</div><h1>Flashcards (spaced repetition)</h1><div class="page-meta"><span class="pill">≈40 min</span><span class="pill pill-ghost" id="pageReadState-flashcards">not started</span></div></div><nav class="toc"><div class="toc-title">On this page</div><a href="#fc" data-toc="fc">Flashcards</a><a href="#fc-how" data-toc="fc-how">How to use these well</a></nav><section id="fc"><button class="read-toggle" data-read="fc" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">1</span>Flashcards</h2>
+
+<p>104 cards across eight decks. Click a card or press <span class="kbd">space</span> to flip. <span class="kbd">→</span> marks it known, <span class="kbd">←</span> marks it for repetition — cards you keep missing come round sooner.</p>
+
+<div data-flashcards></div>
+</section>
+
+<section id="fc-how"><button class="read-toggle" data-read="fc-how" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">2</span>How to use these well</h2>
+
+<p>Flashcards are for <strong>retention and sharpness</strong>, not for learning. Read the modules first; use these to keep distinctions crisp in the weeks between studying and sitting.</p>
+
+<div class="grid grid-2">
+  <div class="card">
+    <div class="card-title">The rhythm that works</div>
+    <ul style="font-size:13.5px;margin-bottom:0">
+      <li><strong>While learning a domain:</strong> that deck only, at the end of each session</li>
+      <li><strong>Final two weeks:</strong> all decks, ten minutes daily</li>
+      <li><strong>Final two days:</strong> the <em>Exam</em> deck only — it is the answer-instinct deck</li>
+      <li><strong>Exam morning:</strong> nothing. Rest beats revision at that point</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-title">Say it out loud before flipping</div>
+    <p style="font-size:13.5px;margin-bottom:0">Recognition is not recall. If you flip and think "yes, I knew that", you probably did not — you recognised it. Force yourself to state the answer aloud, in a full sentence, before turning the card. It feels slower and it is dramatically more effective.</p>
+  </div>
+</div>
+
+<h3>The decks</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Deck</th><th>What is in it</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td><strong>Core</strong></td><td>Tokens, context, embeddings, sampling, the customisation ladder</td><td>Foundational — know these cold before anything else</td></tr>
+<tr><td><strong>Bedrock</strong></td><td>APIs, inference modes, profiles, caching, customisation, Flows, BDA</td><td>High — feeds Domains 1, 2 and 4</td></tr>
+<tr><td><strong>RAG</strong></td><td>Pipeline stages, chunking, vector stores, hybrid, rerank, knowledge bases</td><td><strong>Highest.</strong> The biggest slice of the biggest domain</td></tr>
+<tr><td><strong>Agents</strong></td><td>Action groups, Return of Control, traces, AgentCore, orchestration choice</td><td>High — Domain 2</td></tr>
+<tr><td><strong>Security</strong></td><td>Guardrail policies, injection, IAM, logging, responsible AI</td><td>High — Domain 3 is 20%</td></tr>
+<tr><td><strong>Cost</strong></td><td>Levers, ranked; caching; provisioned vs on-demand</td><td>Medium — small domain, quick wins</td></tr>
+<tr><td><strong>Testing</strong></td><td>Metrics, the retrieval-vs-generation split, release strategy</td><td>Medium</td></tr>
+<tr><td><strong>Exam</strong></td><td>Format facts and the keyword → answer instincts</td><td><strong>Do this deck last, and daily in the final week</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout tip">
+  <div class="co-title">If you only drill one deck</div>
+  Make it <strong>Exam</strong>. It encodes the keyword-to-answer mappings — "exact codes not found" → hybrid search, "answer lacks context" → hierarchical chunking, "no human waiting" → batch — that turn a 2-minute question into a 30-second one. Time saved on the easy questions is time available for the genuinely ambiguous ones.
+</div>
+</section>
+
+<nav class="prevnext">
+<a class="pn pn-prev" href="practice.html"><span>← Previous</span><strong>Question bank</strong></a>
+<a class="pn pn-next" href="cheatsheet.html"><span>Next →</span><strong>Cram sheet</strong></a>
+</nav>
+    </article>
+<footer class="site-footer">
+  <div>
+    <strong>Built as a study aid, not as exam content.</strong>
+    Every practice question here is original, written against the published AIP-C01 exam guide.
+    Nothing on this site is recalled, leaked or reproduced real exam material — using such material
+    violates the AWS Certification agreement and gets certifications revoked.
+  </div>
+  <div class="footer-links">
+    <a href="https://aws.amazon.com/certification/certified-generative-ai-developer-professional/" target="_blank" rel="noopener">Official cert page</a>
+    <a href="https://docs.aws.amazon.com/pdfs/aws-certification/latest/ai-professional-01/ai-professional-01.pdf" target="_blank" rel="noopener">Official exam guide (PDF)</a>
+    <a href="https://skillbuilder.aws/category/exam-prep/generative-ai-developer-professional-AIP-C01" target="_blank" rel="noopener">AWS Skill Builder</a>
+  </div>
+  <div class="footer-meta">Service behaviour and pricing change fast — always confirm against current AWS docs before an exam booking.</div>
+</footer>
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<div class="callout exam">
+  <div class="co-title">Domain 5 — 11% of scored content, roughly 7 questions</div>
+  The smallest domain, and the one that most rewards having actually operated one of these systems. Almost everything here reduces to one skill: <strong>locating which stage failed</strong> before proposing a fix.
+</div>
+
+<section id="d5-split">
+<h2><span class="num">1</span>The one distinction that carries this domain</h2>
+
+<p>A RAG system has two independently-failing halves. Measure them separately, diagnose them separately, fix them separately.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>What it compares</th><th>What it measures</th></tr></thead>
+<tbody>
+<tr><td><strong>Context relevance</strong></td><td>Retrieved context ↔ the question</td><td><strong>Retrieval quality.</strong> Did the right evidence come back?</td></tr>
+<tr><td><strong>Faithfulness / groundedness</strong></td><td>The answer ↔ the retrieved context</td><td><strong>Generation quality.</strong> Did the model stick to the evidence?</td></tr>
+<tr><td><strong>Answer relevance</strong></td><td>The answer ↔ the question</td><td>Did it actually answer what was asked?</td></tr>
+<tr><td><strong>Context coverage / recall</strong></td><td>Retrieved context ↔ all relevant content in the corpus</td><td>Did we miss relevant material that exists?</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="diagram">
+  <div class="chart" data-chart="heat" data-series='{
+    "cols":["fix retrieval","fix prompt","fix corpus"],
+    "rows":[
+      {"label":"Ctx rel LOW · faith HIGH","values":[9,1,3]},
+      {"label":"Ctx rel HIGH · faith LOW","values":[1,9,1]},
+      {"label":"Both LOW","values":[7,5,4]},
+      {"label":"Both HIGH, user unhappy","values":[2,4,8]}
+    ]}' data-opts='{"labelWidth":190}'></div>
+  <div class="cap">Where to spend effort, given the two scores. Darker = more likely to be the actual problem.</div>
+</div>
+
+<div class="grid grid-2">
+  <div class="card"><div class="card-title">Context relevance LOW, faithfulness HIGH</div><p style="font-size:13.5px;margin-bottom:0">Garbage in, faithful garbage out. The model is doing its job perfectly on bad evidence. <strong>Fix retrieval</strong> — chunking, hybrid search, reranking, metadata filters. Do not touch the prompt.</p></div>
+  <div class="card"><div class="card-title">Context relevance HIGH, faithfulness LOW</div><p style="font-size:13.5px;margin-bottom:0">The right evidence arrived and the answer drifted. <strong>Fix generation</strong> — a firmer "answer only from the passages" instruction, an explicit escape hatch, lower temperature, and a contextual grounding check to catch what slips through.</p></div>
+  <div class="card"><div class="card-title">Both LOW</div><p style="font-size:13.5px;margin-bottom:0">Start at retrieval. There is no point tuning generation against evidence that never arrives.</p></div>
+  <div class="card"><div class="card-title">Both HIGH, users still unhappy</div><p style="font-size:13.5px;margin-bottom:0">The answer is faithful to a corpus that does not contain what users need. This is a <strong>content problem</strong>, not an engineering one — and it is the failure mode engineers are slowest to consider.</p></div>
+</div>
+</section>
+
+<section id="d5-evaluation">
+<h2><span class="num">2</span>Evaluation on Bedrock</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Type</th><th>How it works</th><th>Use for</th></tr></thead>
+<tbody>
+<tr><td><strong>Automatic evaluation</strong></td><td>Built-in metric scoring against your dataset — accuracy, robustness, toxicity</td><td>Fast, repeatable regression checks on every change</td></tr>
+<tr><td><strong>LLM-as-a-judge</strong></td><td>A model scores outputs against a rubric you define</td><td>Nuanced quality where exact-match metrics fail. Cheaper and faster than humans</td></tr>
+<tr><td><strong>Human evaluation</strong></td><td>Your own workforce or an AWS-managed team, with a defined task and rubric</td><td>Ground truth. Calibrate your automatic metrics and judges against it</td></tr>
+<tr><td><strong>RAG evaluation</strong></td><td>Scores <strong>retrieval and generation separately</strong></td><td>Everything in section 1. The reason you can diagnose rather than guess</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Metrics worth knowing by name</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Metric</th><th>Measures</th><th>Weakness</th></tr></thead>
+<tbody>
+<tr><td><strong>ROUGE</strong></td><td>N-gram overlap with a reference — the conventional summarisation metric</td><td>Rewards surface overlap; a correct paraphrase scores badly</td></tr>
+<tr><td><strong>BLEU</strong></td><td>Precision-oriented n-gram overlap; from machine translation</td><td>Same problem, more so</td></tr>
+<tr><td><strong>BERTScore</strong></td><td>Semantic similarity using contextual embeddings</td><td>Better at paraphrase; still no notion of factual correctness</td></tr>
+<tr><td><strong>Exact match / F1</strong></td><td>Extractive question answering</td><td>Only usable when there is one right string</td></tr>
+<tr><td><strong>LLM-as-a-judge rubric score</strong></td><td>Whatever you define — helpfulness, correctness, tone</td><td>Judge bias toward length and confident phrasing</td></tr>
+<tr><td><strong>Toxicity / safety scores</strong></td><td>Harmful content rates</td><td>Threshold-sensitive; needs its own labelled set</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="co-title">LLM judges have measurable biases</div>
+  They favour longer answers, more confident phrasing, and outputs that resemble their own style. If the judge prefers model A but humans prefer model B, the judge is probably right about style and wrong about value. Calibrate: score a sample with both, measure agreement, tighten the rubric until they track. And pin the judge model version, or your baseline moves under you.
+</div>
+
+<h3>Evaluation hygiene</h3>
+<ul>
+  <li><strong>Temperature 0</strong>, fixed top-p. Otherwise your scores wobble and you cannot detect a real 4% improvement.</li>
+  <li><strong>A fixed golden dataset.</strong> Curated inputs with known-good outputs. Run it on every prompt change, model change and retrieval change; treat a drop as a build failure.</li>
+  <li><strong>Include unanswerable questions.</strong> A test set that never asks something out of scope cannot detect confident invention — the most damaging failure mode there is.</li>
+  <li><strong>Include adversarial inputs.</strong> Injection attempts, out-of-scope requests, hypothetical framings.</li>
+  <li><strong>Never use production PII as test data.</strong></li>
+</ul>
+</section>
+
+<section id="d5-release">
+<h2><span class="num">3</span>Testing changes safely</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Technique</th><th>What it does</th><th>Risk to users</th><th>Best for</th></tr></thead>
+<tbody>
+<tr><td><strong>Offline evaluation</strong></td><td>Golden dataset through the new configuration</td><td>None</td><td>Every change, always. The cheapest gate</td></tr>
+<tr><td><strong>Shadow testing</strong></td><td>Run the new configuration on live traffic; show nobody; diff offline</td><td>None</td><td>Surfacing edge cases your golden set missed — production traffic contains the long tail by definition</td></tr>
+<tr><td><strong>Canary</strong></td><td>Small percentage of real users, with monitoring</td><td>Bounded</td><td>Confirming real-world quality and latency before full rollout</td></tr>
+<tr><td><strong>A/B test</strong></td><td>Split traffic, compare a metric that reflects user value</td><td>Bounded</td><td>Deciding between two viable options. Needs enough traffic and duration to be meaningful</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+  <div class="co-title">Migrating to a new model version</div>
+  Offline evaluation catches what your golden set covers. For the rest, <strong>shadow the new model and diff responses against the current one, then human-review the largest divergences</strong>. That surfaces exactly the edge cases nobody curated a test for. "Read the model card and deploy" is not a testing strategy.
+</div>
+
+<h3>CI for prompts and configuration</h3>
+<p>Prompts, chunking settings and guardrail thresholds are code. Gate them the same way:</p>
+<ul>
+  <li>Run the golden dataset; fail the build if quality drops beyond a threshold</li>
+  <li>Run adversarial prompts; fail if any produce disallowed output</li>
+  <li>Version prompts in Bedrock Prompt Management so a rollback does not need a deployment</li>
+</ul>
+</section>
+
+<section id="d5-observability">
+<h2><span class="num">4</span>Observability</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Signal</th><th>Source</th><th>Answers</th></tr></thead>
+<tbody>
+<tr><td>Invocations, latency, errors, throttles per model</td><td>CloudWatch metrics</td><td>Is it working, and how fast?</td></tr>
+<tr><td>Input and output tokens per application inference profile</td><td>CloudWatch metrics</td><td>What is it costing, and why is that changing?</td></tr>
+<tr><td>The actual prompts and completions</td><td>Model invocation logging → CloudWatch or S3</td><td>What was said? (Apply data protection policies)</td></tr>
+<tr><td>Who called what, when, from where</td><td>CloudTrail</td><td>Audit and anomaly detection</td></tr>
+<tr><td>Per-step reasoning, tool calls, KB lookups</td><td>Bedrock Agents trace</td><td>Why did the agent do that?</td></tr>
+<tr><td>Metrics and traces across agent infrastructure</td><td>AgentCore Observability</td><td>Where is the time going in a multi-step agent?</td></tr>
+<tr><td>End-to-end distributed traces</td><td>AWS X-Ray, OpenTelemetry</td><td>Which hop in the whole request is slow?</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Alarms worth having</h3>
+<div class="two-col">
+  <div class="card"><div class="card-title">✅ Alarm on these</div><ul style="font-size:13.5px;margin-bottom:0"><li>Throttle rate above a threshold, sustained</li><li>p99 latency above the SLO, sustained</li><li>Error rate step change</li><li>Guardrail intervention <em>rate</em> spiking</li><li>Daily spend crossing a budget threshold</li></ul></div>
+  <div class="card"><div class="card-title">🚫 Do not alarm on these</div><ul style="font-size:13.5px;margin-bottom:0"><li>A single guardrail intervention — that is the system working</li><li>Any individual slow request</li><li>Anything that fires more than a few times a week without needing action</li></ul></div>
+</div>
+<p style="font-size:13.5px;color:var(--text-3)">Noisy alarms train people to ignore alarms, which is worse than having none.</p>
+</section>
+
+<section id="d5-playbook">
+<h2><span class="num">5</span>The troubleshooting playbook</h2>
+
+<p>Search for a symptom. These are the patterns the exam draws its scenario questions from.</p>
+
+<div class="widget" data-widget="symptomfinder"></div>
+</section>
+
+<section id="d5-method">
+<h2><span class="num">6</span>Diagnostic method</h2>
+
+<p>Work along the pipeline from the evidence outward. In order:</p>
+
+<div class="timeline">
+  <div class="tl-item"><h4>1. Look at what was actually retrieved</h4>
+    <p>Call the <code>Retrieve</code> API directly with the failing question and read the chunks. This one step resolves the majority of RAG complaints, and it stops you tuning a prompt that was never the problem.</p></div>
+  <div class="tl-item"><h4>2. Check whether the prompt uses the context correctly</h4>
+    <p>Was the retrieved content actually inserted? Is the "answer only from the passages" instruction present? Is the question buried above 20k tokens of context? Is <code>stopReason</code> what you expect?</p></div>
+  <div class="tl-item"><h4>3. Check the parameters</h4>
+    <p>Temperature for consistency problems. <code>maxTokens</code> for truncation. Stop sequences for output that ends abruptly at a punctuation mark.</p></div>
+  <div class="tl-item"><h4>4. Check the infrastructure</h4>
+    <p>Throttling, permissions, region-specific model access, VPC routing. Intermittent failures that correlate with a region are usually a cross-region inference profile hitting a region where the model is not enabled or the IAM policy does not reach.</p></div>
+  <div class="tl-item"><h4>5. Only then consider the model</h4>
+    <p>Changing the model is the most expensive and least targeted intervention. It is occasionally right, and it is almost never the first thing to try.</p></div>
+</div>
+
+<div class="callout tip">
+  <div class="co-title">For agents, start with the trace</div>
+  The trace shows which tool was called, with which arguments, and what came back. Production-only agent failures are usually environmental — a missing IAM permission, a VPC route, a different endpoint — and the trace surfaces that in seconds where guessing takes hours.
+</div>
+</section>
+
+<section id="d5-agent-eval">
+<h2><span class="num">7</span>Evaluating agents specifically</h2>
+
+<p>Final-answer accuracy hides how the agent got there. An agent that reaches the right answer after eight wasted tool calls is expensive, slow and fragile — and it will fail differently tomorrow. Score the behaviour:</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Dimension</th><th>Question</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td>Tool selection accuracy</td><td>Did it choose the right tool?</td><td>Wrong tool selection is nearly always an ambiguous description</td></tr>
+<tr><td>Argument correctness</td><td>Were the parameters right?</td><td>Schema and description quality</td></tr>
+<tr><td>Step efficiency</td><td>How many steps versus the minimum?</td><td>Directly drives cost and latency</td></tr>
+<tr><td>Error recovery</td><td>Did it handle a tool failure sensibly?</td><td>Poor recovery is how loops start</td></tr>
+<tr><td>Termination</td><td>Did it stop when it should?</td><td>Runaway loops are a cost incident</td></tr>
+<tr><td>Task completion</td><td>Did the user get what they needed?</td><td>The outcome metric that matters</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="d5-check">
+<h2><span class="num">8</span>Domain 5 check</h2>
+<p>Six questions. Aim for five.</p>
+<div data-checkq="d5-001,d5-005,d5-011,d5-019,d5-027,d5-030"></div>
+<div class="btn-row" style="margin-top:20px">
+  <a class="btn btn-ghost" href="practice.html">Drill all 30 Domain 5 questions →</a>
+</div>
+</section>

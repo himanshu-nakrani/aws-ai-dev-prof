@@ -1,0 +1,202 @@
+<div class="callout exam">
+  <div class="co-title">Domain 4 — 12% of scored content, roughly 8 questions</div>
+  The smallest domain except Domain 5, and the highest marks-per-hour on the exam. It is almost entirely learnable in a day because it reduces to a handful of levers and their relative magnitudes. Learn the <em>ordering</em>, not the prices.
+</div>
+
+<section id="d4-economics">
+<h2><span class="num">1</span>Token economics</h2>
+
+<p>Cost = (input tokens × input rate) + (output tokens × output rate), per request, times volume. Two facts drive everything downstream:</p>
+
+<ul>
+  <li><strong>Output costs 3–5× input per token.</strong> Concise output formats and sensible <code>maxTokens</code> are real savings.</li>
+  <li><strong>Input volume is usually where the money actually is</strong>, because RAG applications send thousands of context tokens on every call while producing a few hundred output tokens.</li>
+</ul>
+
+<div class="widget" data-widget="costcalc"></div>
+
+<div class="callout warn">
+  <div class="co-title">Do not memorise prices</div>
+  Bedrock pricing changes. The exam tests reasoning about magnitude and direction — that a small model is one to two orders of magnitude cheaper, that output exceeds input, that batch is roughly half. Never a specific figure.
+</div>
+
+<h3>The five cost lines in a typical application</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Line</th><th>Driver</th><th>Typical share</th><th>How it surprises people</th></tr></thead>
+<tbody>
+<tr><td>Model inference</td><td>Tokens × rate × volume</td><td>Usually dominant</td><td>Grows with context size, not just request count</td></tr>
+<tr><td>Embeddings</td><td>Tokens embedded at ingestion + per query</td><td>Small, unless…</td><td>…a pipeline re-embeds the whole corpus nightly for a 2% delta</td></tr>
+<tr><td>Vector storage</td><td>Vectors × bytes, or OCU-hours</td><td>Moderate</td><td>OpenSearch Serverless bills continuously, including for cold data</td></tr>
+<tr><td>Supporting compute</td><td>Lambda, containers, API Gateway</td><td>Small</td><td>Rarely the problem</td></tr>
+<tr><td>Logging</td><td>CloudWatch Logs ingestion and retention</td><td>Small but nonzero</td><td>Prompts are large. Multi-year retention in CloudWatch instead of S3 is expensive</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="d4-levers">
+<h2><span class="num">2</span>The cost levers, ranked by magnitude</h2>
+
+<div class="diagram">
+  <div class="chart" data-chart="hbar" data-series='[
+    {"label":"Model right-sizing / routing","value":85,"color":"--green"},
+    {"label":"Batch inference (async work)","value":50,"color":"--cyan"},
+    {"label":"Prompt caching (repeated prefix)","value":45,"color":"--accent"},
+    {"label":"Distillation (high-volume task)","value":40,"color":"--violet"},
+    {"label":"Reranking / lower top-k","value":25,"color":"--amber"},
+    {"label":"Semantic caching","value":20,"color":"--pink"},
+    {"label":"Output format / maxTokens","value":10,"color":"--red"}
+  ]' data-opts='{"unit":"%","max":100,"labelWidth":220}'></div>
+  <div class="cap">Indicative percentage reduction each lever can deliver on a suitable workload. They compose — routing plus caching plus reranking together routinely reaches 60–70%.</div>
+</div>
+
+<h3>1. Model right-sizing and routing — the big one</h3>
+<p>The catalogue spans 50–100× in price. Nothing else you do comes close. The pattern:</p>
+<ul>
+  <li>Classify the incoming request cheaply — a tiny model, or a heuristic</li>
+  <li>Serve the easy majority with a small model</li>
+  <li>Escalate only genuinely hard requests to a large one</li>
+</ul>
+<p><strong>Bedrock Intelligent Prompt Routing</strong> is the managed implementation: it routes between a smaller and larger model in a family based on predicted complexity, aiming to keep quality near the larger model.</p>
+
+<h3>2. Batch inference</h3>
+<p>Roughly 50% of on-demand on supported models. Applies whenever no human is waiting: backlogs, nightly classification, corpus migration, bulk embedding.</p>
+
+<h3>3. Prompt caching</h3>
+<p>Caches a <strong>stable prefix</strong> — system prompt, tool schemas, a long static document. Subsequent calls sharing that prefix are billed at a steeply reduced cache-read rate and skip re-processing, so you get a latency win as well. The ideal shape is a large identical prefix plus a short variable suffix, which is exactly what a RAG or agent application looks like.</p>
+<p>It is <strong>not</strong> response caching. The model still generates fresh output every time.</p>
+
+<h3>4. Distillation</h3>
+<p>Train a small student on a large teacher's outputs for one specific task. The answer to "we need frontier quality at very high volume within budget" when routing alone is not enough. Costs: a training pipeline, an evaluation pipeline, and Provisioned Throughput to serve the result.</p>
+
+<h3>5. Reranking and lower top-k</h3>
+<p>Over-fetch, rerank, send five excellent chunks instead of twenty adequate ones. This is the rare optimisation that is <em>cheaper and more accurate at the same time</em>, because irrelevant context both costs tokens and dilutes the answer.</p>
+
+<h3>6. Semantic caching</h3>
+<p>Embed the query; if a previous query is sufficiently similar, serve the stored answer. Exact-hash caching gets ~3% hit rates on natural language because questions are never byte-identical.</p>
+
+<div class="callout warn">
+  <div class="co-title">The semantic cache trap</div>
+  "What is the refund window for enterprise customers?" and "What is the refund window?" are semantically close and have <em>different answers</em>. Too loose a threshold turns your cache into a hallucination source that no guardrail will catch — the answer is well-formed, grounded-looking, and was correct once. Set the threshold conservatively and evaluate it like any other quality change.
+</div>
+</section>
+
+<section id="d4-throughput">
+<h2><span class="num">3</span>Throughput, quotas and throttling</h2>
+
+<p>Bedrock enforces requests-per-minute and tokens-per-minute quotas <strong>per model, per region</strong>. Exceed them and you get <code>ThrottlingException</code>. The response ladder, in order:</p>
+
+<div class="flow">
+  <div class="flow-step"><b>1</b><span><strong>Exponential backoff with jitter</strong> — configure the SDK retry mode. Tight retries make congestion worse</span></div>
+  <div class="flow-step"><b>2</b><span><strong>Cross-region inference profile</strong> — widen the capacity pool. Check residency first</span></div>
+  <div class="flow-step"><b>3</b><span><strong>Service quota increase</strong> — request more of the shared pool</span></div>
+  <div class="flow-step"><b>4</b><span><strong>Provisioned Throughput</strong> — dedicated capacity, for sustained load</span></div>
+  <div class="flow-step"><b>Always</b><span><strong>Batch</strong> anything that is not interactive, and queue anything spiky</span></div>
+</div>
+
+<div class="widget" data-widget="throughput"></div>
+
+<div class="callout info">
+  <div class="co-title">Cost is not the only reason to buy Provisioned Throughput</div>
+  Model the crossover, yes. But three requirements decide it regardless of where the lines meet: <strong>guaranteed throughput</strong>, <strong>predictable latency under load</strong>, and <strong>serving a custom model</strong> — which has no on-demand path. If a stem states any of those, the crossover arithmetic is not the deciding factor.
+</div>
+</section>
+
+<section id="d4-latency">
+<h2><span class="num">4</span>Latency</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Contributor</th><th>Affects</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td><strong>Input length</strong></td><td>Time to first token</td><td>Cut retrieved context; rerank; enable prompt caching on the stable prefix</td></tr>
+<tr><td><strong>Output length</strong></td><td>Total duration — generation is sequential</td><td>Concise formats, sensible <code>maxTokens</code>, stop sequences</td></tr>
+<tr><td><strong>Model size</strong></td><td>Both</td><td>Smaller or latency-optimised model for the fast path</td></tr>
+<tr><td><strong>Retrieval</strong></td><td>Pre-model time</td><td>Lower top-k; right-size the vector store</td></tr>
+<tr><td><strong>Agent hops</strong></td><td>Multiplies everything</td><td>Fewer tools (shorter prompt, simpler decision), a faster orchestration model, bound iterations</td></tr>
+<tr><td><strong>Perception</strong></td><td>What the user experiences</td><td><strong>Stream.</strong> No token cost change, large UX change</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+  <div class="co-title">A p99 that is 15× the p50</div>
+  A long tail almost always means <em>some requests have much larger inputs</em>. Cap the total retrieved context so no single request can blow the latency budget, and then find the structural cause — usually a handful of oversized parent chunks, or documents that chunked badly. Raising <code>maxTokens</code> makes it worse.
+</div>
+</section>
+
+<section id="d4-attribution">
+<h2><span class="num">5</span>Cost observability and control</h2>
+
+<h3>Attribution</h3>
+<p><strong>Application inference profiles</strong> are the mechanism: one per application or team, tagged, so Cost Explorer and CloudWatch break spend and token usage down per profile. Without them a shared account's Bedrock line is a single opaque number and no one is accountable for growth.</p>
+
+<h3>The metrics that matter</h3>
+<ul>
+  <li>Input tokens per request, over time — the leading indicator of cost growth</li>
+  <li>Output tokens per request, over time</li>
+  <li>Invocation count, latency and throttle count per model</li>
+  <li>Spend per application inference profile</li>
+</ul>
+
+<div class="callout exam">
+  <div class="co-title">"Cost tripled overnight, request volume unchanged"</div>
+  Requests flat plus cost up means <strong>each request got bigger</strong>. Three usual suspects: top-k or chunk size was raised, conversation history became unbounded, or a tool started returning a much larger payload. Confirm in minutes with per-profile input-token metrics — that is precisely what profiles are for.
+</div>
+
+<h3>Preventive controls</h3>
+<ul>
+  <li><strong>AWS Budgets</strong> with alerts, and budget actions where appropriate</li>
+  <li><strong>IAM scoped to cheap model ARNs</strong> for experimental workloads — so the experiment structurally cannot reach a frontier model</li>
+  <li><strong>Input length caps and rate limits</strong> at API Gateway, and WAF rate-based rules, so an abusive caller cannot run up your bill</li>
+</ul>
+</section>
+
+<section id="d4-waste">
+<h2><span class="num">6</span>Eliminating waste, not just discounting it</h2>
+
+<p>A distinct category, and one the exam likes because the tempting answers all discount the wrong thing.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Waste</th><th>Wrong instinct</th><th>Right fix</th></tr></thead>
+<tbody>
+<tr><td>Nightly job re-summarises documents already summarised</td><td>Move it to a cheaper model</td><td><strong>Change detection.</strong> Hash or timestamp the content, persist previous outputs, process only the delta. Cheaper waste is still waste</td></tr>
+<tr><td>Ingestion re-embeds the whole corpus for a 2% delta</td><td>Reduce embedding dimensions</td><td><strong>Incremental sync.</strong> Almost always caused by a pipeline that recreates the data source instead of syncing it</td></tr>
+<tr><td>Chunks 6–10 of top-10 never appear in any answer</td><td>Keep them "for safety"</td><td><strong>Cut top-k to 5 and measure.</strong> Unused context is paid-for noise that also dilutes attention</td></tr>
+<tr><td>Three sequential model calls where one would do</td><td>Optimise each call</td><td><strong>Collapse the steps</strong> using structured output — then verify quality held</td></tr>
+<tr><td>Unbounded conversation history</td><td>Buy a bigger context window</td><td><strong>Rolling summarisation</strong> or a managed memory store</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="d4-not-minimisation">
+<h2><span class="num">7</span>Optimisation is not minimisation</h2>
+
+<p>The exam will offer you an option that saves money and breaks the stated requirement. Recognise it.</p>
+
+<p>Legitimate reasons to spend <em>more</em>:</p>
+<ul>
+  <li>The task requires multi-step reasoning that small models fail at</li>
+  <li>The cost of a wrong answer is high — legal, medical, financial, safety consequences</li>
+  <li>Latency requirements need Provisioned Throughput or a priority tier</li>
+  <li>Compliance requires a region or configuration that happens to be more expensive</li>
+  <li>Measurement shows the extra context genuinely earns its cost</li>
+</ul>
+
+<div class="callout tip">
+  <div class="co-title">The framing that gets it right</div>
+  When error cost dominates inference cost, the expensive model <em>is</em> the cheap option. Saying so — rather than reflexively picking the smallest model — is what a professional-level answer looks like.
+</div>
+</section>
+
+<section id="d4-check">
+<h2><span class="num">8</span>Domain 4 check</h2>
+<p>Six questions. Aim for five.</p>
+<div data-checkq="d4-001,d4-005,d4-013,d4-021,d4-022,d4-030"></div>
+<div class="btn-row" style="margin-top:20px">
+  <a class="btn btn-ghost" href="practice.html">Drill all 30 Domain 4 questions →</a>
+</div>
+</section>

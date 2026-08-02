@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<title>Question bank and exam simulator · AIP-C01 Field Manual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="A complete, beginner-friendly study guide for the AWS Certified Generative AI Developer - Professional (AIP-C01) exam: full curriculum, diagrams, labs and a question bank.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A7%A0%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+<script src="assets/data/questions.js" defer></script>
+<script src="assets/data/q-d0.js" defer></script>
+<script src="assets/data/q-d1.js" defer></script>
+<script src="assets/data/q-d2.js" defer></script>
+<script src="assets/data/q-d3.js" defer></script>
+<script src="assets/data/q-d4.js" defer></script>
+<script src="assets/data/q-d5.js" defer></script>
+<script src="assets/data/flashcards.js" defer></script>
+<script src="assets/data/searchindex.js" defer></script>
+<script src="assets/js/charts.js" defer></script>
+<script src="assets/js/interactive.js" defer></script>
+<script src="assets/js/quiz.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+</head>
+<body data-page="practice">
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menuBtn" aria-label="Toggle navigation">☰</button>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">AIP</span>
+    <span class="brand-text"><strong>AIP-C01 Field Manual</strong><em>AWS Certified Generative AI Developer – Professional</em></span>
+  </a>
+  <div class="topbar-right">
+    <div class="search-wrap">
+      <input id="siteSearch" type="search" placeholder="Search the guide…  /" autocomplete="off" spellcheck="false">
+      <div id="searchResults" class="search-results" hidden></div>
+    </div>
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle light/dark">◐</button>
+  </div>
+</header>
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="progress-card">
+      <div class="ring-wrap"><svg class="ring" viewBox="0 0 44 44"><circle class="ring-bg" cx="22" cy="22" r="19"></circle><circle class="ring-fg" id="ringFg" cx="22" cy="22" r="19"></circle></svg><span id="ringPct">0%</span></div>
+      <div class="progress-meta"><strong id="progressLabel">Your progress</strong><span id="progressSub">0 of 0 sections read</span></div>
+    </div>
+    <nav class="nav"><div class="nav-group">Orientation</div>
+<a class="nav-link" href="index.html" data-slug="index"><span class="nav-dot" data-dot="index"></span><span class="nav-label">Start here</span><span class="nav-mins">12m</span></a>
+<a class="nav-link" href="exam.html" data-slug="exam"><span class="nav-dot" data-dot="exam"></span><span class="nav-label">The exam</span><span class="nav-mins">18m</span></a>
+<a class="nav-link" href="studyplan.html" data-slug="studyplan"><span class="nav-dot" data-dot="studyplan"></span><span class="nav-label">Study plans</span><span class="nav-mins">10m</span></a>
+<div class="nav-group">Learn</div>
+<a class="nav-link" href="foundations.html" data-slug="foundations"><span class="nav-dot" data-dot="foundations"></span><span class="nav-label">Module 0</span><span class="nav-mins">95m</span></a>
+<a class="nav-link" href="domain1.html" data-slug="domain1"><span class="nav-dot" data-dot="domain1"></span><span class="nav-label">Domain 1 · 31%</span><span class="nav-mins">120m</span></a>
+<a class="nav-link" href="domain2.html" data-slug="domain2"><span class="nav-dot" data-dot="domain2"></span><span class="nav-label">Domain 2 · 26%</span><span class="nav-mins">110m</span></a>
+<a class="nav-link" href="domain3.html" data-slug="domain3"><span class="nav-dot" data-dot="domain3"></span><span class="nav-label">Domain 3 · 20%</span><span class="nav-mins">85m</span></a>
+<a class="nav-link" href="domain4.html" data-slug="domain4"><span class="nav-dot" data-dot="domain4"></span><span class="nav-label">Domain 4 · 12%</span><span class="nav-mins">60m</span></a>
+<a class="nav-link" href="domain5.html" data-slug="domain5"><span class="nav-dot" data-dot="domain5"></span><span class="nav-label">Domain 5 · 11%</span><span class="nav-mins">55m</span></a>
+<div class="nav-group">Reference</div>
+<a class="nav-link" href="services.html" data-slug="services"><span class="nav-dot" data-dot="services"></span><span class="nav-label">Service atlas</span><span class="nav-mins">45m</span></a>
+<div class="nav-group">Practice</div>
+<a class="nav-link" href="labs.html" data-slug="labs"><span class="nav-dot" data-dot="labs"></span><span class="nav-label">Hands-on labs</span><span class="nav-mins">180m</span></a>
+<a class="nav-link active" href="practice.html" data-slug="practice"><span class="nav-dot" data-dot="practice"></span><span class="nav-label">Question bank</span><span class="nav-mins">240m</span></a>
+<a class="nav-link" href="flashcards.html" data-slug="flashcards"><span class="nav-dot" data-dot="flashcards"></span><span class="nav-label">Flashcards</span><span class="nav-mins">40m</span></a>
+<a class="nav-link" href="cheatsheet.html" data-slug="cheatsheet"><span class="nav-dot" data-dot="cheatsheet"></span><span class="nav-label">Cram sheet</span><span class="nav-mins">30m</span></a>
+<a class="nav-link" href="glossary.html" data-slug="glossary"><span class="nav-dot" data-dot="glossary"></span><span class="nav-label">Glossary</span><span class="nav-mins">25m</span></a></nav>
+    <button class="reset-btn" id="resetProgress">Reset progress</button>
+  </aside>
+  <main class="content" id="content">
+    <article class="page" data-page="practice">
+<div class="page-head"><div class="crumb">Practice</div><h1>Question bank and exam simulator</h1><div class="page-meta"><span class="pill">≈240 min</span><span class="pill pill-ghost" id="pageReadState-practice">not started</span></div></div><nav class="toc"><div class="toc-title">On this page</div><a href="#q-bank" data-toc="q-bank">Question bank</a><a href="#q-howto" data-toc="q-howto">How to get value out of this</a></nav><section id="q-bank"><button class="read-toggle" data-read="q-bank" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">1</span>Question bank</h2>
+
+<div class="callout info">
+  <div class="co-title">Every question here is original</div>
+  Written against the published AIP-C01 exam guide — its five domains, their task statements and their weightings — in the same scenario-driven style the professional exams use. Nothing is recalled, scraped or reproduced from a real exam. Using leaked exam content breaks the AWS Certification Agreement, gets certifications revoked, and teaches you none of the reasoning that scenario questions actually test.
+</div>
+
+<div class="grid grid-3" style="margin-bottom:22px">
+  <div class="stat"><div class="stat-val" style="color:var(--accent)">252</div><div class="stat-lbl">questions</div><div class="stat-sub">30 foundations + 222 blueprint-mapped</div></div>
+  <div class="stat"><div class="stat-val">100%</div><div class="stat-lbl">explained</div><div class="stat-sub">including why each wrong option is wrong</div></div>
+  <div class="stat"><div class="stat-val">75</div><div class="stat-lbl">per mock exam</div><div class="stat-sub">weighted like the real blueprint</div></div>
+</div>
+
+<div class="diagram">
+  <div class="chart" data-chart="hbar" data-series='[
+    {"label":"D1 · FM integration, data","value":62,"color":"--accent"},
+    {"label":"D2 · Implementation","value":55,"color":"--cyan"},
+    {"label":"D3 · Safety & governance","value":45,"color":"--violet"},
+    {"label":"D4 · Operational efficiency","value":30,"color":"--green"},
+    {"label":"D5 · Testing & troubleshooting","value":30,"color":"--amber"},
+    {"label":"Module 0 · foundations","value":30,"color":"--pink"}
+  ]' data-opts='{"max":70,"labelWidth":210}'></div>
+  <div class="cap">Bank composition. Mock exams sample the five real domains at their published weightings; foundations questions are excluded from mocks on purpose.</div>
+</div>
+
+<div data-quiz></div>
+</section>
+
+<section id="q-howto"><button class="read-toggle" data-read="q-howto" title="Mark this section as read"><span class="rt-box"></span><span class="rt-label">Mark read</span></button>
+<h2><span class="num">2</span>How to get value out of this</h2>
+
+<div class="two-col">
+  <div class="card">
+    <div class="card-title">✅ Do</div>
+    <ul class="checklist" style="font-size:13.5px;margin-bottom:0">
+      <li>Read the explanation even when you were right — you may have been right for the wrong reason, which will not survive a rephrased stem</li>
+      <li>Read the per-option explanations. Knowing why B is wrong is what lets you eliminate B's cousin next time</li>
+      <li>Use <strong>Retry missed</strong> repeatedly until that list is empty</li>
+      <li>Drill a single domain while you are learning it; save full mocks for after you have covered everything</li>
+      <li>Take at least one mock in a single uninterrupted 180-minute sitting</li>
+    </ul>
+  </div>
+  <div class="card">
+    <div class="card-title">🚫 Don't</div>
+    <ul class="checklist x" style="font-size:13.5px;margin-bottom:0">
+      <li>Grind questions without reading explanations — that is measuring, not learning</li>
+      <li>Take mock after mock hoping the score drifts up. If a domain is under 72%, go back to the module</li>
+      <li>Memorise which letter is correct. The bank shuffles, and so does the real exam</li>
+      <li>Treat a good score on questions you have already seen as evidence of anything</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Reading your results</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Scaled score</th><th>What it means</th><th>What to do next</th></tr></thead>
+<tbody>
+<tr><td><strong>850+</strong></td><td>Comfortable margin</td><td>Book the exam. Keep drilling flashcards to stay sharp</td></tr>
+<tr><td><strong>780–849</strong></td><td>Should pass, with margin for a bad day</td><td>Fix the weakest domain, then confirm with one more mock</td></tr>
+<tr><td><strong>720–779</strong></td><td>Inside the noise band — a coin flip on the day</td><td>Do not book yet. Two weakest domains, re-read, re-drill</td></tr>
+<tr><td><strong>Below 720</strong></td><td>Real gaps</td><td>Back to the modules. More questions will not fix missing understanding</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="co-title">A caveat about the scaled score</div>
+  AWS reports 100–1000 with 750 to pass, but does not publish the raw-to-scaled mapping and applies psychometric scaling per exam form. The score here is a straightforward linear mapping of your percentage — useful as a consistent yardstick against itself, not a prediction of your official score. Treat 800 here as the safe target, not 750.
+</div>
+
+<h3>Your storage, your data</h3>
+<p>Progress, missed questions and attempt history are stored in this browser's <code>localStorage</code>. Nothing is uploaded anywhere. Clearing site data or using a different browser starts you fresh; <strong>Reset progress</strong> in the sidebar does it deliberately.</p>
+</section>
+
+<nav class="prevnext">
+<a class="pn pn-prev" href="labs.html"><span>← Previous</span><strong>Hands-on labs</strong></a>
+<a class="pn pn-next" href="flashcards.html"><span>Next →</span><strong>Flashcards</strong></a>
+</nav>
+    </article>
+<footer class="site-footer">
+  <div>
+    <strong>Built as a study aid, not as exam content.</strong>
+    Every practice question here is original, written against the published AIP-C01 exam guide.
+    Nothing on this site is recalled, leaked or reproduced real exam material — using such material
+    violates the AWS Certification agreement and gets certifications revoked.
+  </div>
+  <div class="footer-links">
+    <a href="https://aws.amazon.com/certification/certified-generative-ai-developer-professional/" target="_blank" rel="noopener">Official cert page</a>
+    <a href="https://docs.aws.amazon.com/pdfs/aws-certification/latest/ai-professional-01/ai-professional-01.pdf" target="_blank" rel="noopener">Official exam guide (PDF)</a>
+    <a href="https://skillbuilder.aws/category/exam-prep/generative-ai-developer-professional-AIP-C01" target="_blank" rel="noopener">AWS Skill Builder</a>
+  </div>
+  <div class="footer-meta">Service behaviour and pricing change fast — always confirm against current AWS docs before an exam booking.</div>
+</footer>
+  </main>
+</div>
+<div class="scrim" id="scrim"></div>
+</body>
+</html>

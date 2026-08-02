@@ -1,0 +1,380 @@
+<div class="callout info">
+  <div class="co-title">Who this module is for</div>
+  Someone who has never written a line of AWS code and has never used an AI model beyond typing into a chat box. If that is not you, skim — but do not skip. The mental models here (statelessness, the customisation ladder, what a token costs) are what the exam's scenario questions are really testing, and experienced engineers routinely have holes in exactly these places.
+</div>
+
+<section id="nesting">
+<h2><span class="num">1</span>AI, machine learning, deep learning, generative AI</h2>
+
+<p>Four words people use interchangeably. They nest, largest to smallest:</p>
+
+<div class="diagram">
+<svg viewBox="0 0 620 250" aria-label="Nested boxes: AI contains machine learning, which contains deep learning, which contains generative AI">
+  <rect x="10" y="10" width="600" height="230" rx="14" fill="none" stroke="#ff9900" stroke-width="2"/>
+  <text x="24" y="34" fill="#ff9900" font-size="14" font-weight="700">Artificial intelligence</text>
+  <text x="24" y="52" fill="#a7b4c9" font-size="11.5">any system doing something that looks intelligent — including hand-written rules</text>
+
+  <rect x="34" y="62" width="552" height="166" rx="12" fill="none" stroke="#35d0d6" stroke-width="2"/>
+  <text x="48" y="86" fill="#35d0d6" font-size="14" font-weight="700">Machine learning</text>
+  <text x="48" y="104" fill="#a7b4c9" font-size="11.5">the behaviour is learned from data instead of written by a programmer</text>
+
+  <rect x="58" y="114" width="504" height="102" rx="10" fill="none" stroke="#9b7bff" stroke-width="2"/>
+  <text x="72" y="138" fill="#9b7bff" font-size="14" font-weight="700">Deep learning</text>
+  <text x="72" y="156" fill="#a7b4c9" font-size="11.5">learning with many-layered neural networks</text>
+
+  <rect x="82" y="166" width="456" height="40" rx="8" fill="rgba(70,209,139,.14)" stroke="#46d18b" stroke-width="2"/>
+  <text x="96" y="191" fill="#46d18b" font-size="14" font-weight="700">Generative AI — models that produce new content: text, images, audio, code</text>
+</svg>
+<div class="cap">Every generative model is a deep learning model. Not every machine learning model is generative — a fraud classifier is ML and is not generative.</div>
+</div>
+
+<h3>What changed to make generative AI a thing</h3>
+<p>Two shifts. First, the <strong>transformer</strong> architecture (2017) made it practical to train on enormous text corpora. Second, people discovered that if you make these models big enough and train them on enough text, they acquire general capability — one model that can summarise, translate, classify, write code and reason, without being trained for each task separately.</p>
+
+<p>That generality is what makes them "foundation" models. The old way was one labelled dataset and one training run per task. The new way is one pre-trained model that you <em>adapt</em>.</p>
+
+<div class="callout analogy">
+  <div class="co-title">Analogy</div>
+  A traditional ML model is a purpose-built tool: a corkscrew. Excellent at one job, useless at everything else. A foundation model is a graduate who has read most of the internet: not an expert in your business, but able to attempt almost anything if you explain the task — and much better if you hand them the relevant documents.
+</div>
+</section>
+
+<section id="how-it-works">
+<h2><span class="num">2</span>How a language model actually generates text</h2>
+
+<p>This is worth understanding properly, because almost every counter-intuitive behaviour in the exam falls out of it.</p>
+
+<p>A language model does exactly one thing: <strong>given a sequence of tokens, predict a probability distribution over what the next token should be.</strong> That is it. Everything else — answering questions, writing code, reasoning through a problem — is that single operation applied repeatedly.</p>
+
+<div class="flow">
+  <div class="flow-step"><b>1. Input</b><span>Your prompt becomes a sequence of token IDs</span></div>
+  <div class="flow-step"><b>2. Forward pass</b><span>The network computes a score for every token in its vocabulary</span></div>
+  <div class="flow-step"><b>3. Sample</b><span>One token is chosen from that distribution</span></div>
+  <div class="flow-step"><b>4. Append</b><span>The chosen token is added to the sequence</span></div>
+  <div class="flow-step"><b>5. Repeat</b><span>Until a stop condition — end token, stop sequence, or maxTokens</span></div>
+</div>
+
+<p>Three consequences you should carry into every exam question:</p>
+
+<ul>
+  <li><strong>Generation is sequential.</strong> Input is processed in one parallel pass, but output comes out one token at a time. This is why output tokens dominate latency, and why streaming exists.</li>
+  <li><strong>The model has no idea whether it is right.</strong> It produces the most plausible continuation. Plausible and true are different properties, and nothing in the architecture distinguishes them.</li>
+  <li><strong>There is no lookup.</strong> The model is not consulting a database. Everything it "knows" is compressed into fixed weights from training. That is why facts go stale and why RAG exists.</li>
+</ul>
+
+<div class="callout info">
+  <div class="co-title">A useful thing to understand about attention</div>
+  The transformer's key trick is <em>attention</em>: when computing each token, the model weighs every other token in the input by relevance. This is what lets it connect a pronoun to a noun twenty sentences earlier. It also has a cost — attention work grows roughly with the square of input length, which is why very long prompts are disproportionately slow and expensive, and why models attend unevenly across long inputs. That last point has a name: <strong>lost in the middle</strong>, and it is the reason you put critical instructions at the end of a long prompt.
+</div>
+</section>
+
+<section id="tokens">
+<h2><span class="num">3</span>Tokens — the unit of everything</h2>
+
+<p>Models do not see characters or words. They see <strong>tokens</strong>: subword pieces from a fixed vocabulary, typically 30,000–200,000 entries. Common words are one token. Rare words split into pieces. Whitespace usually attaches to the token that follows it.</p>
+
+<p>Tokens are the unit of billing, the unit of the context window, and the unit of most limits you will hit. Get a feel for them:</p>
+
+<div class="widget" data-widget="tokenizer"></div>
+
+<h3>Why this matters commercially</h3>
+<p>You pay per token, input and output separately, with output typically 3–5× the input rate. A RAG application that injects 20,000 tokens of retrieved context into every request pays for those 20,000 tokens on <em>every single call</em>, forever. At a million calls a month that is a meaningful line item, and it is why Domain 4 exists.</p>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Content type</th><th>Rough tokens per 1,000 characters</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>English prose</td><td class="num">~250</td><td>The familiar 4-characters-per-token rule</td></tr>
+<tr><td>Code</td><td class="num">~330</td><td>Punctuation and identifiers fragment</td></tr>
+<tr><td>JSON</td><td class="num">~400–500</td><td>Braces, quotes and keys are expensive. Never paste raw API responses into prompts if you can help it</td></tr>
+<tr><td>CJK / non-Latin scripts</td><td class="num">~500–1000</td><td>Often close to one token per character</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout warn">
+  <div class="co-title">Tokenizers differ between models</div>
+  The same paragraph might be 210 tokens on one model family and 240 on another. This means you cannot compare provider prices on character counts — you have to measure on real payloads. Exam-wise: you will never be asked to recall a token count, but you may be asked to reason about why two models cost differently for the same text.
+</div>
+</section>
+
+<section id="sampling">
+<h2><span class="num">4</span>Temperature, top-p and top-k</h2>
+
+<p>The model produces a probability for every token. These three parameters decide how that distribution gets turned into one actual choice. Play with them until the behaviour is intuitive:</p>
+
+<div class="widget" data-widget="sampler"></div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Parameter</th><th>What it does</th><th>Set it to</th></tr></thead>
+<tbody>
+<tr><td><code>temperature</code></td><td>Rescales the distribution. Low = peaked (top token dominates). High = flat (unlikely tokens get real mass).</td><td><strong>0–0.2</strong> for classification, extraction, routing, SQL, evaluation. <strong>0.5–0.8</strong> for RAG answers and assistants. <strong>1.0+</strong> for brainstorming.</td></tr>
+<tr><td><code>topP</code></td><td>Nucleus sampling — keep the smallest set of tokens whose cumulative probability reaches p. Adaptive to model confidence.</td><td>Leave at 1.0 unless you have a reason. Tune temperature <em>or</em> top-p, not both.</td></tr>
+<tr><td><code>topK</code></td><td>Keep exactly the k most likely tokens. Fixed regardless of confidence.</td><td>Rarely needed. Not supported by every model.</td></tr>
+<tr><td><code>maxTokens</code></td><td>Hard ceiling on generated tokens.</td><td>Set deliberately. Too low truncates mid-sentence; too high lets a runaway generation cost you real money.</td></tr>
+<tr><td><code>stopSequences</code></td><td>Stop as soon as one of these strings appears.</td><td>Useful for format control. Careful with JSON — a <code>}</code> stop sequence will cut off nested objects.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+  <div class="co-title">Exam angle</div>
+  The examinable point is not the parameter definitions — it is the <em>consequence</em>. "Users report inconsistent answers to identical questions" with temperature at 0.9 is a sampling problem, and lowering temperature is the first, cheapest thing to try. Likewise, evaluation runs must be at temperature 0 or your scores are measuring noise.
+</div>
+</section>
+
+<section id="context">
+<h2><span class="num">5</span>The context window</h2>
+
+<p>The context window is the total number of tokens a model can consider in one request. Crucially, <strong>everything shares it</strong>: system instructions, tool definitions, conversation history, retrieved documents, the user's question, and the space reserved for the answer.</p>
+
+<div class="widget" data-widget="contextbudget"></div>
+
+<p>A large context window is a capability, not a strategy. Filling one has three costs:</p>
+<ul>
+  <li><strong>Money</strong> — you pay for every input token, on every call</li>
+  <li><strong>Latency</strong> — time-to-first-token scales with input length</li>
+  <li><strong>Quality</strong> — the lost-in-the-middle effect means material buried in a long input is recalled less reliably than material at the start or the end</li>
+</ul>
+
+<p>That third point is counter-intuitive and is why "just retrieve more chunks" is usually the wrong answer to a quality problem. Precision beats volume.</p>
+</section>
+
+<section id="hallucination">
+<h2><span class="num">6</span>Why models make things up, and what to do about it</h2>
+
+<p>A hallucination is fluent, confident output that is not supported by fact or by your sources. It is not a bug in a particular model — it is a direct consequence of next-token prediction. The model is optimising for plausibility. A fabricated policy number is extremely plausible text.</p>
+
+<h3>The four things that reduce it</h3>
+
+<div class="grid grid-2">
+  <div class="card"><div class="card-title">1. Grounding (RAG)</div><p style="font-size:13.5px;margin-bottom:0">Put the authoritative source material in the prompt and instruct the model to answer only from it. This is the big one, and it is what Domain 1 is largely about.</p></div>
+  <div class="card"><div class="card-title">2. An explicit escape hatch</div><p style="font-size:13.5px;margin-bottom:0">"If the passages do not contain the answer, reply exactly: I don't have that in my sources." Models invent partly because nothing in the prompt permits them to fail. One sentence, large effect.</p></div>
+  <div class="card"><div class="card-title">3. Low temperature</div><p style="font-size:13.5px;margin-bottom:0">Less sampling from the tail means fewer creative departures from the evidence.</p></div>
+  <div class="card"><div class="card-title">4. Automated verification</div><p style="font-size:13.5px;margin-bottom:0">Bedrock Guardrails' <strong>contextual grounding check</strong> scores whether the answer is supported by the retrieved passages and blocks it if not. <strong>Automated Reasoning checks</strong> go further and verify claims against a policy using formal logic.</p></div>
+</div>
+
+<div class="callout warn">
+  <div class="co-title">Nothing eliminates hallucination</div>
+  If an exam option claims a control "prevents all hallucinations" or "guarantees accuracy", that phrasing alone is usually enough to eliminate it. These are risk-reduction layers, not proofs — with the narrow exception of Automated Reasoning checks, which do provide formal verification against a defined policy, and which is exactly why they are worth remembering as a distinct thing.
+</div>
+</section>
+
+<section id="embeddings">
+<h2><span class="num">7</span>Embeddings, vectors and similarity</h2>
+
+<p>An <strong>embedding model</strong> is a different kind of model: instead of generating text, it converts text into a fixed-length list of numbers — a <strong>vector</strong>. The useful property is that text with similar meaning produces vectors pointing in a similar direction.</p>
+
+<p>Similarity is measured with <strong>cosine similarity</strong>: the angle between two vectors, from 1 (identical direction) through 0 (unrelated) to −1 (opposite). Try it:</p>
+
+<div class="widget" data-widget="similarity"></div>
+
+<h3>Why this is the foundation of retrieval</h3>
+<p>Take a thousand documents, split them into chunks, embed each chunk, store the vectors. When a question arrives, embed the question and find the stored vectors closest to it. Those chunks are, semantically, the most relevant text you have. That is <strong>the entire idea behind RAG</strong>, and everything in Domain 1 is refinement on top of it.</p>
+
+<div class="callout info">
+  <div class="co-title">Two facts to lock in now</div>
+  <p><strong>1. Query and documents must be embedded by the same model.</strong> Vectors from different models occupy incompatible spaces; comparing them produces meaningless numbers. Changing embedding model means re-indexing everything. This appears on the exam.</p>
+  <p style="margin-bottom:0"><strong>2. A vector database is just a fast nearest-neighbour engine.</strong> Comparing against ten million vectors one by one is too slow, so it builds an approximate index (usually HNSW) that finds very-nearly-nearest neighbours in logarithmic time.</p>
+</div>
+</section>
+
+<section id="prompting">
+<h2><span class="num">8</span>Prompting — the parts of a prompt and what each earns</h2>
+
+<p>A production prompt is not a question. It is a structured document. Toggle the components below and read why each one costs tokens for a reason:</p>
+
+<div class="widget" data-widget="promptlab"></div>
+
+<h3>The techniques worth knowing by name</h3>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Technique</th><th>What it is</th><th>Use when</th></tr></thead>
+<tbody>
+<tr><td><strong>Zero-shot</strong></td><td>Just the instruction, no examples</td><td>The task is simple and the model already does it well</td></tr>
+<tr><td><strong>Few-shot</strong></td><td>2–5 worked input/output examples in the prompt</td><td>You need a specific output format or edge-case handling. Highest leverage technique after stating the task clearly</td></tr>
+<tr><td><strong>Chain-of-thought</strong></td><td>"Think step by step before answering"</td><td>Multi-hop reasoning, arithmetic, anything with intermediate steps. Costs output tokens and latency — do not apply it to lookups</td></tr>
+<tr><td><strong>ReAct</strong></td><td>Reason → Act (call a tool) → Observe → repeat</td><td>The loop underneath tool-using agents. Bedrock Agents implement it for you</td></tr>
+<tr><td><strong>Self-consistency</strong></td><td>Sample several answers, take the majority</td><td>High-stakes reasoning where you can afford several calls</td></tr>
+<tr><td><strong>Structured output</strong></td><td>Constrain generation to a schema via tool use</td><td>Anything a machine will parse. Far more reliable than asking for JSON in prose</td></tr>
+<tr><td><strong>Delimiting</strong></td><td>Wrap sections in XML-ish tags: <code>&lt;passages&gt;…&lt;/passages&gt;</code></td><td>Always, in RAG. It gives the model an unambiguous boundary between instruction and data — which is also a mild defence against injection</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="stateless">
+<h2><span class="num">9</span>The model has no memory</h2>
+
+<p>Every call to a model API is completely independent. The model does not remember your previous question. It cannot. There is no session on its side.</p>
+
+<p>Chat "memory" is an illusion your application creates by resending the conversation each turn:</p>
+
+<div class="code-head">turn 3 of a conversation — what actually gets sent<button class="cp-btn">copy</button></div>
+<pre><code>{
+  "system": [{"text": "You are a support assistant for Acme Cloud."}],
+  "messages": [
+    {"role": "user",      "content": [{"text": "My invoice looks wrong"}]},
+    {"role": "assistant", "content": [{"text": "Happy to help. Which invoice number?"}]},
+    {"role": "user",      "content": [{"text": "INV-4471"}]},
+    {"role": "assistant", "content": [{"text": "That one covers March. What looks wrong?"}]},
+    {"role": "user",      "content": [{"text": "The total is higher than last month"}]}
+  ]
+}</code></pre>
+
+<p>Three consequences:</p>
+<ul>
+  <li><strong>Long conversations get expensive.</strong> Every turn resends everything before it. Cost per turn grows roughly linearly with conversation length.</li>
+  <li><strong>Conversations eventually overflow the context window.</strong> Something must give: usually the oldest turns are dropped, silently, and the assistant appears to "forget". This is a real exam scenario.</li>
+  <li><strong>Real memory has to be built.</strong> Roll older turns into a summary, or use a managed store like <strong>AgentCore Memory</strong> which keeps short-term conversation state and extracts durable long-term facts across sessions.</li>
+</ul>
+</section>
+
+<section id="aws-basics">
+<h2><span class="num">10</span>AWS in twenty minutes — only the parts you need</h2>
+
+<p>If you have used AWS, skip to section 11. If not, here is the minimum model of AWS that the rest of this guide assumes.</p>
+
+<h3>Accounts and regions</h3>
+<p>An <strong>AWS account</strong> is a billing and isolation boundary. Inside it, almost everything lives in a <strong>region</strong> — a geographic cluster of data centres like <code>us-east-1</code> (N. Virginia) or <code>eu-west-1</code> (Ireland). Regions matter enormously here for three reasons: <strong>not every foundation model is available in every region</strong>, <strong>not every feature is either</strong>, and <strong>where you run inference determines where your data is processed</strong>. That last one is a compliance question, and it shows up repeatedly in Domain 1 and Domain 3.</p>
+
+<h3>The services you will actually touch</h3>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Service</th><th>What it is</th><th>Its role in a GenAI app</th></tr></thead>
+<tbody>
+<tr><td><strong>IAM</strong></td><td>Identity and Access Management — who can do what</td><td>Controls which principals may invoke which models, in which regions. A <em>role</em> is a set of permissions that a service (like a Lambda) assumes. Least privilege is the rule.</td></tr>
+<tr><td><strong>Amazon S3</strong></td><td>Object storage — files in buckets, effectively infinite</td><td>Where your source documents live. A knowledge base points at an S3 prefix. Also where batch inference reads input and writes output.</td></tr>
+<tr><td><strong>AWS Lambda</strong></td><td>Run code without managing servers; billed per millisecond</td><td>The glue. Backs API endpoints, implements the tools an agent calls, does custom chunking. <strong>15-minute maximum</strong> — remember that limit, it decides architectures.</td></tr>
+<tr><td><strong>Amazon API Gateway</strong></td><td>Managed HTTP/WebSocket front door</td><td>Authentication, throttling, usage plans. Note the ~29-second integration timeout for REST — long generations need streaming or async.</td></tr>
+<tr><td><strong>Amazon CloudWatch</strong></td><td>Metrics, logs, alarms, dashboards</td><td>Where invocation counts, latency, token counts and errors show up. Where you alarm on throttling.</td></tr>
+<tr><td><strong>AWS CloudTrail</strong></td><td>Audit log of API calls</td><td>Who called <code>InvokeModel</code>, when, from where. Note: it records the <em>call</em>, not the prompt text.</td></tr>
+<tr><td><strong>AWS KMS</strong></td><td>Managed encryption keys</td><td>Customer managed keys for knowledge bases, custom models and vector data when a customer needs revocable control.</td></tr>
+<tr><td><strong>VPC / PrivateLink</strong></td><td>Private networking; interface endpoints for AWS services</td><td>Keeping Bedrock traffic off the public internet, and adding an endpoint policy as an extra enforcement point.</td></tr>
+<tr><td><strong>AWS Step Functions</strong></td><td>Visual state machines for orchestration</td><td>Deterministic multi-step workflows with per-step retries, error handling and long-running execution.</td></tr>
+<tr><td><strong>AWS Glue</strong></td><td>ETL and a data catalogue</td><td>Cleaning and normalising source data before it becomes a knowledge base.</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout tip">
+  <div class="co-title">If you learn one AWS concept properly, make it IAM</div>
+  Domain 3 is 20% of the exam and a large slice of it is "which control actually enforces this". The answer is almost always IAM — scoped actions on specific resource ARNs, with condition keys — rather than anything you can write in a prompt.
+</div>
+</section>
+
+<section id="genai-stack">
+<h2><span class="num">11</span>The AWS generative AI stack</h2>
+
+<p>AWS presents this as three layers. Knowing which layer a question is about eliminates half the options immediately.</p>
+
+<div class="diagram">
+<svg viewBox="0 0 640 300" aria-label="Three-layer AWS generative AI stack">
+  <rect x="20" y="16" width="600" height="76" rx="12" fill="rgba(155,123,255,.14)" stroke="#9b7bff" stroke-width="1.5"/>
+  <text x="36" y="42" fill="#9b7bff" font-size="13" font-weight="800">TOP — applications you buy and configure</text>
+  <text x="36" y="63" fill="#e6ecf7" font-size="12.5">Amazon Q Business · Amazon Q Developer · Amazon Connect AI</text>
+  <text x="36" y="81" fill="#a7b4c9" font-size="11.5">Finished products. Minimal build. Choose when the scenario says “least development effort”.</text>
+
+  <rect x="20" y="104" width="600" height="94" rx="12" fill="rgba(255,153,0,.14)" stroke="#ff9900" stroke-width="1.5"/>
+  <text x="36" y="130" fill="#ff9900" font-size="13" font-weight="800">MIDDLE — tools to build with  ← the exam lives here</text>
+  <text x="36" y="151" fill="#e6ecf7" font-size="12.5">Amazon Bedrock: model APIs · Knowledge Bases · Agents · AgentCore · Guardrails</text>
+  <text x="36" y="169" fill="#e6ecf7" font-size="12.5">Flows · Prompt Management · Evaluations · Data Automation</text>
+  <text x="36" y="187" fill="#a7b4c9" font-size="11.5">Managed building blocks. You write application code; AWS runs the models and the plumbing.</text>
+
+  <rect x="20" y="210" width="600" height="74" rx="12" fill="rgba(53,208,214,.14)" stroke="#35d0d6" stroke-width="1.5"/>
+  <text x="36" y="236" fill="#35d0d6" font-size="13" font-weight="800">BOTTOM — infrastructure to build models on</text>
+  <text x="36" y="257" fill="#e6ecf7" font-size="12.5">Amazon SageMaker AI · EC2 with accelerators (Trainium, Inferentia, GPUs)</text>
+  <text x="36" y="275" fill="#a7b4c9" font-size="11.5">Maximum control, maximum work. Choose when Bedrock genuinely cannot do it.</text>
+</svg>
+<div class="cap">AIP-C01 is overwhelmingly a middle-layer exam. When an option reaches down a layer without a stated reason, it is usually the over-engineered distractor.</div>
+</div>
+
+<h3>Bedrock versus SageMaker versus Q — the distinction the exam tests</h3>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th></th><th>Amazon Bedrock</th><th>Amazon SageMaker AI</th><th>Amazon Q</th></tr></thead>
+<tbody>
+<tr><td><strong>What it is</strong></td><td>Serverless multi-provider FM API plus managed GenAI building blocks</td><td>Full ML platform: train, tune, host any model you can containerise</td><td>Finished AI assistant products</td></tr>
+<tr><td><strong>You manage</strong></td><td>Prompts, data, configuration</td><td>Instances, containers, endpoints, scaling</td><td>Connectors and permissions</td></tr>
+<tr><td><strong>Choose when</strong></td><td>Default. You want to build a GenAI application without running infrastructure</td><td>You need a model Bedrock does not offer, or full control of training and serving</td><td>You want the product, not the platform</td></tr>
+<tr><td><strong>Exam signal</strong></td><td>"managed", "minimal operational overhead", "multiple model providers"</td><td>"custom architecture", "full control over training", "model not available on Bedrock"</td><td>"give employees a chat assistant over SharePoint with minimal development"</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="ladder">
+<h2><span class="num">12</span>The customisation ladder</h2>
+
+<p>When a model does not do what you want, there are four things you can do about it. They differ by orders of magnitude in cost and effort. <strong>The exam consistently rewards the lowest rung that solves the stated problem.</strong></p>
+
+<div class="diagram">
+  <div class="chart" data-chart="hbar" data-series='[
+    {"label":"1. Prompt engineering","value":1,"color":"--green"},
+    {"label":"2. RAG","value":8,"color":"--cyan"},
+    {"label":"3. Fine-tuning","value":60,"color":"--amber"},
+    {"label":"4. Continued pre-training","value":100,"color":"--red"}
+  ]' data-opts='{"max":100,"unit":"","labelWidth":190}'></div>
+  <div class="cap">Relative effort and cost, roughly. The gaps are real and large.</div>
+</div>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Rung</th><th>What it fixes</th><th>What it cannot fix</th><th>Time to ship</th></tr></thead>
+<tbody>
+<tr><td><strong>1. Prompt engineering</strong><br><span style="font-size:12px;color:var(--text-3)">instructions, few-shot, format</span></td><td>Wrong tone, wrong format, unclear task, inconsistent structure</td><td>Missing facts. The model cannot be prompted into knowing your Q3 policy</td><td>Minutes</td></tr>
+<tr><td><strong>2. RAG</strong><br><span style="font-size:12px;color:var(--text-3)">retrieve, then generate</span></td><td>Private, current, citable facts. Knowledge that changes. Auditability</td><td>Behaviour and style. Retrieval does not teach the model <em>how</em> to respond</td><td>Days</td></tr>
+<tr><td><strong>3. Fine-tuning</strong><br><span style="font-size:12px;color:var(--text-3)">labelled prompt/completion pairs</span></td><td>Consistent specialised behaviour, tone, format, task patterns that prompting cannot reliably elicit</td><td>Volatile facts. And you cannot cleanly delete a fact from weights</td><td>Weeks — plus Provisioned Throughput to serve it</td></tr>
+<tr><td><strong>4. Continued pre-training</strong><br><span style="font-size:12px;color:var(--text-3)">large unlabelled domain corpus</span></td><td>A genuinely alien domain vocabulary — specialised medicine, law, a proprietary language</td><td>Almost everything else, more cheaply done lower down</td><td>Months, and serious money</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout exam">
+  <div class="co-title">The two questions that decide the rung</div>
+  <p><strong>"Is the problem facts, or behaviour?"</strong> Facts → RAG. Behaviour → prompting, then fine-tuning.</p>
+  <p style="margin-bottom:0"><strong>"How often does it change?"</strong> Frequently → RAG, always. Anything that changes weekly cannot live in weights.</p>
+</div>
+</section>
+
+<section id="costs">
+<h2><span class="num">13</span>What you actually pay for</h2>
+
+<p>Five cost lines in a typical Bedrock application. The first one usually dwarfs the rest:</p>
+
+<ol>
+  <li><strong>Model inference</strong> — input tokens × input rate + output tokens × output rate</li>
+  <li><strong>Embeddings</strong> — per token, at ingestion and on every query. Cheap per call, but a large corpus re-embedded unnecessarily is real money</li>
+  <li><strong>Vector storage</strong> — OpenSearch Serverless OCUs, or S3 Vectors storage, or your Aurora instance</li>
+  <li><strong>Supporting compute</strong> — Lambda, containers, API Gateway</li>
+  <li><strong>Logging and monitoring</strong> — CloudWatch Logs ingestion is not free at volume, and prompts are large</li>
+</ol>
+
+<div class="widget" data-widget="costcalc"></div>
+
+<div class="callout warn">
+  <div class="co-title">Prices here are illustrative and editable</div>
+  Bedrock pricing changes regularly. Everything on this page is for building intuition about <em>shape</em> — the ordering of magnitudes, the input/output split, where the levers are. The exam never asks you to recall a number. Before you make a real architectural decision, check the current pricing page.
+</div>
+</section>
+
+<section id="glossary-quick">
+<h2><span class="num">14</span>Twenty terms you now know</h2>
+
+<div class="grid grid-2">
+<div class="card" style="margin:0"><div class="card-title">Concepts</div>
+<p style="font-size:13px;margin-bottom:0"><strong>Token</strong> · subword unit, the billing unit &nbsp;·&nbsp; <strong>Context window</strong> · total tokens per request &nbsp;·&nbsp; <strong>Embedding</strong> · text as a vector &nbsp;·&nbsp; <strong>Cosine similarity</strong> · angle between vectors &nbsp;·&nbsp; <strong>Temperature</strong> · sampling randomness &nbsp;·&nbsp; <strong>Top-p / top-k</strong> · candidate set trimming &nbsp;·&nbsp; <strong>Hallucination</strong> · confident unsupported output &nbsp;·&nbsp; <strong>Grounding</strong> · answering from supplied evidence &nbsp;·&nbsp; <strong>RAG</strong> · retrieve then generate &nbsp;·&nbsp; <strong>Lost in the middle</strong> · weak recall of long-input middles</p></div>
+<div class="card" style="margin:0"><div class="card-title">AWS</div>
+<p style="font-size:13px;margin-bottom:0"><strong>Bedrock</strong> · managed FM API &nbsp;·&nbsp; <strong>Knowledge Base</strong> · managed RAG &nbsp;·&nbsp; <strong>Agent</strong> · model that calls tools &nbsp;·&nbsp; <strong>Guardrail</strong> · safety policy on input and output &nbsp;·&nbsp; <strong>IAM</strong> · who can do what &nbsp;·&nbsp; <strong>S3</strong> · object storage &nbsp;·&nbsp; <strong>Lambda</strong> · serverless functions, 15 min max &nbsp;·&nbsp; <strong>Region</strong> · where it runs, and where the data is &nbsp;·&nbsp; <strong>Provisioned Throughput</strong> · dedicated capacity &nbsp;·&nbsp; <strong>Inference profile</strong> · cross-region routing, or cost attribution</p></div>
+</div>
+</section>
+
+<section id="check0">
+<h2><span class="num">15</span>Quick check</h2>
+<p>Five questions on Module 0. If you get four or more, move on to Domain 1.</p>
+<div data-checkq="d0-002,d0-005,d0-016,d0-013,d0-028"></div>
+</section>
