@@ -104,10 +104,10 @@
       '<div class="quiz-shell">' +
       '<h3 style="margin-top:0">Pick a mode</h3>' +
       '<div class="grid grid-2" style="margin-bottom:6px">' +
-        '<div class="card" style="margin:0"><div class="card-title">🎯 Full mock exam</div>' +
+        '<div class="card" style="margin:0"><div class="card-title"><span class="card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span> Full Mock Exam</div>' +
         '<p style="font-size:13.5px">75 questions, 180 minutes, domain mix weighted exactly like the real blueprint. Scaled to 100–1000 with a 750 pass mark. No feedback until you submit — same as exam day.</p>' +
         '<button class="btn" data-go="exam">Start mock exam</button></div>' +
-        '<div class="card" style="margin:0"><div class="card-title">📖 Practice mode</div>' +
+        '<div class="card" style="margin:0"><div class="card-title"><span class="card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></span> Practice Mode</div>' +
         '<p style="font-size:13.5px">Instant feedback and a full explanation after every question, including why each wrong option is wrong. This is where the learning happens.</p>' +
         '<div class="btn-row" style="margin:0"><button class="btn" data-go="practice20">20 mixed</button><button class="btn btn-ghost" data-go="practiceAll">All ' + total + '</button></div></div>' +
       '</div>' +

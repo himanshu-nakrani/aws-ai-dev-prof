@@ -44,7 +44,7 @@ aws budgets create-budget \
 <pre><code>import boto3, json
 
 REGION = "us-east-1"
-MODEL  = "anthropic.claude-sonnet-4-5-20250929-v1:0"   # swap for one you have access to
+MODEL  = "anthropic.claude-3-5-sonnet-20241022-v2:0"   # swap for one you have access to (or us.anthropic.claude-3-5-sonnet-20241022-v2:0)
 brt = boto3.client("bedrock-runtime", region_name=REGION)
 
 SYSTEM = [{"text": "You are a concise technical assistant. Answer in at most three sentences."}]
@@ -134,7 +134,7 @@ aws s3 sync corpus "s3://$BUCKET/corpus/"</code></pre>
 
 REGION = "us-east-1"
 KB_ID  = "XXXXXXXXXX"          # from the console
-MODEL_ARN = f"arn:aws:bedrock:{REGION}::foundation-model/anthropic.claude-sonnet-4-5-20250929-v1:0"
+MODEL_ARN = f"arn:aws:bedrock:{REGION}::foundation-model/anthropic.claude-3-5-sonnet-20241022-v2:0"
 
 agent = boto3.client("bedrock-agent-runtime", region_name=REGION)
 
@@ -231,7 +231,7 @@ for name, kb in KBS.items():
 <pre><code>import boto3, json, datetime
 
 brt = boto3.client("bedrock-runtime", region_name="us-east-1")
-MODEL = "anthropic.claude-sonnet-4-5-20250929-v1:0"
+MODEL = "anthropic.claude-3-5-sonnet-20241022-v2:0"
 
 ORDERS = {
     "ORD-44712": {"status": "in_transit", "carrier": "DHL", "eta": "2026-08-05"},
@@ -355,7 +355,7 @@ ATTACKS = [
 
 for a in ATTACKS:
     r = brt.converse(
-        modelId="anthropic.claude-sonnet-4-5-20250929-v1:0",
+        modelId="anthropic.claude-3-5-sonnet-20241022-v2:0",
         messages=[{"role": "user", "content": [{"text": a}]}],
         guardrailConfig={"guardrailIdentifier": GID, "guardrailVersion": GVER,
                          "trace": "enabled"},
@@ -382,7 +382,7 @@ for a in ATTACKS:
 
 brt   = boto3.client("bedrock-runtime", region_name="us-east-1")
 agent = boto3.client("bedrock-agent-runtime", region_name="us-east-1")
-JUDGE = "anthropic.claude-sonnet-4-5-20250929-v1:0"
+JUDGE = "anthropic.claude-3-5-sonnet-20241022-v2:0"
 
 GOLDEN = [
     {"q": "Does the 30-day refund window apply to enterprise customers?",
@@ -449,7 +449,7 @@ p = bedrock.create_inference_profile(
     inferenceProfileName="study-lab-app",
     description="Cost attribution for the study lab",
     modelSource={"copyFrom": "arn:aws:bedrock:us-east-1::foundation-model/"
-                             "anthropic.claude-sonnet-4-5-20250929-v1:0"},
+                             "anthropic.claude-3-5-sonnet-20241022-v2:0"},
     tags=[{"key": "team", "value": "study"}, {"key": "env", "value": "lab"}],
 )
 PROFILE = p["inferenceProfileArn"]
@@ -508,7 +508,7 @@ s3.put_object(Bucket=BUCKET, Key="batch/in/tickets.jsonl", Body="\n".join(lines)
 job = bedrock.create_model_invocation_job(
     jobName="lab-ticket-classification",
     roleArn="arn:aws:iam::XXXXXXXXXXXX:role/BedrockBatchRole",   # needs S3 read+write
-    modelId="anthropic.claude-haiku-4-5-20251001-v1:0",
+    modelId="anthropic.claude-3-5-haiku-20241022-v1:0",
     inputDataConfig={"s3InputDataConfig": {"s3Uri": f"s3://{BUCKET}/batch/in/"}},
     outputDataConfig={"s3OutputDataConfig": {"s3Uri": f"s3://{BUCKET}/batch/out/"}},
 )
@@ -534,8 +534,10 @@ aws bedrock delete-guardrail --guardrail-identifier &lt;guardrail-id&gt;
 aws bedrock delete-inference-profile --inference-profile-identifier &lt;profile-arn&gt;
 aws s3 rb "s3://$BUCKET" --force
 
-# Confirm nothing is still running
-aws ce get-cost-and-usage --time-period Start=$(date -u -d '7 days ago' +%F),End=$(date -u +%F) \
+# Confirm nothing is still running (calculate past 7-day range cross-platform)
+START=$(python3 -c "import datetime as d; print(d.date.today() - d.timedelta(days=7))")
+END=$(python3 -c "import datetime as d; print(d.date.today())")
+aws ce get-cost-and-usage --time-period Start=$START,End=$END \
   --granularity DAILY --metrics UnblendedCost \
   --filter '{"Dimensions":{"Key":"SERVICE","Values":["Amazon Bedrock"]}}' \
   --query 'ResultsByTime[].{d:TimePeriod.Start,c:Total.UnblendedCost.Amount}' --output table</code></pre>

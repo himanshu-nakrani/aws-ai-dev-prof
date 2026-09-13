@@ -116,8 +116,7 @@
       "Effect": "Allow",
       "Action": ["bedrock:InvokeModel", "bedrock:InvokeModelWithResponseStream", "bedrock:Converse", "bedrock:ConverseStream"],
       "Resource": [
-        "arn:aws:bedrock:eu-west-1::foundation-model/anthropic.claude-haiku-*",
-        "arn:aws:bedrock:eu-west-1::foundation-model/anthropic.claude-sonnet-*"
+        "arn:aws:bedrock:eu-west-1::foundation-model/anthropic.claude-*"
       ],
       "Condition": {
         "StringEquals": {

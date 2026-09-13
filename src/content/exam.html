@@ -152,12 +152,12 @@
 <p>Distractors on AWS professional exams are not random. They come in recognisable flavours, and spotting the flavour eliminates them fast.</p>
 
 <div class="grid grid-2">
-  <div class="card"><div class="card-title">🎣 The plausible-but-heavier option</div><p style="font-size:13.5px;margin-bottom:0">Technically works, but involves building something AWS already manages. If a stem mentions operational overhead at all, this is a trap.</p></div>
-  <div class="card"><div class="card-title">🎣 The right idea, wrong layer</div><p style="font-size:13.5px;margin-bottom:0">"Instruct the model in the system prompt not to…" as an answer to a security question. Or "increase top-k" as an answer to a generation problem. Correct-sounding, aimed at the wrong stage.</p></div>
-  <div class="card"><div class="card-title">🎣 The over-engineered option</div><p style="font-size:13.5px;margin-bottom:0">Multi-agent collaboration for a single lookup. Fine-tuning for a facts problem. Impressive, disproportionate, wrong.</p></div>
-  <div class="card"><div class="card-title">🎣 The absolute</div><p style="font-size:13.5px;margin-bottom:0">"Always", "never", "guarantees", "eliminates all". Real engineering answers have trade-offs; distractors often do not.</p></div>
-  <div class="card"><div class="card-title">🎣 The stale fact</div><p style="font-size:13.5px;margin-bottom:0">Something that was true two years ago — "custom models cannot be served on Bedrock", "guardrails only apply to output". Feature coverage has moved.</p></div>
-  <div class="card"><div class="card-title">🎣 The adjacent service</div><p style="font-size:13.5px;margin-bottom:0">Macie where you need Comprehend. Q Business where you need Bedrock. Real services doing a genuinely different job.</p></div>
+  <div class="card"><div class="card-title"><span class="trap-badge">TRAP 01</span> The Plausible-but-Heavier Option</div><p style="font-size:13.5px;margin-bottom:0">Technically works, but involves building something AWS already manages. If a stem mentions operational overhead at all, this is a trap.</p></div>
+  <div class="card"><div class="card-title"><span class="trap-badge">TRAP 02</span> The Right Idea, Wrong Layer</div><p style="font-size:13.5px;margin-bottom:0">"Instruct the model in the system prompt not to…" as an answer to a security question. Or "increase top-k" as an answer to a generation problem. Correct-sounding, aimed at the wrong stage.</p></div>
+  <div class="card"><div class="card-title"><span class="trap-badge">TRAP 03</span> The Over-Engineered Option</div><p style="font-size:13.5px;margin-bottom:0">Multi-agent collaboration for a single lookup. Fine-tuning for a facts problem. Impressive, disproportionate, wrong.</p></div>
+  <div class="card"><div class="card-title"><span class="trap-badge">TRAP 04</span> The Absolute (“Always / Never”)</div><p style="font-size:13.5px;margin-bottom:0">"Always", "never", "guarantees", "eliminates all". Real engineering answers have trade-offs; distractors often do not.</p></div>
+  <div class="card"><div class="card-title"><span class="trap-badge">TRAP 05</span> The Stale Architecture Fact</div><p style="font-size:13.5px;margin-bottom:0">Something that was true two years ago — "custom models cannot be served on Bedrock", "guardrails only apply to output". Feature coverage has moved.</p></div>
+  <div class="card"><div class="card-title"><span class="trap-badge">TRAP 06</span> The Adjacent Service Swap</div><p style="font-size:13.5px;margin-bottom:0">Macie where you need Comprehend. Q Business where you need Bedrock. Real services doing a genuinely different job.</p></div>
 </div>
 </section>
 
@@ -166,7 +166,10 @@
 
 <div class="two-col">
   <div class="card">
-    <div class="card-title">⏱️ Pacing</div>
+    <div class="card-title">
+      <span class="card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+      Pacing &amp; Time Budgeting
+    </div>
     <ul style="font-size:13.5px;margin-bottom:0">
       <li>2.4 minutes per question average</li>
       <li>Target <strong>25 questions per hour</strong> — that leaves ~15 minutes at the end</li>
@@ -176,7 +179,10 @@
     </ul>
   </div>
   <div class="card">
-    <div class="card-title">🧠 Reviewing flagged questions</div>
+    <div class="card-title">
+      <span class="card-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></span>
+      Reviewing Flagged Questions
+    </div>
     <ul style="font-size:13.5px;margin-bottom:0">
       <li>Change an answer only if you find a concrete reason — a constraint you misread, a keyword you missed</li>
       <li>Do not change on a vague feeling. First instinct is right more often than second-guessing</li>

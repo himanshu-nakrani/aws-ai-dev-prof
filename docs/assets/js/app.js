@@ -251,8 +251,12 @@
       if (!e.target.closest('.search-wrap')) searchOut.hidden = true;
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === '/' && document.activeElement !== searchInput && !/input|textarea|select/i.test(document.activeElement.tagName)) {
-        e.preventDefault(); searchInput.focus();
+      var isK = (e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K');
+      var isSlash = e.key === '/' && !/input|textarea|select/i.test(document.activeElement.tagName);
+      if ((isK || isSlash) && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+        if (searchInput.select) searchInput.select();
       }
       if (e.key === 'Escape') { searchOut.hidden = true; searchInput.blur(); }
     });

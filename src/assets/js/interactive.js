@@ -423,9 +423,9 @@
     { id: 'nova-micro',   name: 'Amazon Nova Micro',    inp: 0.035, out: 0.14,  ctx: 128,  tier: 'fast' },
     { id: 'nova-lite',    name: 'Amazon Nova Lite',     inp: 0.06,  out: 0.24,  ctx: 300,  tier: 'fast' },
     { id: 'nova-pro',     name: 'Amazon Nova Pro',      inp: 0.80,  out: 3.20,  ctx: 300,  tier: 'mid'  },
-    { id: 'haiku',        name: 'Claude Haiku 4.5',     inp: 1.00,  out: 5.00,  ctx: 200,  tier: 'fast' },
-    { id: 'sonnet',       name: 'Claude Sonnet 4.5',    inp: 3.00,  out: 15.00, ctx: 200,  tier: 'mid'  },
-    { id: 'opus',         name: 'Claude Opus 4.5',      inp: 5.00,  out: 25.00, ctx: 200,  tier: 'frontier' },
+    { id: 'haiku',        name: 'Claude 3.5 Haiku',     inp: 0.80,  out: 4.00,  ctx: 200,  tier: 'fast' },
+    { id: 'sonnet',       name: 'Claude 3.5 Sonnet',    inp: 3.00,  out: 15.00, ctx: 200,  tier: 'mid'  },
+    { id: 'opus',         name: 'Claude 3 Opus',        inp: 15.00, out: 75.00, ctx: 200,  tier: 'frontier' },
     { id: 'llama-8b',     name: 'Llama 3.1 8B',         inp: 0.22,  out: 0.22,  ctx: 128,  tier: 'fast' },
     { id: 'llama-70b',    name: 'Llama 3.3 70B',        inp: 0.72,  out: 0.72,  ctx: 128,  tier: 'mid'  },
     { id: 'mistral-lg',   name: 'Mistral Large 2',      inp: 2.00,  out: 6.00,  ctx: 128,  tier: 'mid'  }
@@ -603,7 +603,7 @@
       host.querySelector('[data-out]').innerHTML =
         r.steps.map(function (s) {
           return '<div class="chunk" style="border-left-color:var(' + (s.hit ? '--red' : '--green') + ')">' +
-            '<span class="chunk-tag" style="color:var(' + (s.hit ? '--red' : '--green') + ')">' + (s.hit ? '⛔ intervened' : '✓ passed') + ' — ' + E(s.name) + '</span>' +
+            '<span class="chunk-tag" style="color:var(' + (s.hit ? '--red' : '--green') + ')">' + (s.hit ? '✕ intervened' : '✓ passed') + ' — ' + E(s.name) + '</span>' +
             s.detail + '</div>';
         }).join('') +
         '<div class="callout ' + (r.blocked ? 'warn' : 'tip') + '" style="margin-top:12px;margin-bottom:0">' +
