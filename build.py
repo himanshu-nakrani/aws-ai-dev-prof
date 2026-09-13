@@ -81,7 +81,7 @@ def nav_html(current: str, single_file: bool) -> str:
     for slug, label, _title, group, mins in PAGES:
         if group not in seen_groups:
             seen_groups.append(group)
-            out.append(f'<div class="nav-group">{html.escape(group)}</div>')
+            out.append(f'<div class="nav-group" data-nav-group="{html.escape(group)}">{html.escape(group)}</div>')
         href = f"#/{slug}" if single_file else ("index.html" if slug == "index" else f"{slug}.html")
         cls = "nav-link active" if slug == current else "nav-link"
         out.append(
@@ -115,36 +115,15 @@ def prevnext_html(current: str, single_file: bool) -> str:
 HEAD_EXTRA = """<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="A complete, beginner-friendly study guide for the AWS Certified Generative AI Developer - Professional (AIP-C01) exam: full curriculum, diagrams, labs and a question bank.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23080c14'/%3E%3Cpath d='M16 6L26 12V20L16 26L6 20V12L16 6Z' stroke='%23f59e0b' stroke-width='2.2' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23fbbf24'/%3E%3C/svg%3E">"""
-
-
-def topbar(single_file: bool) -> str:
-    home = "#/index" if single_file else "index.html"
-    return f"""<header class="topbar">
-  <button class="icon-btn menu-btn" id="menuBtn" aria-label="Toggle navigation"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg></button>
-  <a class="brand" href="{home}">
-    <span class="brand-mark" aria-hidden="true">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-        <path d="M2 17l10 5 10-5"></path>
-        <path d="M2 12l10 5 10-5"></path>
-      </svg>
-    </span>
-    <span class="brand-text"><strong>{SITE_TITLE}</strong><em>{SITE_TAGLINE}</em></span>
-  </a>
-  <div class="topbar-right">
-    <div class="search-wrap">
-      <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      <input id="siteSearch" type="search" placeholder="Search manual…" autocomplete="off" spellcheck="false">
-      <kbd class="search-kbd">⌘K</kbd>
-      <div id="searchResults" class="search-results" hidden></div>
-    </div>
-    <button class="icon-btn theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle light/dark">
-      <svg class="theme-icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-      <svg class="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-    </button>
-  </div>
-</header>"""
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2306070a'/%3E%3Cpath d='M16 6L26 12V20L16 26L6 20V12L16 6Z' stroke='%23818cf8' stroke-width='2.2' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%2338bdf8'/%3E%3C/svg%3E">
+<script>
+(function() {
+  try {
+    var t = localStorage.getItem('aip.theme');
+    if (t) document.documentElement.dataset.theme = JSON.parse(t);
+  } catch(e) {}
+})();
+</script>"""
 
 
 FOOTER = """<footer class="site-footer">
@@ -163,11 +142,182 @@ FOOTER = """<footer class="site-footer">
 </footer>"""
 
 
+def render_app_shell(slug: str, group: str, page_title: str, mins: int, main_html: str, single_file: bool) -> str:
+    home = "#/index" if single_file else "index.html"
+    return f"""<div class="app-shell" id="appShell">
+  <!-- 1. LEFT COMPACT ICON DOCK -->
+  <nav class="icon-dock" id="iconDock" aria-label="Quick Navigation Dock">
+    <a class="dock-brand" href="{home}" title="AIP-C01 Field Manual">
+      <span class="dock-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      </span>
+    </a>
+    
+    <div class="dock-divider"></div>
+    
+    <div class="dock-items">
+      <button class="dock-btn{' active' if group == 'Orientation' else ''}" data-dock-group="Orientation" title="Orientation (Start, Exam, Plans)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+      </button>
+      <button class="dock-btn{' active' if group == 'Learn' else ''}" data-dock-group="Learn" title="Curriculum (Module 0, Domains 1–5)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      </button>
+      <button class="dock-btn{' active' if group == 'Practice' else ''}" data-dock-group="Practice" title="Practice &amp; Simulator (Labs, Questions, Flashcards)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+      </button>
+      <button class="dock-btn{' active' if group == 'Reference' else ''}" data-dock-group="Reference" title="Reference (Atlas, Cram Sheet, Glossary)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+      </button>
+    </div>
+    
+    <div class="dock-spacer"></div>
+    
+    <div class="dock-bottom">
+      <button class="dock-btn" id="cmdBtnDock" title="Command Palette (⌘K)" aria-label="Open Command Palette">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button class="dock-btn" id="themeCycleBtn" title="Cycle Theme (Carbon / Titanium / Paper)" aria-label="Cycle Theme">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+      </button>
+      <button class="dock-btn" id="drawerToggleBtn" title="Toggle Sidebar Drawer ([)" aria-label="Toggle Sidebar Drawer">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 2. COLLAPSIBLE SIDEBAR DRAWER -->
+  <aside class="sidebar-drawer" id="sidebarDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <span class="guide-badge">AIP-C01</span>
+        <strong>Field Manual</strong>
+      </div>
+      <button class="drawer-close-btn" id="drawerCloseBtn" title="Close Sidebar ([)" aria-label="Close sidebar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+
+    <div class="progress-card">
+      <div class="ring-wrap">
+        <svg class="ring" viewBox="0 0 44 44">
+          <circle class="ring-bg" cx="22" cy="22" r="19"></circle>
+          <circle class="ring-fg" id="ringFg" cx="22" cy="22" r="19"></circle>
+        </svg>
+        <span id="ringPct">0%</span>
+      </div>
+      <div class="progress-meta">
+        <strong id="progressLabel">Exam Readiness</strong>
+        <span id="progressSub">0 of 0 sections read</span>
+      </div>
+    </div>
+
+    <nav class="drawer-nav">{nav_html(slug, single_file)}</nav>
+
+    <div class="drawer-footer">
+      <button class="reset-btn" id="resetProgress">Reset progress</button>
+    </div>
+  </aside>
+
+  <!-- 3. CENTRAL WORKBENCH -->
+  <div class="workbench" id="workbench">
+    <header class="workbench-bar">
+      <div class="bar-left">
+        <button class="icon-btn mobile-menu-btn" id="menuBtn" aria-label="Open Navigation">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="bar-breadcrumb" id="barBreadcrumb">
+          <span class="bc-group">{html.escape(group)}</span>
+          <span class="bc-sep">/</span>
+          <span class="bc-page">{html.escape(page_title)}</span>
+        </div>
+      </div>
+      <div class="bar-right">
+        <button class="cmd-trigger" id="cmdTriggerBtn" aria-label="Search manual">
+          <svg class="cmd-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span class="cmd-placeholder">Search manual, questions, labs…</span>
+          <kbd class="cmd-shortcut">⌘K</kbd>
+        </button>
+        <div class="theme-select-wrap">
+          <button class="theme-badge-btn" id="themeSelectBtn" title="Switch Theme">
+            <span class="theme-dot"></span>
+            <span id="themeNameLabel">Carbon</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-stage" id="contentStage">
+      {main_html}
+      {FOOTER}
+    </main>
+
+    <!-- 4. BOTTOM FLOATING STATUS PILL -->
+    <aside class="floating-status-pill" id="floatingPill" aria-label="Reading Status HUD">
+      <div class="pill-section pill-meta">
+        <span class="pill-dot"></span>
+        <span class="pill-title">{html.escape(page_title)}</span>
+        <span class="pill-time">≈{mins}m</span>
+      </div>
+      <div class="pill-sep"></div>
+      <div class="pill-section pill-progress">
+        <div class="pill-bar-track"><div class="pill-bar-fill" id="pillBarFill"></div></div>
+        <span id="pillReadCount">0 read</span>
+      </div>
+      <div class="pill-sep"></div>
+      <div class="pill-section pill-actions">
+        <button class="pill-btn" id="pillMarkBtn" title="Mark this page read">Mark page read</button>
+        <button class="pill-btn pill-btn-icon" id="pillCmdBtn" title="Command Palette (⌘K)"><kbd>⌘K</kbd></button>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- 5. RAYCAST / LINEAR SPOTLIGHT COMMAND PALETTE MODAL -->
+<div class="cmd-modal-backdrop" id="cmdModalBackdrop" hidden>
+  <div class="cmd-palette-box" role="dialog" aria-modal="true" aria-label="Command Palette">
+    <div class="cmd-palette-header">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input class="cmd-palette-input" id="cmdInput" type="text" placeholder="Search manual, questions, labs, or commands..." autocomplete="off" spellcheck="false">
+      <kbd class="cmd-palette-esc">ESC</kbd>
+    </div>
+    <div class="cmd-filters" id="cmdFilters">
+      <button class="cmd-filter on" data-filter="all">All</button>
+      <button class="cmd-filter" data-filter="Orientation">Orientation</button>
+      <button class="cmd-filter" data-filter="Learn">Curriculum</button>
+      <button class="cmd-filter" data-filter="Practice">Practice &amp; Labs</button>
+      <button class="cmd-filter" data-filter="Reference">Reference</button>
+    </div>
+    <div class="cmd-palette-results" id="cmdResults"></div>
+    <div class="cmd-palette-footer">
+      <div class="cmd-footer-keys">
+        <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+        <span><kbd>↵</kbd> Select</span>
+        <span><kbd>ESC</kbd> Dismiss</span>
+      </div>
+      <div class="cmd-footer-brand">AIP-C01 Field Manual</div>
+    </div>
+  </div>
+</div>
+<div class="scrim" id="scrim"></div>
+"""
+
+
 def page_shell(slug: str, title: str, body: str) -> str:
+    group = PAGE_BY_SLUG[slug][3]
+    mins = PAGE_BY_SLUG[slug][4]
     css = "\n".join(f'<link rel="stylesheet" href="assets/{f}">' for f in CSS_FILES)
     js = "\n".join(f'<script src="assets/{f}" defer></script>' for f in JS_FILES)
+    article_html = f"""<article class="page" data-page="{slug}">
+{body}
+{prevnext_html(slug, False)}
+</article>"""
+    shell = render_app_shell(slug, group, title, mins, article_html, False)
     return f"""<!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="carbon">
 <head>
 <meta charset="utf-8">
 <title>{html.escape(title)} · {SITE_TITLE}</title>
@@ -176,46 +326,15 @@ def page_shell(slug: str, title: str, body: str) -> str:
 {js}
 </head>
 <body data-page="{slug}">
-{topbar(False)}
-<div class="layout">
-  <aside class="sidebar" id="sidebar">
-    <div class="progress-card">
-      <div class="ring-wrap"><svg class="ring" viewBox="0 0 44 44"><circle class="ring-bg" cx="22" cy="22" r="19"></circle><circle class="ring-fg" id="ringFg" cx="22" cy="22" r="19"></circle></svg><span id="ringPct">0%</span></div>
-      <div class="progress-meta"><strong id="progressLabel">Your progress</strong><span id="progressSub">0 of 0 sections read</span></div>
-    </div>
-    <nav class="nav">{nav_html(slug, False)}</nav>
-    <button class="reset-btn" id="resetProgress">Reset progress</button>
-  </aside>
-  <main class="content" id="content">
-    <article class="page" data-page="{slug}">
-{body}
-{prevnext_html(slug, False)}
-    </article>
-{FOOTER}
-  </main>
-</div>
-<div class="scrim" id="scrim"></div>
+{shell}
 </body>
 </html>
 """
 
 
-LIGHT_BLOCK_RE = re.compile(
-    r'html\[data-theme="light"\]\s*\{(.*?)\n\}', re.S
-)
-
-
 def inline_css() -> str:
-    """All CSS, plus an OS-preference default so an unset root still themes."""
-    css = "\n".join((ASSETS / f).read_text() for f in CSS_FILES)
-    m = LIGHT_BLOCK_RE.search(css)
-    if m:
-        css += (
-            "\n/* generated: follow the OS preference when no theme is pinned */\n"
-            "@media (prefers-color-scheme: light) {\n"
-            "  html:not([data-theme]) {" + m.group(1) + "\n  }\n}\n"
-        )
-    return css
+    """All CSS inlined for single-file bundle."""
+    return "\n".join((ASSETS / f).read_text() for f in CSS_FILES)
 
 
 def inline_js(search_js: str) -> list[str]:
@@ -229,8 +348,9 @@ def inline_js(search_js: str) -> list[str]:
 def bundle_shell(sections: str, search_js: str) -> str:
     css = f"<style>{inline_css()}</style>"
     js = "\n".join(f"<script>{part}</script>" for part in inline_js(search_js))
+    shell = render_app_shell("index", "Orientation", "Start here", 12, sections, True)
     return f"""<!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="carbon">
 <head>
 <meta charset="utf-8">
 <title>{SITE_TITLE} · {SITE_TAGLINE}</title>
@@ -238,22 +358,7 @@ def bundle_shell(sections: str, search_js: str) -> str:
 {css}
 </head>
 <body data-page="index" data-spa="1">
-{topbar(True)}
-<div class="layout">
-  <aside class="sidebar" id="sidebar">
-    <div class="progress-card">
-      <div class="ring-wrap"><svg class="ring" viewBox="0 0 44 44"><circle class="ring-bg" cx="22" cy="22" r="19"></circle><circle class="ring-fg" id="ringFg" cx="22" cy="22" r="19"></circle></svg><span id="ringPct">0%</span></div>
-      <div class="progress-meta"><strong id="progressLabel">Your progress</strong><span id="progressSub">0 of 0 sections read</span></div>
-    </div>
-    <nav class="nav">{nav_html("index", True)}</nav>
-    <button class="reset-btn" id="resetProgress">Reset progress</button>
-  </aside>
-  <main class="content" id="content">
-{sections}
-{FOOTER}
-  </main>
-</div>
-<div class="scrim" id="scrim"></div>
+{shell}
 {js}
 </body>
 </html>
@@ -264,28 +369,13 @@ def artifact_page(sections: str, search_js: str) -> str:
     """Body-only variant for hosts that supply their own <head> wrapper."""
     css = f"<style>{inline_css()}</style>"
     js = "\n".join(f"<script>{part}</script>" for part in inline_js(search_js))
+    shell = render_app_shell("index", "Orientation", "Start here", 12, sections, True)
     return f"""<title>{SITE_TITLE} · {SITE_TAGLINE}</title>
 {css}
 <div id="aip-root" data-page="index" data-spa="1">
-{topbar(True)}
-<div class="layout">
-  <aside class="sidebar" id="sidebar">
-    <div class="progress-card">
-      <div class="ring-wrap"><svg class="ring" viewBox="0 0 44 44"><circle class="ring-bg" cx="22" cy="22" r="19"></circle><circle class="ring-fg" id="ringFg" cx="22" cy="22" r="19"></circle></svg><span id="ringPct">0%</span></div>
-      <div class="progress-meta"><strong id="progressLabel">Your progress</strong><span id="progressSub">0 of 0 sections read</span></div>
-    </div>
-    <nav class="nav">{nav_html("index", True)}</nav>
-    <button class="reset-btn" id="resetProgress">Reset progress</button>
-  </aside>
-  <main class="content" id="content">
-{sections}
-{FOOTER}
-  </main>
-</div>
-<div class="scrim" id="scrim"></div>
+{shell}
 </div>
 <script>
-/* the host owns <body>, so mirror the SPA flags onto it before app.js boots */
 document.body.dataset.spa = '1';
 document.body.dataset.page = 'index';
 </script>
@@ -374,6 +464,7 @@ def search_rows(slug: str, raw: str) -> list[dict]:
             "slug": slug,
             "id": sid,
             "page": page_title,
+            "group": PAGE_BY_SLUG[slug][3],
             "title": strip_tags(h.group(1)) if h else sid,
             "text": strip_tags(chunk)[:6000].lower(),
         })
