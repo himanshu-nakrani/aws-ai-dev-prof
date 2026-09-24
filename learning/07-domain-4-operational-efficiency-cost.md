@@ -138,7 +138,7 @@ Bedrock enforces requests-per-minute and tokens-per-minute quotas **per model, p
 
 ### Preventive controls
 
-- **AWS Budgets** with alerts, and budget actions where appropriate
+- **AWS Cost Anomaly Detection** for automatic spend-spike alerts, and **AWS Cost Explorer** for per-profile attribution (these are the in-scope cost tools; AWS Budgets works too but is outside the exam's stated scope)
 - **IAM scoped to cheap model ARNs** for experimental workloads — so the experiment structurally cannot reach a frontier model
 - **Input length caps and rate limits** at API Gateway, and WAF rate-based rules, so an abusive caller cannot run up your bill
 

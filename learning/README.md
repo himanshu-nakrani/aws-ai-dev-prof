@@ -34,6 +34,7 @@ Always confirm service behaviour and prices against current AWS documentation. T
 | [19-cheatsheet.md](19-cheatsheet.md) | Last-week cram sheet |
 | [20-glossary.md](20-glossary.md) | Terms as the exam uses them |
 | [21-interactive-widgets.md](21-interactive-widgets.md) | Teaching copy from the widgets |
+| [22-aws-services-in-scope.md](22-aws-services-in-scope.md) | Official in-scope AWS services, by category, with out-of-scope traps |
 
 ## Source mapping
 
