@@ -80,7 +80,8 @@ group: Reference
 | **Amazon Comprehend** | PII detection and redaction in text | In-line, per document |
 | **Amazon SageMaker Clarify** | Bias metrics and explainability; FM evaluations | The "prove fairness" answer |
 | **Amazon SageMaker AI** | Host models Bedrock does not offer; full training control | JumpStart for open models |
-| **AWS Budgets** | Spend alerts and actions | Set one before your first Bedrock call |
+| **AWS Cost Explorer** | Analyse and attribute Bedrock spend, broken down per application inference profile | The in-scope cost-analysis tool — AWS Budgets is out of scope for the exam |
+| **AWS Cost Anomaly Detection** | Automatic alerts on unexpected spend spikes | The in-scope way to catch a runaway bill before month-end |
 | **AWS Organizations / SCPs** | Preventive guardrails: region restrictions, protecting guardrail resources | Preventive, unlike CloudWatch alarms |
 
 ## 4. Limits and defaults that decide architectures

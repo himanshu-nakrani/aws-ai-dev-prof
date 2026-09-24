@@ -90,7 +90,8 @@
 <tr><td><strong>Amazon Comprehend</strong></td><td>PII detection and redaction in text</td><td>In-line, per document</td></tr>
 <tr><td><strong>Amazon SageMaker Clarify</strong></td><td>Bias metrics and explainability; FM evaluations</td><td>The "prove fairness" answer</td></tr>
 <tr><td><strong>Amazon SageMaker AI</strong></td><td>Host models Bedrock does not offer; full training control</td><td>JumpStart for open models</td></tr>
-<tr><td><strong>AWS Budgets</strong></td><td>Spend alerts and actions</td><td>Set one before your first Bedrock call</td></tr>
+<tr><td><strong>AWS Cost Explorer</strong></td><td>Analyse and attribute Bedrock spend, broken down per application inference profile</td><td>The in-scope cost-analysis tool — AWS Budgets is out of scope for the exam</td></tr>
+<tr><td><strong>AWS Cost Anomaly Detection</strong></td><td>Automatic alerts on unexpected spend spikes</td><td>The in-scope way to catch a runaway bill before month-end</td></tr>
 <tr><td><strong>AWS Organizations / SCPs</strong></td><td>Preventive guardrails: region restrictions, protecting guardrail resources</td><td>Preventive, unlike CloudWatch alarms</td></tr>
 </tbody>
 </table>
@@ -156,4 +157,113 @@
     {"label":"Questions spanning several documents about relationships fail","next":{"answer":"GraphRAG with Neptune Analytics","why":"No single chunk contains the answer, so similarity search cannot find it. A graph lets traversal connect entities across documents."}},
     {"label":"A query in one language cannot find documents in another","next":{"answer":"Multilingual embedding model (and re-index), or translate the query first","why":"Cross-lingual retrieval needs a shared embedding space. Re-indexing is the thorough fix; translating the query before embedding is the cheap one."}}
   ]}'></div>
+</section>
+
+<section id="svc-inscope">
+<h2><span class="num">6</span>AWS services in scope (official list)</h2>
+
+<div class="callout info">
+  <div class="co-title">How to read this</div>
+  Every service the official exam guide lists as <strong>in scope</strong>, by the guide's own categories. The exam is ~95% Amazon Bedrock and a tight ring of services around it; everything else is supporting knowledge you are assumed to have. The <strong>Tier</strong> column tells you where to spend time: <strong>Core</strong> = learn cold; <strong>Support</strong> = know what it does and when it wins; <strong>Background</strong> = recognise the name and its one-line role. Transcribed from the official In-Scope Services appendix (retrieved 2026-09-25); non-exhaustive and subject to change.
+</div>
+
+<h3>Machine Learning (the heart of the exam)</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Service</th><th>Tier</th><th>Role in a GenAI workload</th></tr></thead>
+<tbody>
+<tr><td><strong>Amazon Bedrock</strong></td><td>Core</td><td>FM access, APIs, RAG, agents, guardrails, customisation, cost levers</td></tr>
+<tr><td><strong>Amazon Bedrock AgentCore</strong></td><td>Core</td><td>Production primitives for custom agents</td></tr>
+<tr><td><strong>Amazon Bedrock Knowledge Bases</strong></td><td>Core</td><td>Managed RAG</td></tr>
+<tr><td><strong>Amazon Bedrock Prompt Management</strong></td><td>Core</td><td>Versioned prompt templates</td></tr>
+<tr><td><strong>Amazon Bedrock Prompt Flows</strong></td><td>Core</td><td>Low-code workflow chaining</td></tr>
+<tr><td><strong>Amazon Comprehend</strong></td><td>Core</td><td>PII detection/redaction, entity/intent extraction</td></tr>
+<tr><td><strong>Amazon Titan</strong></td><td>Core</td><td>Embeddings (Text V2, Multimodal) and Titan models</td></tr>
+<tr><td><strong>Amazon Q Business</strong> (+ Q Business Apps)</td><td>Core</td><td>Enterprise knowledge assistant for end users; respects source permissions</td></tr>
+<tr><td><strong>Amazon Textract</strong></td><td>Support</td><td>OCR/structured extraction from documents</td></tr>
+<tr><td><strong>Amazon Kendra</strong></td><td>Support</td><td>Managed enterprise search (semantic + keyword)</td></tr>
+<tr><td><strong>Amazon Augmented AI (A2I)</strong></td><td>Support</td><td>Human review of low-confidence outputs</td></tr>
+<tr><td><strong>Amazon SageMaker AI</strong></td><td>Support</td><td>Host/fine-tune models Bedrock does not offer</td></tr>
+<tr><td><strong>Amazon SageMaker JumpStart</strong></td><td>Support</td><td>Deploy open-source models</td></tr>
+<tr><td><strong>Amazon SageMaker Clarify</strong></td><td>Support</td><td>Bias metrics, explainability, FM evaluation</td></tr>
+<tr><td><strong>Amazon SageMaker Ground Truth</strong></td><td>Support</td><td>Human-labelling workforce (backs Bedrock human eval)</td></tr>
+<tr><td><strong>Amazon SageMaker Model Registry</strong></td><td>Support</td><td>Version and deploy customised models</td></tr>
+<tr><td><strong>Amazon SageMaker Data Wrangler / Processing</strong></td><td>Support</td><td>Data validation and preparation for FM consumption</td></tr>
+<tr><td><strong>Amazon Q Developer</strong></td><td>Support</td><td>IDE/CLI coding assistant; org customisations</td></tr>
+<tr><td><strong>Amazon Transcribe</strong></td><td>Support</td><td>Speech-to-text for voice pipelines</td></tr>
+<tr><td><strong>Amazon Lex</strong></td><td>Background</td><td>Chatbot/intent front end</td></tr>
+<tr><td><strong>Amazon Rekognition</strong></td><td>Background</td><td>Image/video analysis input to multimodal flows</td></tr>
+<tr><td><strong>SageMaker Model Monitor / Neo / Unified Studio</strong></td><td>Background</td><td>Drift monitoring; model compilation; unified workspace</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Analytics · Database · Storage</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Service</th><th>Tier</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td><strong>Amazon OpenSearch Service</strong></td><td>Core</td><td>Vector store; k-NN/HNSW; hybrid keyword + semantic search</td></tr>
+<tr><td><strong>AWS Glue</strong> (+ Data Quality, Data Catalog)</td><td>Support</td><td>ETL, data-quality rules, and data-lineage/source tracking</td></tr>
+<tr><td>Athena · EMR · Kinesis · QuickSight · MSK</td><td>Background</td><td>Query, batch processing, streaming ingestion, reporting, event backbone</td></tr>
+<tr><td><strong>Amazon DynamoDB</strong> (+ Streams)</td><td>Core</td><td>Conversation/session state; change capture</td></tr>
+<tr><td><strong>Amazon Aurora</strong> · <strong>Amazon RDS</strong></td><td>Core</td><td>pgvector vector store alongside relational data</td></tr>
+<tr><td><strong>Amazon Neptune</strong></td><td>Support</td><td>GraphRAG — entity/relationship traversal for multi-hop questions</td></tr>
+<tr><td>ElastiCache · DocumentDB</td><td>Support</td><td>Low-latency cache (not durable alone); document store</td></tr>
+<tr><td><strong>Amazon S3</strong> (+ Lifecycle, Intelligent-Tiering, CRR)</td><td>Core</td><td>Source docs, batch I/O, log retention, residency</td></tr>
+<tr><td>EFS · EBS</td><td>Background</td><td>Shared/block storage for containers and EC2 workloads</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Compute · Containers · Application Integration</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Service</th><th>Tier</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td><strong>AWS Lambda</strong> (+ Lambda@Edge)</td><td>Core</td><td>Backends, tools, chunking; 15-min limit; response streaming</td></tr>
+<tr><td><strong>AWS Fargate / Amazon ECS</strong></td><td>Support</td><td>Long-running agents/MCP servers past Lambda's 15 min</td></tr>
+<tr><td>Amazon EC2 · App Runner · EKS · ECR · Outposts · Wavelength</td><td>Background</td><td>Self-host, container hosting, on-prem/edge integration</td></tr>
+<tr><td><strong>AWS Step Functions</strong></td><td>Core</td><td>Deterministic orchestration; ReAct/human-in-the-loop; Standard vs Express</td></tr>
+<tr><td><strong>Amazon EventBridge</strong> · <strong>Amazon SQS</strong></td><td>Core</td><td>Event routing; decouple spiky traffic; retries + DLQ</td></tr>
+<tr><td><strong>Amazon SNS</strong> · <strong>AWS AppConfig</strong></td><td>Support</td><td>Fan-out notifications; feature-flag/model-ID swaps with rollback</td></tr>
+<tr><td>Amazon AppFlow</td><td>Background</td><td>SaaS data transfer into a knowledge source</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Networking · Security · Developer Tools · Management</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>Service</th><th>Tier</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td><strong>Amazon API Gateway</strong> · <strong>AWS AppSync</strong></td><td>Core</td><td>API front door; streaming, throttling, subscriptions; ~29s REST timeout</td></tr>
+<tr><td><strong>AWS PrivateLink</strong> · <strong>Amazon VPC</strong></td><td>Core</td><td>Private path to Bedrock — the "no internet" answer; network isolation</td></tr>
+<tr><td>CloudFront · ELB · Route 53 · Global Accelerator</td><td>Background</td><td>Edge delivery, load balancing, DNS/failover</td></tr>
+<tr><td><strong>IAM</strong> (+ Access Analyzer, Identity Center)</td><td>Core</td><td>Who may invoke which model, where; condition keys; federation</td></tr>
+<tr><td><strong>AWS KMS</strong> · <strong>AWS Secrets Manager</strong> · <strong>Amazon Macie</strong></td><td>Core</td><td>CMKs for KBs/logs; tool credentials; sensitive-data discovery in S3</td></tr>
+<tr><td><strong>AWS WAF</strong> · Amazon Cognito · AWS Encryption SDK</td><td>Support</td><td>Rate-based rules; end-user auth; client-side encryption</td></tr>
+<tr><td><strong>Amazon CloudWatch</strong> (+ Logs) · <strong>AWS CloudTrail</strong> · <strong>AWS X-Ray</strong></td><td>Core</td><td>Metrics/alarms, API audit, distributed tracing of FM calls</td></tr>
+<tr><td><strong>AWS Cost Explorer</strong> · <strong>AWS Cost Anomaly Detection</strong></td><td>Support</td><td>In-scope spend analysis and spike alerts (Budgets is out of scope)</td></tr>
+<tr><td>Well-Architected Tool · Managed Grafana · CloudWatch Synthetics · Systems Manager · Auto Scaling · Service Catalog · Chatbot</td><td>Background</td><td>GenAI Lens reviews, dashboards, synthetics, fleet ops, scaling, governance, ChatOps</td></tr>
+<tr><td><strong>AWS SDKs / CLI</strong> · <strong>AWS X-Ray</strong></td><td>Core</td><td>Boto3 etc. with backoff/streaming; tracing</td></tr>
+<tr><td>CodePipeline · CodeBuild · CodeDeploy · CloudFormation · CDK · Amplify · CodeArtifact · Kiro</td><td>Support</td><td>CI/CD, IaC, UI kit, private packages, agentic IDE</td></tr>
+<tr><td>Amazon Connect · DataSync · Transfer Family</td><td>Background</td><td>Contact-centre integration; bulk/SFTP ingestion into corpora</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Out-of-scope services the exam uses as distractors</h3>
+<p>Real services that solve a <em>different</em> job; they show up as wrong answers. Know why each is the trap, not the fix.</p>
+<ul>
+  <li><strong>AWS Budgets / Cost and Usage Report / Savings Plans</strong> — out of scope; the cost answers are Cost Explorer and Cost Anomaly Detection.</li>
+  <li><strong>Amazon Redshift, Timestream, Keyspaces, QLDB</strong> — not the vector/session stores; OpenSearch / Aurora-pgvector / DynamoDB are.</li>
+  <li><strong>Amazon SES</strong> — out of scope; not a GenAI channel here.</li>
+  <li><strong>Amazon Forecast, Fraud Detector, Lookout*, Panorama, DeepRacer/DeepComposer</strong> — legacy/narrow ML, not generative AI.</li>
+  <li><strong>AWS Batch, Elastic Beanstalk, Lightsail</strong> — not the GenAI compute answers (Lambda, Fargate/ECS, SageMaker are).</li>
+  <li><strong>Transit Gateway, Direct Connect, VPN, App Mesh, Cloud Map</strong> — networking distractors; PrivateLink/VPC endpoints answer the isolation questions.</li>
+  <li><strong>Amazon MQ</strong> — not the decoupling answer; SQS/SNS/EventBridge are.</li>
+  <li><strong>Cloud9, CloudShell, CodeGuru, CodeStar</strong> — not the developer-tool answers (Q Developer, CodePipeline/Build/Deploy, Kiro are).</li>
+</ul>
+<p style="font-size:12.5px;color:var(--text-3)">The official appendices also exclude the IoT, Blockchain, Media Services, Game Development, Quantum, Robotics, Satellite, and End User Computing families entirely.</p>
 </section>

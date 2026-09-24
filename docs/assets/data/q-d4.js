@@ -170,10 +170,10 @@ window.AIP_ADDQ([
 
 { id:'d4-019', d:'d4',
   q:'Which is the best way to prevent runaway spend from an experimental workload?',
-  o:['Hope for the best','AWS Budgets with alerts and actions, plus per-application inference profiles and scoped IAM so the workload cannot invoke expensive models',
+  o:['Hope for the best','AWS Cost Anomaly Detection alerts with Cost Explorer per-application attribution, plus per-application inference profiles and scoped IAM so the workload cannot invoke expensive models',
      'Check the bill monthly','Disable CloudWatch'],
   a:[1],
-  e:'Detective plus preventive. Budgets alert (and can act) when spend crosses a threshold; IAM scoped to cheap model ARNs means the experiment structurally cannot reach the expensive ones. The profile makes the attribution unambiguous.',
+  e:'Detective plus preventive. Cost Anomaly Detection alerts (and Cost Explorer attribution) surface spend the moment it crosses normal patterns; IAM scoped to cheap model ARNs means the experiment structurally cannot reach the expensive ones. The profile makes the attribution unambiguous.',
   oe:['No.','Correct.','Too late by weeks.','Removes visibility.'],
   ref:'Domain 4 → Cost controls' },
 

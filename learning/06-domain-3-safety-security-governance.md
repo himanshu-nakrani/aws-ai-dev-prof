@@ -82,7 +82,7 @@ The attack arrives through *content the system fetches*: a poisoned document upl
 | **Prompt injection** | Instructions in user input or retrieved content override yours | Prompt attack filter · delimiting · bounded tools · human gates |
 | **Insecure output handling** | Model output rendered as HTML (XSS) or passed to a shell or SQL | Escape and validate *in your code*. A guardrail is a content filter, not an output encoder |
 | **Training data poisoning** | Malicious content in a fine-tuning dataset or ingested corpus | Source validation, Glue Data Quality, Macie, review of what enters the knowledge base |
-| **Model denial of service** | Huge prompts or request floods exhausting quota and budget | Input length caps and rate limits at API Gateway · WAF rate-based rules · AWS Budgets alarms |
+| **Model denial of service** | Huge prompts or request floods exhausting quota and budget | Input length caps and rate limits at API Gateway · WAF rate-based rules · Cost Anomaly Detection alerts |
 | **Supply chain** | Compromised model, dataset or dependency | Bedrock's curated catalogue · provenance of imported weights · dependency scanning |
 | **Sensitive information disclosure** | PII or secrets in prompts, retrieved chunks or answers | Guardrails sensitive-information policy · Comprehend redaction · exclude restricted classes from the index |
 | **Insecure plugin/tool design** | A tool that accepts free-form input and does something powerful | Strict tool schemas · validation inside the tool · least-privilege IAM per action group |
@@ -136,7 +136,7 @@ That policy does four things at once: restricts *which* models, restricts *which
 | Identity | IAM policies scoped to model ARNs, with condition keys | Preventive |
 | Network | VPC interface endpoint + endpoint policy | Preventive |
 | Application | Guardrails on input and output | Preventive |
-| Observation | CloudTrail, model invocation logging, CloudWatch alarms, AWS Budgets | Detective |
+| Observation | CloudTrail, model invocation logging, CloudWatch alarms, Cost Anomaly Detection | Detective |
 
 > **Exam — Preventive beats detective when the stem says "prevent"**
 >

@@ -147,7 +147,7 @@
 
 <h3>Preventive controls</h3>
 <ul>
-  <li><strong>AWS Budgets</strong> with alerts, and budget actions where appropriate</li>
+  <li><strong>AWS Cost Anomaly Detection</strong> for automatic spend-spike alerts, and <strong>AWS Cost Explorer</strong> for per-profile attribution (these are the in-scope cost tools; AWS Budgets works too but is outside the exam's stated scope)</li>
   <li><strong>IAM scoped to cheap model ARNs</strong> for experimental workloads — so the experiment structurally cannot reach a frontier model</li>
   <li><strong>Input length caps and rate limits</strong> at API Gateway, and WAF rate-based rules, so an abusive caller cannot run up your bill</li>
 </ul>

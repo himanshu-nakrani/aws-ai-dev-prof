@@ -446,13 +446,13 @@ More capacity pools means fewer throttles and better burst tolerance. What they 
 Which is the best way to prevent runaway spend from an experimental workload?
 
 - [ ] **A.** Hope for the best
-- [x] **B.** AWS Budgets with alerts and actions, plus per-application inference profiles and scoped IAM so the workload cannot invoke expensive models
+- [x] **B.** AWS Cost Anomaly Detection alerts with Cost Explorer per-application attribution, plus per-application inference profiles and scoped IAM so the workload cannot invoke expensive models
 - [ ] **C.** Check the bill monthly
 - [ ] **D.** Disable CloudWatch
 
 **Why**
 
-Detective plus preventive. Budgets alert (and can act) when spend crosses a threshold; IAM scoped to cheap model ARNs means the experiment structurally cannot reach the expensive ones. The profile makes the attribution unambiguous.
+Detective plus preventive. Cost Anomaly Detection alerts (and Cost Explorer attribution) surface spend the moment it crosses normal patterns; IAM scoped to cheap model ARNs means the experiment structurally cannot reach the expensive ones. The profile makes the attribution unambiguous.
 
 | Option | Why this option |
 | --- | --- |

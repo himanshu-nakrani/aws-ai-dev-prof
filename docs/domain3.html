@@ -250,7 +250,7 @@
 <tr><td><strong>Prompt injection</strong></td><td>Instructions in user input or retrieved content override yours</td><td>Prompt attack filter · delimiting · bounded tools · human gates</td></tr>
 <tr><td><strong>Insecure output handling</strong></td><td>Model output rendered as HTML (XSS) or passed to a shell or SQL</td><td>Escape and validate <em>in your code</em>. A guardrail is a content filter, not an output encoder</td></tr>
 <tr><td><strong>Training data poisoning</strong></td><td>Malicious content in a fine-tuning dataset or ingested corpus</td><td>Source validation, Glue Data Quality, Macie, review of what enters the knowledge base</td></tr>
-<tr><td><strong>Model denial of service</strong></td><td>Huge prompts or request floods exhausting quota and budget</td><td>Input length caps and rate limits at API Gateway · WAF rate-based rules · AWS Budgets alarms</td></tr>
+<tr><td><strong>Model denial of service</strong></td><td>Huge prompts or request floods exhausting quota and budget</td><td>Input length caps and rate limits at API Gateway · WAF rate-based rules · Cost Anomaly Detection alerts</td></tr>
 <tr><td><strong>Supply chain</strong></td><td>Compromised model, dataset or dependency</td><td>Bedrock's curated catalogue · provenance of imported weights · dependency scanning</td></tr>
 <tr><td><strong>Sensitive information disclosure</strong></td><td>PII or secrets in prompts, retrieved chunks or answers</td><td>Guardrails sensitive-information policy · Comprehend redaction · exclude restricted classes from the index</td></tr>
 <tr><td><strong>Insecure plugin/tool design</strong></td><td>A tool that accepts free-form input and does something powerful</td><td>Strict tool schemas · validation inside the tool · least-privilege IAM per action group</td></tr>
@@ -307,7 +307,7 @@
 <tr><td>Identity</td><td>IAM policies scoped to model ARNs, with condition keys</td><td class="yes">Preventive</td></tr>
 <tr><td>Network</td><td>VPC interface endpoint + endpoint policy</td><td class="yes">Preventive</td></tr>
 <tr><td>Application</td><td>Guardrails on input and output</td><td class="yes">Preventive</td></tr>
-<tr><td>Observation</td><td>CloudTrail, model invocation logging, CloudWatch alarms, AWS Budgets</td><td class="mid">Detective</td></tr>
+<tr><td>Observation</td><td>CloudTrail, model invocation logging, CloudWatch alarms, Cost Anomaly Detection</td><td class="mid">Detective</td></tr>
 </tbody>
 </table>
 </div>

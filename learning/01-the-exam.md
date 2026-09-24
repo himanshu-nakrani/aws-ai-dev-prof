@@ -19,8 +19,9 @@ group: Orientation
 | **Cost** | $300 USD |
 | **Scoring** | Scaled 100–1000. **750 to pass.** Compensatory: you do not need to pass each domain individually, only the total. |
 | **Delivery** | Pearson VUE test centre, or online proctored from home |
+| **Languages** | English, Japanese, Korean, and Simplified Chinese |
 | **Validity** | 3 years |
-| **History** | Announced late 2025; beta ran to 31 March 2026 (85 questions / 205 minutes); standard registration opened March 2026. It is one of the newest AWS certifications. |
+| **History** | Announced November 2025 as part of an AI certification portfolio expansion. Beta registration opened 18 November 2025; the beta window closed 31 March 2026. Standard registration is now open. It is one of the newest AWS certifications. |
 
 > **Info — Compensatory scoring, and what it means for strategy**
 >
