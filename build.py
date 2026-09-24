@@ -69,6 +69,17 @@ JS_FILES = [
     "js/app.js",
 ]
 
+def _asset_ver() -> str:
+    import hashlib
+    h = hashlib.md5()
+    for f in CSS_FILES + JS_FILES:
+        p = ASSETS / f
+        if p.exists():
+            h.update(p.read_bytes())
+    return h.hexdigest()[:8]
+
+ASSET_VER = _asset_ver()
+
 
 # --------------------------------------------------------------------------
 # shell
@@ -114,8 +125,11 @@ def prevnext_html(current: str, single_file: bool) -> str:
 
 HEAD_EXTRA = """<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark light">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Space+Grotesk:wght@500;600;700&display=swap">
 <meta name="description" content="A complete, beginner-friendly study guide for the AWS Certified Generative AI Developer - Professional (AIP-C01) exam: full curriculum, diagrams, labs and a question bank.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2306070a'/%3E%3Cpath d='M16 6L26 12V20L16 26L6 20V12L16 6Z' stroke='%23818cf8' stroke-width='2.2' stroke-linejoin='round' fill='none'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%2338bdf8'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f3efe6'/%3E%3Crect x='4' y='5' width='24' height='2.4' fill='%23b23a2e'/%3E%3Crect x='4' y='11' width='16' height='1.6' fill='%23211d16'/%3E%3Crect x='4' y='15' width='20' height='1.6' fill='%23211d16'/%3E%3Crect x='4' y='19' width='12' height='1.6' fill='%23211d16'/%3E%3Crect x='4' y='23' width='18' height='1.6' fill='%23211d16'/%3E%3C/svg%3E">
 <script>
 (function() {
   try {
@@ -309,15 +323,15 @@ def render_app_shell(slug: str, group: str, page_title: str, mins: int, main_htm
 def page_shell(slug: str, title: str, body: str) -> str:
     group = PAGE_BY_SLUG[slug][3]
     mins = PAGE_BY_SLUG[slug][4]
-    css = "\n".join(f'<link rel="stylesheet" href="assets/{f}">' for f in CSS_FILES)
-    js = "\n".join(f'<script src="assets/{f}" defer></script>' for f in JS_FILES)
+    css = "\n".join(f'<link rel="stylesheet" href="assets/{f}?v={ASSET_VER}">' for f in CSS_FILES)
+    js = "\n".join(f'<script src="assets/{f}?v={ASSET_VER}" defer></script>' for f in JS_FILES)
     article_html = f"""<article class="page" data-page="{slug}">
 {body}
 {prevnext_html(slug, False)}
 </article>"""
     shell = render_app_shell(slug, group, title, mins, article_html, False)
     return f"""<!doctype html>
-<html lang="en" data-theme="carbon">
+<html lang="en" data-theme="paper">
 <head>
 <meta charset="utf-8">
 <title>{html.escape(title)} · {SITE_TITLE}</title>
@@ -350,7 +364,7 @@ def bundle_shell(sections: str, search_js: str) -> str:
     js = "\n".join(f"<script>{part}</script>" for part in inline_js(search_js))
     shell = render_app_shell("index", "Orientation", "Start here", 12, sections, True)
     return f"""<!doctype html>
-<html lang="en" data-theme="carbon">
+<html lang="en" data-theme="paper">
 <head>
 <meta charset="utf-8">
 <title>{SITE_TITLE} · {SITE_TAGLINE}</title>
