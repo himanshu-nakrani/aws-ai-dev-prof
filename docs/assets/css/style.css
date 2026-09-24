@@ -1855,3 +1855,23 @@ html[data-theme="paper"], html[data-theme="light"] {
 .content-stage p strong, .content-stage li strong { font-weight: 600; color: var(--text); }
 .diagram { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
   padding: 20px 0 8px; margin: 0 0 22px; }
+
+/* ============================================================
+   EDITORIAL v2 — code blocks readable on every theme
+   (Paper's dark ink text was invisible on the dark pre panel)
+   ============================================================ */
+pre {
+  background: #0f1116; color: #e8e4d8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 2px solid var(--accent); border-radius: 2px;
+}
+pre code { color: #e8e4d8; }
+.code-head {
+  background: #171a20; color: #b9b3a5;
+  border: 1px solid rgba(255, 255, 255, 0.08); border-bottom: none;
+}
+.code-head .cp-btn {
+  background: rgba(255, 255, 255, 0.05); color: #cfc9bc;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.code-head .cp-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.12); border-color: var(--accent); }
