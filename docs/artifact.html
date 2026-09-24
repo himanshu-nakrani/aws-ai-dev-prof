@@ -5,43 +5,47 @@
    ========================================================================== */
 
 :root, html[data-theme="carbon"] {
-  --bg:            #06070a;
-  --bg-2:          #0a0c13;
-  --bg-3:          #111420;
-  --dock-bg:       #080a10;
-  --sidebar-bg:    #0a0c14;
-  --panel:         #0f121d;
-  --panel-2:       #151928;
-  --panel-card:    #121624;
-  --line:          rgba(255, 255, 255, 0.08);
-  --line-soft:     rgba(255, 255, 255, 0.04);
-  --text:          #f8fafc;
-  --text-2:        #94a3b8;
-  --text-3:        #64748b;
+  /* Carbon — warm ink + signature gold. Editorial technical-manual look. */
+  --bg:            #0b0c0f;
+  --bg-2:          #101217;
+  --bg-3:          #181b22;
+  --dock-bg:       #090a0d;
+  --sidebar-bg:    #0c0d11;
+  --panel:         #121419;
+  --panel-2:       #191c23;
+  --panel-card:    #14161c;
+  --line:          rgba(240, 236, 224, 0.10);
+  --line-soft:     rgba(240, 236, 224, 0.05);
+  --text:          #f4f1ea;
+  --text-2:        #aaa398;
+  --text-3:        #736d63;
 
-  --accent:        #818cf8;   /* Electric Indigo */
-  --accent-2:      #a78bfa;   /* Violet */
-  --accent-dim:    rgba(129, 140, 248, 0.12);
-  --accent-glow:   rgba(129, 140, 248, 0.25);
-  --cyan:          #38bdf8;
-  --cyan-dim:      rgba(56, 189, 248, 0.12);
-  --green:         #34d399;
-  --green-dim:     rgba(52, 211, 153, 0.12);
-  --red:           #f87171;
-  --red-dim:       rgba(248, 113, 113, 0.12);
-  --amber:         #fbbf24;
-  --amber-dim:     rgba(251, 191, 36, 0.12);
-  --pink:          #f472b6;
+  --accent:        #e7b64d;   /* Signal Gold */
+  --accent-2:      #f3d081;
+  --accent-dim:    rgba(231, 182, 77, 0.13);
+  --accent-glow:   rgba(231, 182, 77, 0.30);
+  --cyan:          #4bc0dd;
+  --cyan-dim:      rgba(75, 192, 221, 0.13);
+  --green:         #57ce97;
+  --green-dim:     rgba(87, 206, 151, 0.13);
+  --red:           #f0776a;
+  --red-dim:       rgba(240, 119, 106, 0.13);
+  --amber:         #f0a93c;
+  --amber-dim:     rgba(240, 169, 60, 0.13);
+  --violet:        #b79cf0;
+  --violet-dim:    rgba(183, 156, 240, 0.13);
+  --pink:          #f28fb8;
 
-  --radius:        12px;
-  --radius-sm:     8px;
-  --radius-lg:     16px;
-  --shadow:        0 8px 32px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--line);
-  --shadow-sm:     0 2px 8px rgba(0, 0, 0, 0.5);
-  --shadow-inner:  inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --radius:        2px;
+  --radius-sm:     2px;
+  --radius-lg:     3px;
+  --shadow:        none;
+  --shadow-sm:     none;
+  --shadow-inner:  none;
 
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --display: "Space Grotesk", "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --dock-w: 60px;
   --drawer-w: 260px;
@@ -50,67 +54,75 @@
 }
 
 html[data-theme="titanium"] {
-  --bg:            #090b10;
-  --bg-2:          #0e1219;
-  --bg-3:          #131924;
-  --dock-bg:       #0b0e14;
-  --sidebar-bg:    #0d1017;
-  --panel:         #111622;
-  --panel-2:       #171e2e;
-  --panel-card:    #141b2a;
-  --line:          rgba(255, 255, 255, 0.08);
-  --line-soft:     rgba(255, 255, 255, 0.04);
-  --text:          #f8fafc;
-  --text-2:        #94a3b8;
+  /* Titanium — cool steel + blue accent. */
+  --bg:            #0a0d12;
+  --bg-2:          #0f131b;
+  --bg-3:          #161d28;
+  --dock-bg:       #080b10;
+  --sidebar-bg:    #0b0e14;
+  --panel:         #101621;
+  --panel-2:       #16202f;
+  --panel-card:    #131a27;
+  --line:          rgba(200, 220, 255, 0.10);
+  --line-soft:     rgba(200, 220, 255, 0.05);
+  --text:          #eef3fb;
+  --text-2:        #9fb1c6;
   --text-3:        #64748b;
 
-  --accent:        #f59e0b;   /* AWS Gold / Amber */
-  --accent-2:      #fbbf24;
-  --accent-dim:    rgba(245, 158, 11, 0.12);
-  --accent-glow:   rgba(245, 158, 11, 0.25);
+  --accent:        #5aa2ff;   /* Steel Blue */
+  --accent-2:      #86bcff;
+  --accent-dim:    rgba(90, 162, 255, 0.13);
+  --accent-glow:   rgba(90, 162, 255, 0.30);
   --cyan:          #38bdf8;
-  --cyan-dim:      rgba(56, 189, 248, 0.12);
-  --green:         #10b981;
-  --green-dim:     rgba(16, 185, 129, 0.12);
-  --red:           #ef4444;
-  --red-dim:       rgba(239, 68, 68, 0.12);
-  --amber:         #f59e0b;
-  --amber-dim:     rgba(245, 158, 11, 0.12);
-  --shadow:        0 8px 32px -4px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--line);
-  --shadow-sm:     0 2px 8px rgba(0, 0, 0, 0.5);
-  --shadow-inner:  inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --cyan-dim:      rgba(56, 189, 248, 0.13);
+  --green:         #34d399;
+  --green-dim:     rgba(52, 211, 153, 0.13);
+  --red:           #f87171;
+  --red-dim:       rgba(248, 113, 113, 0.13);
+  --amber:         #fbbf24;
+  --amber-dim:     rgba(251, 191, 36, 0.13);
+  --violet:        #a78bfa;
+  --violet-dim:    rgba(167, 139, 250, 0.13);
+  --pink:          #f472b6;
+  --shadow:        none;
+  --shadow-sm:     none;
+  --shadow-inner:  none;
 }
 
 html[data-theme="paper"], html[data-theme="light"] {
-  --bg:            #f8fafc;
-  --bg-2:          #ffffff;
-  --bg-3:          #f1f5f9;
-  --dock-bg:       #f1f5f9;
-  --sidebar-bg:    #f8fafc;
-  --panel:         #ffffff;
-  --panel-2:       #f8fafc;
-  --panel-card:    #ffffff;
-  --line:          #e2e8f0;
-  --line-soft:     #edf2f7;
-  --text:          #0f172a;
-  --text-2:        #475569;
-  --text-3:        #64748b;
+  /* Paper — ivory letterpress: ink on warm paper, one brick spot colour. */
+  --bg:            #f3efe6;
+  --bg-2:          #faf7f0;
+  --bg-3:          #e9e2d4;
+  --dock-bg:       #ece5d8;
+  --sidebar-bg:    #f0ebe0;
+  --panel:         #faf7f0;
+  --panel-2:       #efe8db;
+  --panel-card:    #faf7f0;
+  --line:          rgba(38, 32, 22, 0.17);
+  --line-soft:     rgba(38, 32, 22, 0.09);
+  --text:          #201c15;
+  --text-2:        #574f40;
+  --text-3:        #8b8271;
 
-  --accent:        #4f46e5;   /* Vibrant Indigo */
-  --accent-2:      #6366f1;
-  --accent-dim:    rgba(79, 70, 229, 0.10);
-  --accent-glow:   rgba(79, 70, 229, 0.20);
-  --cyan:          #0284c7;
-  --cyan-dim:      rgba(2, 132, 199, 0.10);
-  --green:         #059669;
-  --green-dim:     rgba(5, 150, 105, 0.10);
-  --red:           #dc2626;
-  --red-dim:       rgba(220, 38, 38, 0.10);
-  --amber:         #d97706;
-  --amber-dim:     rgba(217, 119, 6, 0.12);
-  --shadow:        0 1px 3px rgba(15,23,42,0.06), 0 10px 25px -5px rgba(15,23,42,0.06);
-  --shadow-sm:     0 1px 2px rgba(15,23,42,0.05);
-  --shadow-inner:  inset 0 1px 0 rgba(255,255,255,0.8);
+  --accent:        #b23a2e;   /* Brick — the one spot colour */
+  --accent-2:      #c9553f;
+  --accent-dim:    rgba(178, 58, 46, 0.09);
+  --accent-glow:   rgba(178, 58, 46, 0.24);
+  --cyan:          #1f6f8f;
+  --cyan-dim:      rgba(31, 111, 143, 0.10);
+  --green:         #4a7a45;
+  --green-dim:     rgba(74, 122, 69, 0.12);
+  --red:           #b23a2e;
+  --red-dim:       rgba(178, 58, 46, 0.10);
+  --amber:         #a56a12;
+  --amber-dim:     rgba(165, 106, 18, 0.12);
+  --violet:        #6a4bb0;
+  --violet-dim:    rgba(106, 75, 176, 0.10);
+  --pink:          #a83d6b;
+  --shadow:        none;
+  --shadow-sm:     none;
+  --shadow-inner:  none;
 }
 
 * { box-sizing: border-box; }
@@ -1601,6 +1613,249 @@ svg text { font-family: var(--sans); }
   * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ============================================================
+   REVAMP LAYER — editorial field-manual typography & surfaces
+   (loaded last; intentionally overrides earlier defaults)
+   ============================================================ */
+
+/* Display typeface on structural type */
+.page-head h1, .hero h2, h2, h3, .card-title,
+.fc-front-text, .result-score, .dtree-answer h5 { font-family: var(--display); }
+h2, h3 { font-weight: 600; }
+.page-head h1 { font-weight: 600; letter-spacing: -.03em; }
+body { letter-spacing: -.003em; }
+
+/* Ambient depth on the reading stage — kills the flat black */
+.content-stage {
+  background: radial-gradient(1100px 440px at 82% -180px, var(--accent-dim), transparent 66%);
+}
+
+/* Eyebrow / breadcrumb reads like a manual tag */
+.crumb { font-family: var(--mono); font-weight: 600; font-size: 10.5px; letter-spacing: .16em; }
+.crumb::before { content: "// "; opacity: .55; }
+
+/* Page header hairline with a gold index tab */
+.page-head { border-bottom: 1px solid var(--line); position: relative; }
+.page-head::after {
+  content: ""; position: absolute; left: 0; bottom: -1px;
+  width: 54px; height: 2px; background: var(--accent);
+}
+
+/* Section number marker — spec-sheet chip */
+h2 .num {
+  background: var(--accent-dim); border: 1px solid var(--accent-glow);
+  border-radius: 4px; color: var(--accent);
+}
+
+/* Editorial prose links */
+.content-stage p a, .content-stage li a, .callout a {
+  text-decoration: underline; text-decoration-color: var(--accent-glow);
+  text-underline-offset: 3px; text-decoration-thickness: 1.5px;
+  transition: text-decoration-color .15s ease, color .15s ease;
+}
+.content-stage p a:hover, .content-stage li a:hover, .callout a:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* Tables — mono heads, gold rule, gold-tinted hover */
+thead th {
+  font-family: var(--mono); font-weight: 600; letter-spacing: .08em;
+  color: var(--text-2); border-bottom: 1px solid var(--accent-glow);
+  background: linear-gradient(var(--accent-dim), transparent);
+}
+tbody tr:hover td { background: var(--accent-dim); }
+
+/* Cards — top accent keyline + hover lift */
+.card { position: relative; overflow: hidden;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
+.card::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent 72%);
+  opacity: .5; transition: opacity .16s ease;
+}
+.card:hover { transform: translateY(-2px); border-color: var(--accent-glow); box-shadow: var(--shadow); }
+.card:hover::before { opacity: 1; }
+.card-icon { color: var(--accent); }
+
+/* Callout titles in mono */
+.callout .co-title { font-family: var(--mono); letter-spacing: .1em; }
+
+/* Inline code + blocks, on-brand and sharper */
+code { color: var(--accent-2); border-radius: 4px; }
+
+/* Buttons + pills */
+.btn:hover { transform: translateY(-1px); }
+.pill { font-family: var(--mono); font-weight: 600; letter-spacing: .04em;
+  text-transform: uppercase; font-size: 10.5px; }
+
+/* HERO — blueprint panel */
+.hero {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 42px 38px; margin: 4px 0 36px;
+  background:
+    radial-gradient(760px 300px at 6% -40%, var(--accent-dim), transparent 60%),
+    var(--panel);
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: linear-gradient(160deg, #000, transparent 72%);
+          mask-image: linear-gradient(160deg, #000, transparent 72%);
+}
+.hero > * { position: relative; z-index: 1; }
+.hero h2 {
+  font-size: clamp(30px, 4.4vw, 46px); line-height: 1.06;
+  letter-spacing: -.035em; margin-top: 0;
+}
+.hero p { font-size: 15.5px; max-width: 68ch; }
+
+/* ============================================================
+   EDITORIAL v2 — "field manual, letterpress"
+   Flat surfaces, print typography, one spot colour. Loaded last.
+   ============================================================ */
+:root { --serif: "Newsreader", Georgia, "Times New Roman", serif; }
+
+/* Serif for running prose only; chrome stays sans/mono */
+.content-stage p, .content-stage li, .content-stage blockquote,
+.acc-body p, .acc-body li, .callout p, .callout li,
+.q-stem, .fc-back-text, .hero p, .toc a {
+  font-family: var(--serif);
+}
+.content-stage p, .content-stage li { font-size: 16.5px; line-height: 1.66; }
+.content-stage p a, .content-stage li a { font-family: var(--serif); }
+
+/* Kill decorative fills/glows left over from the dashboard look */
+.content-stage { background: none; }
+
+/* Masthead hero — no box, thick brick rule, big display headline */
+.hero {
+  position: relative; overflow: visible;
+  background: none; border: none; border-top: 3px solid var(--accent);
+  border-bottom: 1px solid var(--line); border-radius: 0;
+  padding: 22px 0 30px; margin: 2px 0 34px;
+}
+.hero::before { display: none; }
+.hero > * { position: static; }
+.hero h2 {
+  font-family: var(--display); font-weight: 600;
+  font-size: clamp(34px, 5.4vw, 58px); line-height: 1.02;
+  letter-spacing: -.035em; margin: 6px 0 18px; max-width: 18ch;
+}
+.hero p { font-size: 18px; line-height: 1.55; max-width: 60ch; color: var(--text-2); }
+
+/* Page header — index tab + running kicker */
+.page-head { border-bottom: 1px solid var(--line); padding: 26px 0 16px; }
+.page-head h1 { font-size: clamp(30px, 4.6vw, 50px); line-height: 1.04; letter-spacing: -.035em; }
+
+/* Section headings — hanging brick number + hairline rule */
+h2 {
+  border-bottom: 1px solid var(--line); padding-bottom: 8px;
+  font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -.02em; align-items: baseline;
+}
+h2 .num {
+  background: none; border: none; border-radius: 0; box-shadow: none;
+  padding: 0; min-width: 0; margin-right: 12px; top: 0;
+  color: var(--accent); font-family: var(--mono); font-weight: 600;
+  font-size: .58em; letter-spacing: .04em;
+}
+h3 { font-family: var(--display); font-weight: 600; }
+
+/* Buttons — flat, squared, printed */
+.btn {
+  border-radius: 0; box-shadow: none; font-family: var(--display); font-weight: 600;
+  letter-spacing: 0; padding: 11px 17px; color: var(--bg);
+  background: var(--accent); border: 1px solid var(--accent);
+}
+.btn:hover { transform: none; background: var(--accent-2); border-color: var(--accent-2); }
+.btn-ghost { background: none; color: var(--text); border-color: var(--line); }
+.btn-ghost:hover { background: none; color: var(--accent); border-color: var(--accent); }
+
+/* Callouts — flat ruled margin notes */
+.callout { border-radius: 0; background: var(--bg-2); box-shadow: none; }
+.callout.exam, .callout.warn, .callout.tip, .callout.info, .callout.analogy { background: var(--bg-2); }
+.callout .co-title { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; }
+
+/* Cards — flat index cards with a brick top rule */
+.card { border-radius: 0; box-shadow: none; background: var(--panel);
+  border: 1px solid var(--line); transition: border-color .15s ease; }
+.card::before { height: 2px; background: var(--accent); opacity: .85; }
+.card:hover { transform: none; box-shadow: none; border-color: var(--accent-glow); }
+
+/* Tables — heavy brick top rule, hairline body, no chrome */
+.table-wrap { border: none; border-top: 2px solid var(--accent);
+  border-bottom: 1px solid var(--line); border-radius: 0; box-shadow: none; }
+thead th { background: none; border-bottom: 1px solid var(--line);
+  font-family: var(--mono); font-weight: 600; letter-spacing: .08em; color: var(--text-2); }
+tbody tr:hover td { background: var(--accent-dim); }
+
+/* Code — flat, brick keyline */
+pre { border-radius: 0; border-left: 2px solid var(--accent-glow); box-shadow: none; }
+code { border-radius: 2px; }
+
+/* TOC / accordion / inputs — flat */
+.toc { border-radius: 0; background: var(--bg-2); }
+.toc-title { font-family: var(--mono); }
+.acc { border-radius: 0; box-shadow: none; }
+input, textarea, select, .cmd-trigger, .theme-badge-btn { border-radius: 0; box-shadow: none; }
+.cmd-palette-box { border-radius: 3px; }
+
+/* Shell chrome — flatten the dashboard rails */
+.icon-dock { background: var(--sidebar-bg); }
+.dock-btn { border-radius: 0; }
+.dock-btn.active, .dock-btn:hover { background: none; color: var(--accent); }
+.dock-btn.active { box-shadow: inset 3px 0 0 var(--accent); }
+.sidebar-drawer { background: var(--sidebar-bg); }
+.progress-card { background: none; border: none; border-bottom: 1px solid var(--line);
+  border-radius: 0; box-shadow: none; }
+.workbench-bar { background: var(--bg); box-shadow: none; border-bottom: 1px solid var(--line); }
+.bar-breadcrumb { font-family: var(--mono); text-transform: uppercase; letter-spacing: .1em; font-size: 11px; }
+.nav-link { border-radius: 0; }
+.nav-link.active { background: none; color: var(--accent); font-weight: 600; box-shadow: inset 2px 0 0 var(--accent); }
+
+/* The floating HUD pill was pure dashboard cosplay — remove it */
+.floating-status-pill { display: none !important; }
+
+/* Editorial v2 — beat higher-specificity rounded chrome */
+.sidebar-drawer .progress-card {
+  background: none; border: none; border-bottom: 1px solid var(--line);
+  border-radius: 0; box-shadow: none; margin: 10px 14px 2px; padding: 12px 2px 14px;
+}
+.pill { border-radius: 2px; padding: 3px 8px; }
+.guide-badge { border-radius: 2px; }
+.cmd-trigger, .cmd-palette-input, .theme-badge-btn { border-radius: 2px; }
+
+/* ============================================================
+   EDITORIAL v2 — categorical chart ramp (harmonised, per theme)
+   ============================================================ */
+:root, html[data-theme="carbon"] {
+  --cat-1:#e7b64d; --cat-2:#5cc2dc; --cat-3:#e8925a; --cat-4:#8ed49a;
+  --cat-5:#b79cf0; --cat-6:#f0b46a; --cat-7:#87a9d6;
+}
+html[data-theme="titanium"] {
+  --cat-1:#5aa2ff; --cat-2:#48d0e0; --cat-3:#f0b46a; --cat-4:#6fd39a;
+  --cat-5:#a78bfa; --cat-6:#f28fb8; --cat-7:#9fb0c4;
+}
+html[data-theme="paper"], html[data-theme="light"] {
+  --cat-1:#b23a2e; --cat-2:#2f6f7e; --cat-3:#c07d1a; --cat-4:#5f7d3f;
+  --cat-5:#7d5a86; --cat-6:#a9603e; --cat-7:#4a5a6a;
+}
+
+/* Typographic polish */
+.content-stage li::marker { color: var(--accent); }
+.cap, .diagram .cap { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.big-num { font-family: var(--mono); font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
+.content-stage blockquote {
+  margin: 0 0 18px; padding: 2px 0 2px 18px; border-left: 3px solid var(--accent);
+  font-style: italic; color: var(--text); max-width: 66ch;
+}
+.content-stage p strong, .content-stage li strong { font-weight: 600; color: var(--text); }
+.diagram { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 20px 0 8px; margin: 0 0 22px; }
 </style>
 <div id="aip-root" data-page="index" data-spa="1">
 <div class="app-shell" id="appShell">
@@ -8365,12 +8620,14 @@ window.AIP_FLASHCARDS = [
 (function () {
   'use strict';
 
-  var PALETTE = ['--accent', '--cyan', '--violet', '--green', '--pink', '--amber', '--red'];
+  var PALETTE = ['--cat-1', '--cat-2', '--cat-3', '--cat-4', '--cat-5', '--cat-6', '--cat-7'];
+  var CAT = { '--accent': '--cat-1', '--cyan': '--cat-2', '--amber': '--cat-3', '--green': '--cat-4', '--violet': '--cat-5', '--pink': '--cat-6', '--red': '--cat-7' };
 
   function cssv(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#888';
   }
   function color(i) { return cssv(PALETTE[i % PALETTE.length]); }
+  function catColor(name) { return cssv(CAT[name] || name); }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
@@ -8401,7 +8658,7 @@ window.AIP_FLASHCARDS = [
   /* ------------------------------------------------------------------ donut */
 
   function donut(host, series, opts) {
-    var W = 360, H = 240, cx = 118, cy = 120, r = 84, thick = 30;
+    var W = 640, H = 240, cx = 118, cy = 120, r = 84, thick = 30;
     var s = svg(W, H);
     var total = series.reduce(function (a, d) { return a + d.value; }, 0) || 1;
     var ang = -Math.PI / 2;
@@ -8418,7 +8675,7 @@ window.AIP_FLASHCARDS = [
       var path = el('path', {
         d: 'M' + x1 + ' ' + y1 + ' A' + r + ' ' + r + ' 0 ' + large + ' 1 ' + x2 + ' ' + y2 +
            ' L' + x3 + ' ' + y3 + ' A' + ri + ' ' + ri + ' 0 ' + large + ' 0 ' + x4 + ' ' + y4 + ' Z',
-        fill: d.color ? cssv(d.color) : color(i),
+        fill: d.color ? catColor(d.color) : color(i),
         opacity: 0.92
       });
       path.appendChild(el('title', {}, [])).textContent = d.label + ': ' + d.value + (opts.unit || '');
@@ -8438,10 +8695,10 @@ window.AIP_FLASHCARDS = [
     }));
 
     series.forEach(function (d, i) {
-      var y = 34 + i * 25;
-      s.appendChild(el('rect', { x: 232, y: y - 9, width: 11, height: 11, rx: 3, fill: d.color ? cssv(d.color) : color(i) }));
-      s.appendChild(txt(d.label, { x: 250, y: y, fill: cssv('--text-2'), 'font-size': 12 }));
-      s.appendChild(txt(d.value + (opts.unit || ''), { x: W - 8, y: y, 'text-anchor': 'end', fill: cssv('--text'), 'font-size': 12, 'font-weight': 700 }));
+      var y = 34 + i * 26;
+      s.appendChild(el('rect', { x: 232, y: y - 9, width: 11, height: 11, rx: 1, fill: d.color ? catColor(d.color) : color(i) }));
+      s.appendChild(txt(d.value + (opts.unit || ''), { x: 250, y: y, fill: cssv('--text'), 'font-size': 12.5, 'font-weight': 700 }));
+      s.appendChild(txt(d.label, { x: 292, y: y, fill: cssv('--text-2'), 'font-size': 12 }));
     });
 
     host.appendChild(s);
@@ -8460,9 +8717,9 @@ window.AIP_FLASHCARDS = [
     series.forEach(function (d, i) {
       var y = pad + i * rowH;
       s.appendChild(txt(d.label, { x: labelW - 10, y: y + 19, 'text-anchor': 'end', fill: cssv('--text-2'), 'font-size': 12.5 }));
-      s.appendChild(el('rect', { x: labelW, y: y + 7, width: barMax, height: 15, rx: 4, fill: cssv('--line-soft') }));
+      s.appendChild(el('rect', { x: labelW, y: y + 7, width: barMax, height: 15, rx: 1, fill: cssv('--line-soft') }));
       var w = Math.max(2, (d.value / max) * barMax);
-      var rect = el('rect', { x: labelW, y: y + 7, width: 0, height: 15, rx: 4, fill: d.color ? cssv(d.color) : color(i) });
+      var rect = el('rect', { x: labelW, y: y + 7, width: 0, height: 15, rx: 1, fill: d.color ? catColor(d.color) : color(i) });
       rect.style.transition = 'width .7s cubic-bezier(.2,.7,.3,1)';
       s.appendChild(rect);
       setTimeout(function () { rect.setAttribute('width', w); }, 40 + i * 55);
@@ -8491,7 +8748,7 @@ window.AIP_FLASHCARDS = [
     series.forEach(function (d, i) {
       var cx = padL + plotW * ((i + 0.5) / series.length);
       var h = (d.value / max) * plotH;
-      var rect = el('rect', { x: cx - bw / 2, y: padT + plotH, width: bw, height: 0, rx: 5, fill: d.color ? cssv(d.color) : color(i) });
+      var rect = el('rect', { x: cx - bw / 2, y: padT + plotH, width: bw, height: 0, rx: 1, fill: d.color ? catColor(d.color) : color(i) });
       rect.style.transition = 'height .7s cubic-bezier(.2,.7,.3,1), y .7s cubic-bezier(.2,.7,.3,1)';
       s.appendChild(rect);
       setTimeout(function () {
@@ -8524,7 +8781,7 @@ window.AIP_FLASHCARDS = [
       var x = padL;
       row.parts.forEach(function (p, j) {
         var w = (p.value / max) * barMax;
-        var rect = el('rect', { x: x, y: y + 6, width: Math.max(0, w), height: 17, fill: p.color ? cssv(p.color) : color(j), opacity: .92 });
+        var rect = el('rect', { x: x, y: y + 6, width: Math.max(0, w), height: 17, fill: p.color ? catColor(p.color) : color(j), opacity: .92 });
         rect.appendChild(el('title')).textContent = p.label + ': ' + fmt(p.value) + (opts.unit || '');
         s.appendChild(rect);
         x += w;
@@ -8535,7 +8792,7 @@ window.AIP_FLASHCARDS = [
     // legend
     var lx = padL;
     (series[0] ? series[0].parts : []).forEach(function (p, j) {
-      s.appendChild(el('rect', { x: lx, y: 6, width: 10, height: 10, rx: 2, fill: p.color ? cssv(p.color) : color(j) }));
+      s.appendChild(el('rect', { x: lx, y: 6, width: 10, height: 10, rx: 1, fill: p.color ? catColor(p.color) : color(j) }));
       var t = txt(p.label, { x: lx + 15, y: 15, fill: cssv('--text-3'), 'font-size': 11 });
       s.appendChild(t);
       lx += 22 + String(p.label).length * 6.1;
@@ -8571,7 +8828,7 @@ window.AIP_FLASHCARDS = [
     if (opts.xlabel) s.appendChild(txt(opts.xlabel, { x: padL + pw / 2, y: H - 6, 'text-anchor': 'middle', fill: cssv('--text-3'), 'font-size': 10.5 }));
 
     series.forEach(function (sr, i) {
-      var c = sr.color ? cssv(sr.color) : color(i);
+      var c = sr.color ? catColor(sr.color) : color(i);
       var d = sr.points.map(function (p, j) { return (j ? 'L' : 'M') + X(p[0]) + ' ' + Y(p[1]); }).join(' ');
       if (sr.area) {
         s.appendChild(el('path', {
@@ -8598,7 +8855,7 @@ window.AIP_FLASHCARDS = [
     var lx = padL;
     series.forEach(function (sr, i) {
       if (!sr.label) return;
-      s.appendChild(el('rect', { x: lx, y: 4, width: 10, height: 10, rx: 2, fill: sr.color ? cssv(sr.color) : color(i) }));
+      s.appendChild(el('rect', { x: lx, y: 4, width: 10, height: 10, rx: 1, fill: sr.color ? catColor(sr.color) : color(i) }));
       s.appendChild(txt(sr.label, { x: lx + 15, y: 13, fill: cssv('--text-3'), 'font-size': 11 }));
       lx += 24 + sr.label.length * 6.1;
     });
@@ -8629,7 +8886,7 @@ window.AIP_FLASHCARDS = [
     if (opts.xlabel) s.appendChild(txt(opts.xlabel, { x: padL + pw / 2, y: H - 8, 'text-anchor': 'middle', fill: cssv('--text-2'), 'font-size': 11 }));
 
     series.forEach(function (d, i) {
-      var c = d.color ? cssv(d.color) : color(i);
+      var c = d.color ? catColor(d.color) : color(i);
       var g2 = el('g');
       g2.appendChild(el('circle', { cx: X(d.x), cy: Y(d.y), r: d.r || 7, fill: c, opacity: .8 }));
       g2.appendChild(txt(d.label, { x: X(d.x), y: Y(d.y) - (d.r || 7) - 6, 'text-anchor': 'middle', fill: cssv('--text-2'), 'font-size': 10.5 }));

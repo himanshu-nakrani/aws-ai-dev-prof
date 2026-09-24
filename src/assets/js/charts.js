@@ -11,12 +11,14 @@
 (function () {
   'use strict';
 
-  var PALETTE = ['--accent', '--cyan', '--violet', '--green', '--pink', '--amber', '--red'];
+  var PALETTE = ['--cat-1', '--cat-2', '--cat-3', '--cat-4', '--cat-5', '--cat-6', '--cat-7'];
+  var CAT = { '--accent': '--cat-1', '--cyan': '--cat-2', '--amber': '--cat-3', '--green': '--cat-4', '--violet': '--cat-5', '--pink': '--cat-6', '--red': '--cat-7' };
 
   function cssv(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#888';
   }
   function color(i) { return cssv(PALETTE[i % PALETTE.length]); }
+  function catColor(name) { return cssv(CAT[name] || name); }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
@@ -47,7 +49,7 @@
   /* ------------------------------------------------------------------ donut */
 
   function donut(host, series, opts) {
-    var W = 360, H = 240, cx = 118, cy = 120, r = 84, thick = 30;
+    var W = 640, H = 240, cx = 118, cy = 120, r = 84, thick = 30;
     var s = svg(W, H);
     var total = series.reduce(function (a, d) { return a + d.value; }, 0) || 1;
     var ang = -Math.PI / 2;
@@ -64,7 +66,7 @@
       var path = el('path', {
         d: 'M' + x1 + ' ' + y1 + ' A' + r + ' ' + r + ' 0 ' + large + ' 1 ' + x2 + ' ' + y2 +
            ' L' + x3 + ' ' + y3 + ' A' + ri + ' ' + ri + ' 0 ' + large + ' 0 ' + x4 + ' ' + y4 + ' Z',
-        fill: d.color ? cssv(d.color) : color(i),
+        fill: d.color ? catColor(d.color) : color(i),
         opacity: 0.92
       });
       path.appendChild(el('title', {}, [])).textContent = d.label + ': ' + d.value + (opts.unit || '');
@@ -84,10 +86,10 @@
     }));
 
     series.forEach(function (d, i) {
-      var y = 34 + i * 25;
-      s.appendChild(el('rect', { x: 232, y: y - 9, width: 11, height: 11, rx: 3, fill: d.color ? cssv(d.color) : color(i) }));
-      s.appendChild(txt(d.label, { x: 250, y: y, fill: cssv('--text-2'), 'font-size': 12 }));
-      s.appendChild(txt(d.value + (opts.unit || ''), { x: W - 8, y: y, 'text-anchor': 'end', fill: cssv('--text'), 'font-size': 12, 'font-weight': 700 }));
+      var y = 34 + i * 26;
+      s.appendChild(el('rect', { x: 232, y: y - 9, width: 11, height: 11, rx: 1, fill: d.color ? catColor(d.color) : color(i) }));
+      s.appendChild(txt(d.value + (opts.unit || ''), { x: 250, y: y, fill: cssv('--text'), 'font-size': 12.5, 'font-weight': 700 }));
+      s.appendChild(txt(d.label, { x: 292, y: y, fill: cssv('--text-2'), 'font-size': 12 }));
     });
 
     host.appendChild(s);
@@ -106,9 +108,9 @@
     series.forEach(function (d, i) {
       var y = pad + i * rowH;
       s.appendChild(txt(d.label, { x: labelW - 10, y: y + 19, 'text-anchor': 'end', fill: cssv('--text-2'), 'font-size': 12.5 }));
-      s.appendChild(el('rect', { x: labelW, y: y + 7, width: barMax, height: 15, rx: 4, fill: cssv('--line-soft') }));
+      s.appendChild(el('rect', { x: labelW, y: y + 7, width: barMax, height: 15, rx: 1, fill: cssv('--line-soft') }));
       var w = Math.max(2, (d.value / max) * barMax);
-      var rect = el('rect', { x: labelW, y: y + 7, width: 0, height: 15, rx: 4, fill: d.color ? cssv(d.color) : color(i) });
+      var rect = el('rect', { x: labelW, y: y + 7, width: 0, height: 15, rx: 1, fill: d.color ? catColor(d.color) : color(i) });
       rect.style.transition = 'width .7s cubic-bezier(.2,.7,.3,1)';
       s.appendChild(rect);
       setTimeout(function () { rect.setAttribute('width', w); }, 40 + i * 55);
@@ -137,7 +139,7 @@
     series.forEach(function (d, i) {
       var cx = padL + plotW * ((i + 0.5) / series.length);
       var h = (d.value / max) * plotH;
-      var rect = el('rect', { x: cx - bw / 2, y: padT + plotH, width: bw, height: 0, rx: 5, fill: d.color ? cssv(d.color) : color(i) });
+      var rect = el('rect', { x: cx - bw / 2, y: padT + plotH, width: bw, height: 0, rx: 1, fill: d.color ? catColor(d.color) : color(i) });
       rect.style.transition = 'height .7s cubic-bezier(.2,.7,.3,1), y .7s cubic-bezier(.2,.7,.3,1)';
       s.appendChild(rect);
       setTimeout(function () {
@@ -170,7 +172,7 @@
       var x = padL;
       row.parts.forEach(function (p, j) {
         var w = (p.value / max) * barMax;
-        var rect = el('rect', { x: x, y: y + 6, width: Math.max(0, w), height: 17, fill: p.color ? cssv(p.color) : color(j), opacity: .92 });
+        var rect = el('rect', { x: x, y: y + 6, width: Math.max(0, w), height: 17, fill: p.color ? catColor(p.color) : color(j), opacity: .92 });
         rect.appendChild(el('title')).textContent = p.label + ': ' + fmt(p.value) + (opts.unit || '');
         s.appendChild(rect);
         x += w;
@@ -181,7 +183,7 @@
     // legend
     var lx = padL;
     (series[0] ? series[0].parts : []).forEach(function (p, j) {
-      s.appendChild(el('rect', { x: lx, y: 6, width: 10, height: 10, rx: 2, fill: p.color ? cssv(p.color) : color(j) }));
+      s.appendChild(el('rect', { x: lx, y: 6, width: 10, height: 10, rx: 1, fill: p.color ? catColor(p.color) : color(j) }));
       var t = txt(p.label, { x: lx + 15, y: 15, fill: cssv('--text-3'), 'font-size': 11 });
       s.appendChild(t);
       lx += 22 + String(p.label).length * 6.1;
@@ -217,7 +219,7 @@
     if (opts.xlabel) s.appendChild(txt(opts.xlabel, { x: padL + pw / 2, y: H - 6, 'text-anchor': 'middle', fill: cssv('--text-3'), 'font-size': 10.5 }));
 
     series.forEach(function (sr, i) {
-      var c = sr.color ? cssv(sr.color) : color(i);
+      var c = sr.color ? catColor(sr.color) : color(i);
       var d = sr.points.map(function (p, j) { return (j ? 'L' : 'M') + X(p[0]) + ' ' + Y(p[1]); }).join(' ');
       if (sr.area) {
         s.appendChild(el('path', {
@@ -244,7 +246,7 @@
     var lx = padL;
     series.forEach(function (sr, i) {
       if (!sr.label) return;
-      s.appendChild(el('rect', { x: lx, y: 4, width: 10, height: 10, rx: 2, fill: sr.color ? cssv(sr.color) : color(i) }));
+      s.appendChild(el('rect', { x: lx, y: 4, width: 10, height: 10, rx: 1, fill: sr.color ? catColor(sr.color) : color(i) }));
       s.appendChild(txt(sr.label, { x: lx + 15, y: 13, fill: cssv('--text-3'), 'font-size': 11 }));
       lx += 24 + sr.label.length * 6.1;
     });
@@ -275,7 +277,7 @@
     if (opts.xlabel) s.appendChild(txt(opts.xlabel, { x: padL + pw / 2, y: H - 8, 'text-anchor': 'middle', fill: cssv('--text-2'), 'font-size': 11 }));
 
     series.forEach(function (d, i) {
-      var c = d.color ? cssv(d.color) : color(i);
+      var c = d.color ? catColor(d.color) : color(i);
       var g2 = el('g');
       g2.appendChild(el('circle', { cx: X(d.x), cy: Y(d.y), r: d.r || 7, fill: c, opacity: .8 }));
       g2.appendChild(txt(d.label, { x: X(d.x), y: Y(d.y) - (d.r || 7) - 6, 'text-anchor': 'middle', fill: cssv('--text-2'), 'font-size': 10.5 }));
